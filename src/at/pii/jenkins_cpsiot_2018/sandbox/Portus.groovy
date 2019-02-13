@@ -73,7 +73,7 @@ def getManifestsForImage(repo, tagArg)
 		{
 			if( e.key.equals("manifests") )
 			{
-				def digest = e["digest"]
+				def digest = e.value["digest"]
 				for( manifests in e.value )
 				{	
 					if( manifests.keySet().contains("platform") )
