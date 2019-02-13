@@ -5,7 +5,7 @@ import groovy.json.JsonSlurperClassic
 
 def getManifestsForImage(repo, tagArg)
 {
-	def emptyMap = [:]
+	def emptyList = []
 	def test = 1
 	def image = repo
 	def resolve = repo.split(':')
@@ -75,7 +75,9 @@ def getManifestsForImage(repo, tagArg)
 			{
 				def digest = e.value["digest"]
 				for( manifests in e.value )
-				{	
+				{
+					emptyList.add(manifests)
+					/*
 					if( manifests.keySet().contains("platform") )
 					{
 						def keys = manifests["platform"].keySet()
@@ -100,9 +102,10 @@ def getManifestsForImage(repo, tagArg)
 						else
 							manifestDesc += "os.version: "
 						
-						emptyMap.put(digest, manifestDesc)
-					} 
+					}
+					*/
 				}
+				//emptyMap.put(digest, manifestDesc)
 			}
 		}
 	}
@@ -112,7 +115,7 @@ def getManifestsForImage(repo, tagArg)
 		return test
 	}
 	
-	return emptyMap
+	return emptyList
 }
 
 return this
