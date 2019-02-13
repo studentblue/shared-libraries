@@ -75,22 +75,32 @@ def getManifestsForImage(repo, tagArg)
 			{
 				def digest = e["digest"]
 				for( manifests in e.value )
-				{
-					
-					emptyMap.put(digest, manifests)
-					
+				{	
 					if( manifests.keySet().contains("platform") )
 					{
 						def keys = manifests["platform"].keySet()
 						
+						def manifestDesc = ""
+						
 						if( keys.contains("os") )
-							println manifests["platform"]["os"]
+							//println manifests["platform"]["os"]
+							manifestDesc += "os: " + manifests["platform"]["os"] + ", "
+						else
+							manifestDesc += "os: , "
 						
 						if( keys.contains("architecture") )
-							println manifests["platform"]["architecture"]
+							//println manifests["platform"]["architecture"]
+							manifestDesc += "architecture: " + manifests["platform"]["architecture"] + ", "
+						else
+							manifestDesc += "architecture: , "
 						
 						if( keys.contains("os.version") )
-							println manifests["platform"]["os.version"]
+							//println manifests["platform"]["os.version"]
+							manifestDesc += "os.version: " + manifests["platform"]["os.version"]
+						else
+							manifestDesc += "os.version: "
+						
+						emptyMap.put(digest, manifestDesc)
 					} 
 				}
 			}
