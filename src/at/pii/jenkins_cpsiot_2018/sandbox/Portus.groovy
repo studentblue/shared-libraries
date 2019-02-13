@@ -103,5 +103,5 @@ def getManifestsForImage(repo, tagArg)
 	return test
 }
 
-
+return this
 
