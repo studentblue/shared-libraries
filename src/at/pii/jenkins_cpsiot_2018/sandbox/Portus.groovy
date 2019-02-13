@@ -2,7 +2,7 @@ package at.pii.jenkins_cpsiot_2018.sandbox
 
 import groovy.json.JsonSlurperClassic
 
-class PortusUtil
+class Portus
 {
 	int getManifestsForImage(repo, tagArg)
 	{
