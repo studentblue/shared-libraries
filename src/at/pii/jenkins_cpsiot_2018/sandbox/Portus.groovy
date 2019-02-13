@@ -5,11 +5,12 @@ import groovy.json.JsonSlurperClassic
 
 def getManifestsForImage(repo, tagArg)
 {
-	test = 1
-	image = repo
-	resolve = repo.split(':')
+	def emptyMap = [:]
+	def test = 1
+	def image = repo
+	def resolve = repo.split(':')
 	
-	tag = "latest"
+	def tag = "latest"
 	
 	if( resolve.length == 1 )
 	{
@@ -37,9 +38,9 @@ def getManifestsForImage(repo, tagArg)
 	//println "${image} ${tag} "
 	
 
-	login_template = "https://auth.docker.io/token?service=registry.docker.io&scope=repository:${image}:pull"
-	get_manifest_template = "https://registry.hub.docker.com/v2/${image}/manifests/${tag}"
-	accept_types = "application/vnd.docker.distribution.manifest.list.v2+json,application/vnd.docker.distribution.manifestv2+json"					
+	def login_template = "https://auth.docker.io/token?service=registry.docker.io&scope=repository:${image}:pull"
+	def get_manifest_template = "https://registry.hub.docker.com/v2/${image}/manifests/${tag}"
+	def accept_types = "application/vnd.docker.distribution.manifest.list.v2+json,application/vnd.docker.distribution.manifestv2+json"					
 	
 	def get = new URL(login_template).openConnection();
 	def getRC = get.getResponseCode();
@@ -72,10 +73,11 @@ def getManifestsForImage(repo, tagArg)
 		{
 			if( e.key.equals("manifests") )
 			{
-				
+				def digest = e["digest"]
 				for( manifests in e.value )
 				{
 					
+					emptyMap.put(digest, manifests)
 					
 					if( manifests.keySet().contains("platform") )
 					{
@@ -100,7 +102,7 @@ def getManifestsForImage(repo, tagArg)
 		return test
 	}
 	
-	return test
+	return emptyMap
 }
 
 return this
