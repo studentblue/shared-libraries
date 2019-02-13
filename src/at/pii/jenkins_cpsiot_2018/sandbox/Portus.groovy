@@ -2,7 +2,7 @@ package at.pii.jenkins_cpsiot_2018.sandbox
 
 import groovy.json.JsonSlurperClassic
 
-def getManifestsForImage(repo, tagArg)
+getManifestsForImage(repo, tagArg)
 {
 	image = repo
 	resolve = repo.split(':')
