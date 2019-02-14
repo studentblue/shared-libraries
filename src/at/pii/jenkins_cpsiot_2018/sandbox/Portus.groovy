@@ -191,5 +191,45 @@ def getDigestFromString(manifests, input)
 	return digest
 }
 
+def getID(url, username, password, match, health = false, tags = false)
+{
+	def get = new URL(url).openConnection();
+
+	get.setRequestProperty("Accept", "application/json")
+	get.setRequestProperty("Portus-Auth", "${userName}:${password}")
+	
+	def responseCode = get.getResponseCode();
+	
+	if (responseCode == 200) 
+	{
+		if( health )
+			return true
+		
+		def response = new JsonSlurperClassic().parseText(get.getInputStream().getText());
+	    
+	    for(item in response)
+	    {
+			if( tags )
+			{
+				artifacts.add(item.name)
+				
+			}
+			else
+			{
+				if( match.equals(item.name ))
+				{
+					return item.id
+				}
+			}
+		}
+		
+		if( tags )
+			return true
+	}
+
+	return false
+	
+}
+
 return this
 
