@@ -148,12 +148,51 @@ def getChoices(list)
 		
 		def values = it["digest"].split(':')
 		
-		manifestDesc += ", SHA " + values[1].substring(0,7)
+		manifestDesc += ", " + values[1].substring(0,10)
 		
 		choices.add(manifestDesc)
 	}
 	
 	return choices
+}
+
+def getDigestFromString(manifests, input)
+{
+
+	def finder = ('groovy' =~ /gr.*/)
+	assert finder instanceof java.util.regex.Matcher
+ 
+	def matcher = ('groovy' ==~ /gr.*/)
+	assert matcher instanceof Boolean
+ 
+	assert 'Groovy rocks!' =~ /Groovy/  // =~ in conditional context returns boolean.
+	assert !('Groovy rocks!' ==~ /Groovy/)  // ==~ looks for an exact match.
+	assert 'Groovy rocks!' ==~ /Groovy.*/
+	
+	def values = input.split(', ')
+	println values
+	
+	def pattern = "012345678911121314151617"
+	
+	def lazyPrefixPattern = "${->pattern}*.*"
+	
+	assert    "0123456789" ==~ ~/^${lazyPrefixPattern}/
+	assert !( "10123456789" ==~ ~/^${lazyPrefixPattern}/ )
+	
+	pattern = values[3].trim()
+	
+	manifests.each
+	{
+		// "digest": "sha256:3be17715f14ac6f0834554ab4fc7a7440449690e58d45291dfae420c8d3422f1",
+		def values2 = it["digest"].split(':')
+		if( (values2[1] ==~ ~/^${lazyPrefixPattern}/) )
+		{
+			println "digest found"
+			return it["digest"]
+		}
+	}
+	
+	return ""
 }
 
 return this
