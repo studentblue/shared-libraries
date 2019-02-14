@@ -167,6 +167,7 @@ def getDigestFromString(manifests, input)
 	def pattern = values[3].trim()
 	println pattern 
 	
+	def digest = ""
 	manifests.each
 	{
 		// "digest": "sha256:3be17715f14ac6f0834554ab4fc7a7440449690e58d45291dfae420c8d3422f1",
@@ -176,12 +177,12 @@ def getDigestFromString(manifests, input)
 		def match = values2[1].substring(0,10).trim()
 		if( match.equals(pattern) )
 		{
-			println "digest found"
-			return it["digest"]
+			digest = it["digest"]
+			return true 
 		}
 	}
 	
-	return ""
+	return digest
 }
 
 return this
