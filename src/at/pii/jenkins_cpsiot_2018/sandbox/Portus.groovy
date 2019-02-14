@@ -196,7 +196,8 @@ def getID(url, username, password, match, health = false, tags = false)
 	def get = new URL(url).openConnection();
 
 	get.setRequestProperty("Accept", "application/json")
-	get.setRequestProperty("Portus-Auth", "${userName}:${password}")
+	def auth = "${userName}:${password}"
+	get.setRequestProperty("Portus-Auth", auth)
 	
 	def responseCode = get.getResponseCode();
 	
