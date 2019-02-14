@@ -150,8 +150,10 @@ def getChoices(list)
 		
 		manifestDesc += ", SHA " + values[1].substring(0,7)
 		
-		inputParams.add(manifestDesc)
+		choices.add(manifestDesc)
 	}
+	
+	return choices
 }
 
 return this
