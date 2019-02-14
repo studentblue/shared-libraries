@@ -148,7 +148,7 @@ def getChoices(list)
 		
 		def values = it["digest"].split(':')
 		
-		manifestDesc += ", " + values[1].substring(0,10)
+		manifestDesc += " @::@ " + values[1].substring(0,10)
 		
 		choices.add(manifestDesc)
 	}
@@ -160,11 +160,11 @@ def getDigestFromString(manifests, input)
 {
 	
 	
-	def values = input.split(', ')
+	def values = input.split(" @::@ ")
 	
 	
 	
-	def pattern = values[3].trim()
+	def pattern = values[1].trim()
 	println pattern 
 	
 	def digest = ""
