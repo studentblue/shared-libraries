@@ -127,6 +127,7 @@ def getChoices(list)
 		def keys = it["platform"].keySet()
 		def manifestDesc = ""
 		
+		/*
 		if( keys.contains("os") )
 			//println manifests["platform"]["os"]
 			manifestDesc += "os: " + it["platform"]["os"] + ", "
@@ -144,7 +145,12 @@ def getChoices(list)
 			manifestDesc += "os.version: " + it["platform"]["os.version"]
 		else
 			manifestDesc += "os.version: "
-
+		*/
+		
+		keys.each as it2
+		{
+			manifestDesc += it2 + ": " + it["platform"][it2] + ", "
+		}
 		
 		def values = it["digest"].split(':')
 		
