@@ -147,8 +147,8 @@ def getChoices(list)
 			manifestDesc += "os.version: "
 		*/
 		
-		keys.each as it2
-		{
+		keys.each
+		{ it2 ->
 			manifestDesc += it2 + ": " + it["platform"][it2] + ", "
 		}
 		
