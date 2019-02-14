@@ -181,6 +181,7 @@ def getDigestFromString(manifests, input)
 	
 	pattern = values[3].trim()
 	
+	/*
 	manifests.each
 	{
 		// "digest": "sha256:3be17715f14ac6f0834554ab4fc7a7440449690e58d45291dfae420c8d3422f1",
@@ -191,7 +192,7 @@ def getDigestFromString(manifests, input)
 			return it["digest"]
 		}
 	}
-	
+	*/
 	return ""
 }
 
