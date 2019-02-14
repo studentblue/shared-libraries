@@ -118,5 +118,41 @@ def getManifestsForImage(repo, tagArg)
 	return emptyList
 }
 
+def getChoices(list)
+{
+	choices = []
+	list.each
+	{
+		//println "Item: $it" // `it` is an implicit parameter corresponding to the current element
+		def keys = it["platform"].keySet()
+		def manifestDesc = ""
+		
+		if( keys.contains("os") )
+			//println manifests["platform"]["os"]
+			manifestDesc += "os: " + manifests["platform"]["os"] + ", "
+		else
+			manifestDesc += "os: , "
+
+		if( keys.contains("architecture") )
+			//println manifests["platform"]["architecture"]
+			manifestDesc += "architecture: " + manifests["platform"]["architecture"] + ", "
+		else
+			manifestDesc += "architecture: , "
+		
+		if( keys.contains("os.version") )
+			//println manifests["platform"]["os.version"]
+			manifestDesc += "os.version: " + manifests["platform"]["os.version"]
+		else
+			manifestDesc += "os.version: "
+
+		
+		def values = it["digest"].split(':')
+		
+		manifestDesc += ", SHA " + values[1].substring(0,7)
+		
+		inputParams.add(manifestDesc)
+	}
+}
+
 return this
 
