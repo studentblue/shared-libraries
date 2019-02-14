@@ -129,19 +129,19 @@ def getChoices(list)
 		
 		if( keys.contains("os") )
 			//println manifests["platform"]["os"]
-			manifestDesc += "os: " + manifests["platform"]["os"] + ", "
+			manifestDesc += "os: " + it["platform"]["os"] + ", "
 		else
 			manifestDesc += "os: , "
 
 		if( keys.contains("architecture") )
 			//println manifests["platform"]["architecture"]
-			manifestDesc += "architecture: " + manifests["platform"]["architecture"] + ", "
+			manifestDesc += "architecture: " + it["platform"]["architecture"] + ", "
 		else
 			manifestDesc += "architecture: , "
 		
 		if( keys.contains("os.version") )
 			//println manifests["platform"]["os.version"]
-			manifestDesc += "os.version: " + manifests["platform"]["os.version"]
+			manifestDesc += "os.version: " + it["platform"]["os.version"]
 		else
 			manifestDesc += "os.version: "
 
