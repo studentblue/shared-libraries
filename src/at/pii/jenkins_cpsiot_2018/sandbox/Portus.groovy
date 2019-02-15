@@ -30,6 +30,25 @@ def getDigestFromString(manifests, input)
 	return digest
 }
 
+def getPlatformFromDigest(manifests, digest)
+{
+	
+	def platform = []
+	
+	manifests["manifests"].each
+	{
+		manifest ->
+			
+			if( manifest["digest"].equals(digest) )
+			{
+				platform = manifest["platform"]
+				return true 
+			}
+	}
+	
+	return platform
+}
+
 def getID(url, username, password, match, health = false, tags = false)
 {
 	def get = new URL(url).openConnection();
@@ -222,6 +241,39 @@ def getTeamID(team)
 	def values = team.split(constants.SPLITTER)
 	def value = values[1].trim() as int
 	return value
+}
+
+def generateDefaultImageName(name)
+{
+	def image = name
+	def resolve = image.split(':')
+	
+	if( resolve.length == 1 )
+	{
+		return constants.DEFAULT_IMAGE_PREFIX + image.replaceAll("[\W]", '_')
+	}
+	else
+	{
+		return constants.DEFAULT_IMAGE_PREFIX + resolve[0].replaceAll("[\W]", '_')
+	}
+}
+
+def generateDefaultNameSpace(manifests, digest)
+{
+	//DEFAULT_NAMESPACE_PREFIX
+	def platform = getPlatformFromDigest(manifests, digest)
+	
+	defaultNameSpace = constants.DEFAULT_NAMESPACE_PREFIX
+	
+	list = []
+	platform.keySet().each
+	{
+		key ->
+			list.add(platform[key])
+	}
+	
+	return defaultNameSpace + list.join('_')
+	
 }
 
 return this
