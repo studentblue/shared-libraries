@@ -8,6 +8,10 @@ def getDigestFromString(manifests, input)
 	def pattern = values[1].trim()
 	
 	def digest = ""
+	
+	if( ! manifests["manifests"] )
+		return digest
+	
 	manifests["manifests"].each
 	{
 		manifest ->
@@ -154,6 +158,10 @@ def getManifestsFromDockhub(repo, tagArg)
 def generateManifestChoices(manifests)
 {
 	def choices = []
+	
+	if( ! manifests["manifests"] )
+		return choices
+	
 	manifests["manifests"].each
 	{
 		manifest ->
@@ -259,11 +267,14 @@ def generateDefaultImageName(name)
 }
 
 def generateDefaultNameSpace(manifests, digest)
-{
-	//DEFAULT_NAMESPACE_PREFIX
-	def platform = getPlatformFromDigest(manifests, digest)
+{	
 	
+	if( ! digest )
+		return constants.DEFAULT_NAMESPACE_PREFIX + constants.UNKNOWN_ARCH_OS
+	
+	//DEFAULT_NAMESPACE_PREFIX
 	defaultNameSpace = constants.DEFAULT_NAMESPACE_PREFIX
+	def platform = getPlatformFromDigest(manifests, digest)
 	
 	list = []
 	platform.keySet().each
