@@ -345,6 +345,7 @@ def getPortusNamespaces(repo_url, portus_user, token)
 	
 	if( response.status == 200 )
 	{
+		println response.content
 		responseGroovy =  new JsonSlurperClassic().parseText(response.content)
 		return responseGroovy
 	}
