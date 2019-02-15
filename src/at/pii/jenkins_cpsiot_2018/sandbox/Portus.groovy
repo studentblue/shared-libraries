@@ -317,5 +317,20 @@ def generateManifestChoices(manifests)
 	return choices
 }
 
+def isPortusHealthy(repo_url, portus_user, token)
+{
+	health_api = "/api/v1/health"
+	def headers = [[name: "Portus-Auth", value: "${portus_user}:${token}"]]
+	
+	def response = httpRequest httpMode: 'GET', url: "${repo_url}${health_api}", customHeaders: headers
+	
+	if( response.status == 200 )
+	{
+		return true
+	}
+	else
+		return false
+}
+
 return this
 
