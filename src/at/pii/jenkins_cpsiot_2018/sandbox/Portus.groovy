@@ -98,7 +98,7 @@ def getManifestsFromDockhub(repo, tagArg)
 			tag = resolve[1]
 		}
 		else
-			return test
+			return constants.ERROR
 	}
 
 	def login_template = "https://auth.docker.io/token?service=registry.docker.io&scope=repository:${image}:pull"
@@ -113,7 +113,7 @@ def getManifestsFromDockhub(repo, tagArg)
 		response2Groovy =  new JsonSlurperClassic().parseText(response2.content)
 	}
 	else
-		return test
+		return constants.ERROR
 	
 	def dockerHubToken = response2Groovy["token"]
 	
@@ -128,7 +128,7 @@ def getManifestsFromDockhub(repo, tagArg)
 		return response3Groovy
 	}
 	
-	return test
+	return constants.ERROR
 	
 }
 
@@ -188,7 +188,15 @@ def getPortusNamespaces(repo_url, portus_user, token)
 		return responseGroovy
 	}
 	else
-		return 1
+		return constants.ERROR
+}
+
+def checkNameSpaceExistsForTeam(repo_url, portus_user, token, nameSpace, team)
+{
+	def nameSpaces = getPortusNamespaces(repo_url, portus_user, token)
+	println nameSpaces
+	
+	return false
 }
 
 return this
