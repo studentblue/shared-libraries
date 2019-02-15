@@ -231,5 +231,80 @@ def getID(url, username, password, match, health = false, tags = false)
 	
 }
 
+def getManifestsFromDockhub(repo, tagArg)
+{	
+	def emptyList = []
+	def test = 1
+	def image = repo
+	def resolve = repo.split(':')
+	
+	def tag = "latest"
+	
+	if( resolve.length == 1 )
+	{
+		if( ! image.contains("/") )
+			image = "library/" + image
+		
+		if( tagArg )
+			tag = tagArg
+	}
+	else
+	{
+		if( resolve.length == 2 )
+		{
+			image = resolve[0]
+			
+			if( ! image.contains("/") )
+				image = "library/" + image
+			
+			tag = resolve[1]
+		}
+		else
+			return test
+	}					
+	
+	//println "${image} ${tag} "
+	
+
+	def login_template = "https://auth.docker.io/token?service=registry.docker.io&scope=repository:${image}:pull"
+	def get_manifest_template = "https://registry.hub.docker.com/v2/${image}/manifests/${tag}"
+	def accept_types = "application/vnd.docker.distribution.manifest.list.v2+json,application/vnd.docker.distribution.manifestv2+json"
+	
+	def response2 = httpRequest httpMode: 'GET', url: login_template
+	def response2Groovy = ""
+	
+	if( response2.status == 200 )
+	{
+		response2Groovy =  new JsonSlurperClassic().parseText(response2.content)							
+		println response2Groovy
+	}
+	else
+		return test
+	
+	def dockerHubToken = response2Groovy["token"]
+	
+	def headers = [[name: "Authorization", value: "Bearer ${dockerHubToken}"], [name: "accept", value: accept_types]]
+	
+	def response3 = httpRequest httpMode: 'GET', url: get_manifest_template, contentType: 'APPLICATION_JSON', customHeaders: headers
+	def response3Groovy = ""
+	
+	if( response3.status == 200 )
+	{
+		response3Groovy =  new JsonSlurperClassic().parseText(response3.content)
+		//println response3Groovy
+	}
+	else
+		return test
+	
+	
+	response3Groovy["manifests"].each
+	{
+		manifest ->
+			emptyList.add(manifest)
+	}
+	
+	return emptyList
+}
+
 return this
 
