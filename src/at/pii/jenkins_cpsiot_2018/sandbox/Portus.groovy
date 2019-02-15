@@ -341,10 +341,6 @@ def getPortusNamespaces(repo_url, portus_user, token)
 	def portusAuthToken = portus_user + ":" + token
 	def headers = [[name: "Portus-Auth", value: portusAuthToken]]
 	
-	println token.getClass()
-	
-	/*
-	
 	def response = httpRequest httpMode: 'GET', url: "${repo_url}${portus_api}", acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', customHeaders: headers
 	
 	if( response.status == 200 )
@@ -354,7 +350,6 @@ def getPortusNamespaces(repo_url, portus_user, token)
 	}
 	else
 		return 1
-	*/
 }
 
 return this
