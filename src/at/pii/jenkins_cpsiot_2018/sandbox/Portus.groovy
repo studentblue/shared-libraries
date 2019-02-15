@@ -2,7 +2,7 @@ package at.pii.jenkins_cpsiot_2018.sandbox
 
 import groovy.json.JsonSlurperClassic
 
-def splitter = " @::@ "
+splitter = " @::@ "
 
 def getDigestFromString(manifests, input)
 {
