@@ -220,7 +220,8 @@ def checkNameSpaceExistsForTeam(repo_url, portus_user, token, name, teamID)
 def getTeamID(team)
 {
 	def values = team.split(constants.SPLITTER)
-	return new Integer(values[1].trim())
+	def value = values[1].trim() as int
+	return value
 }
 
 return this
