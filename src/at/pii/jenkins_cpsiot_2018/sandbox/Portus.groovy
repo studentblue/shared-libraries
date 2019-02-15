@@ -217,7 +217,7 @@ def checkNameSpaceExistsForTeam(repo_url, portus_user, token, name, teamID)
 	return found
 }
 
-def z.getTeamID(team)
+def getTeamID(team)
 {
 	def values = team.split(constants.SPLITTER)
 	return new Integer(values[1].trim())
