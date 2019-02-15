@@ -232,8 +232,7 @@ def getID(url, username, password, match, health = false, tags = false)
 }
 
 def getManifestsFromDockhub(repo, tagArg)
-{	
-	def emptyList = []
+{
 	def test = 1
 	def image = repo
 	def resolve = repo.split(':')
@@ -287,18 +286,11 @@ def getManifestsFromDockhub(repo, tagArg)
 	if( response3.status == 200 )
 	{
 		response3Groovy =  new JsonSlurperClassic().parseText(response3.content)
-	}
-	else
-		return test
-	
-	
-	response3Groovy["manifests"].each
-	{
-		manifest ->
-			emptyList.add(manifest)
+		return response3Groovy
 	}
 	
-	return emptyList
+	return test
+	
 }
 
 return this
