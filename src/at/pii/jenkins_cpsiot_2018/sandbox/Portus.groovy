@@ -261,10 +261,7 @@ def getManifestsFromDockhub(repo, tagArg)
 		}
 		else
 			return test
-	}					
-	
-	//println "${image} ${tag} "
-	
+	}
 
 	def login_template = "https://auth.docker.io/token?service=registry.docker.io&scope=repository:${image}:pull"
 	def get_manifest_template = "https://registry.hub.docker.com/v2/${image}/manifests/${tag}"
@@ -275,8 +272,7 @@ def getManifestsFromDockhub(repo, tagArg)
 	
 	if( response2.status == 200 )
 	{
-		response2Groovy =  new JsonSlurperClassic().parseText(response2.content)							
-		println response2Groovy
+		response2Groovy =  new JsonSlurperClassic().parseText(response2.content)
 	}
 	else
 		return test
@@ -291,7 +287,6 @@ def getManifestsFromDockhub(repo, tagArg)
 	if( response3.status == 200 )
 	{
 		response3Groovy =  new JsonSlurperClassic().parseText(response3.content)
-		//println response3Groovy
 	}
 	else
 		return test
