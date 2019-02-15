@@ -4,13 +4,17 @@ import groovy.json.JsonSlurperClassic
 
 def getDigestFromString(manifests, input)
 {
-	def values = input.split(constants.SPLITTER)
-	def pattern = values[1].trim()
-	
+
 	def digest = ""
+	
+	if( ! input )
+		return digest
 	
 	if( ! manifests["manifests"] )
 		return digest
+
+	def values = input.split(constants.SPLITTER)
+	def pattern = values[1].trim()
 	
 	manifests["manifests"].each
 	{
