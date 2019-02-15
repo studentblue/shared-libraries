@@ -332,5 +332,22 @@ def isPortusHealthy(repo_url, portus_user, token)
 		return false
 }
 
+def getPortusNamespaces(repo_url, portus_user, token)
+{
+	def portus_api = " /api/v1/namespaces"
+	
+	def headers = [[name: "Portus-Auth", value: "${portus_user}:${token}"]]
+	
+	def response = httpRequest httpMode: 'GET', url: "${repo_url}${portus_api}", customHeaders: headers
+	
+	if( response.status == 200 )
+	{
+		responseGroovy =  new JsonSlurperClassic().parseText(response.content)
+		return responseGroovy
+	}
+	else
+		return 1
+}
+
 return this
 
