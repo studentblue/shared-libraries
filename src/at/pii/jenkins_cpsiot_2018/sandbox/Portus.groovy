@@ -334,7 +334,7 @@ def isPortusHealthy(repo_url, portus_user, token)
 
 def getPortusNamespaces(repo_url, portus_user, token)
 {
-	def portus_api = "/api/v1/namespaces"
+	def portus_api = "/api/v1/namespaces?all=true"
 	
 	def headers = [[name: "Portus-Auth", value: "${portus_user}:${token}"]]
 	
