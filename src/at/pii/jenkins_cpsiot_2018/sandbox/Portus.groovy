@@ -191,12 +191,36 @@ def getPortusNamespaces(repo_url, portus_user, token)
 		return constants.ERROR
 }
 
-def checkNameSpaceExistsForTeam(repo_url, portus_user, token, nameSpace, team)
+def checkNameSpaceExistsForTeam(repo_url, portus_user, token, name, teamID)
 {
 	def nameSpaces = getPortusNamespaces(repo_url, portus_user, token)
-	println nameSpaces
 	
-	return false
+	def found = false
+	
+	if( ! nameSpaces )
+		return found
+	else
+	{
+		nameSpaces.each
+		{
+			nameSpace ->
+				
+				if( nameSpace["name"].trim().equals(name) && nameSpace["team"]["id"] == teamID )
+				{
+					found = true
+					return true
+				}
+		}
+	}
+	
+	
+	return found
+}
+
+def z.getTeamID(team)
+{
+	def values = team.split(constants.SPLITTER)
+	return new Integer(values[1].trim())
 }
 
 return this
