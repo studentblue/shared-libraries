@@ -13,6 +13,7 @@ def getDigestFromString(manifests, input)
 		manifest ->
 			// "digest": "sha256:3be17715f14ac6f0834554ab4fc7a7440449690e58d45291dfae420c8d3422f1",
 			
+			println manifest
 			def temp = manifest["digest"]
 			
 			def values2 = temp.split(':')
