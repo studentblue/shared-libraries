@@ -2,11 +2,9 @@ package at.pii.jenkins_cpsiot_2018.sandbox
 
 import groovy.json.JsonSlurperClassic
 
-splitter = " @::@ "
-
 def getDigestFromString(manifests, input)
 {
-	def values = input.split(splitter)
+	def values = input.split(constants.SPLITTER)
 	def pattern = values[1].trim()
 	
 	def digest = ""
@@ -147,7 +145,7 @@ def generateManifestChoices(manifests)
 			
 			def values = manifest["digest"].split(':')
 			
-			manifestDesc += splitter + values[1].substring(0,10)
+			manifestDesc += constants.SPLITTER + values[1].substring(0,10)
 			
 			choices.add(manifestDesc)
 	}
