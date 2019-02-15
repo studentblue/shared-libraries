@@ -250,11 +250,11 @@ def generateDefaultImageName(name)
 	
 	if( resolve.length == 1 )
 	{
-		return constants.DEFAULT_IMAGE_PREFIX + image.replaceAll("[\W]", '_')
+		return constants.DEFAULT_IMAGE_PREFIX + image.replaceAll("[\\W]", '_')
 	}
 	else
 	{
-		return constants.DEFAULT_IMAGE_PREFIX + resolve[0].replaceAll("[\W]", '_')
+		return constants.DEFAULT_IMAGE_PREFIX + resolve[0].replaceAll("[\\W]", '_')
 	}
 }
 
