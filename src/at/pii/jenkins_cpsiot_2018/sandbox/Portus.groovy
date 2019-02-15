@@ -320,7 +320,9 @@ def generateManifestChoices(manifests)
 def isPortusHealthy(repo_url, portus_user, token)
 {
 	health_api = "/api/v1/health"
-	def headers = [[name: "Portus-Auth", value: "${portus_user}:${token}"]]
+	
+	def portusAuthToken = portus_user + ":" + token
+	def headers = [[name: "Portus-Auth", value: portusAuthToken]]
 	
 	def response = httpRequest httpMode: 'GET', url: "${repo_url}${health_api}", customHeaders: headers
 	
@@ -336,7 +338,10 @@ def getPortusNamespaces(repo_url, portus_user, token)
 {
 	def portus_api = "/api/v1/namespaces?all=true"
 	
-	def headers = [[name: "Portus-Auth", value: "${portus_user}:${token}"]]
+	def portusAuthToken = portus_user + ":" + token
+	def headers = [[name: "Portus-Auth", value: portusAuthToken]]
+	
+	
 	
 	def response = httpRequest httpMode: 'GET', url: "${repo_url}${portus_api}", acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', customHeaders: headers
 	
