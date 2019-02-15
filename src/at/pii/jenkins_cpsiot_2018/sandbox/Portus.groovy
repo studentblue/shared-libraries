@@ -293,5 +293,29 @@ def getManifestsFromDockhub(repo, tagArg)
 	
 }
 
+def generateManifestChoices(manifests)
+{
+	def choices = []
+	manifests["manifests"].each
+	{
+		manifest ->
+			
+			def manifestDesc = ""
+			
+			manifest["platform"].keySet().each
+			{
+				detail ->
+					manifestDesc += detail + ": " + manifest["platform"][detail] + ", "
+			}
+			
+			def values = manifest["digest"].split(':')
+			
+			manifestDesc += " @::@ " + values[1].substring(0,10)
+			
+			choices.add(manifestDesc)
+	}
+	return choices
+}
+
 return this
 
