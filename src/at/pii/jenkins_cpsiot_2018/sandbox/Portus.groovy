@@ -8,7 +8,7 @@ def getDigestFromString(manifests, input)
 	def pattern = values[1].trim()
 	
 	def digest = ""
-	manifests.each
+	manifests["manifests"].each
 	{
 		manifest ->
 			// "digest": "sha256:3be17715f14ac6f0834554ab4fc7a7440449690e58d45291dfae420c8d3422f1",
