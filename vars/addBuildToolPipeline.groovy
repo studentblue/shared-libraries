@@ -16,7 +16,7 @@ def call( environment, currentBuild, buildParameters )
 					{
 						script
 						{							
-							println jenkinsBuildApi.getBuildNumber()
+							//println jenkinsBuildApi.getBuildNumber()
 							println portusApi.getVars()
 						}
 					}
