@@ -98,8 +98,9 @@ class PortusApi implements Serializable
 		//def url = this.PortusUrl + api
 		
 		def test = [:]
-		test.put("name", 1)
-		return true
+		test.put("name", "Portus-Auth")
+		test.put("value", this.PortusUserName + ":" + this.inputPortusToken)
+		
 		/*
 		def response = httpRequest httpMode: 'GET', url: "${this.PortusUrl}${api}", customHeaders: [[name: "Portus-Auth", value: "${this.PortusUserName}:{this.inputPortusToken}"]]
 		
