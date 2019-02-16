@@ -23,6 +23,8 @@ def call( environment, currentBuild, buildParameters )
 								def message = portusApi.checkInputParameters()
 								if( message != true )
 									error(message)
+								
+								portusApi.isPortusHealthy()
 							}
 						}
 					}

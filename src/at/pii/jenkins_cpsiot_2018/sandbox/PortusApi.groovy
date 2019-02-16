@@ -23,6 +23,7 @@ class PortusApi implements Serializable
 	def environment
 	def buildParameters
 	
+	def healthApi = "/api/v1/health"
 	
 	PortusApi(environment, buildParameters)
 	{
@@ -78,22 +79,32 @@ class PortusApi implements Serializable
 		return true
 	}
 	
-	/*
+
 	def isPortusHealthy()
 	{
-		health_api = "/api/v1/health"
+		def health = portusApiGetCall(this.healthApi)
 		
-		def portusAuthToken = portus_user + ":" + token
-		def headers = [[name: "Portus-Auth", value: portusAuthToken]]
+		if( health == false )
+			return constants.ERROR_PORTUS_UNHEALTHY
+		else
+			return true
+	}
+	
+	def portusApiGetCall(api)
+	{
+		def headers = [[name: "Portus-Auth", value: "${PortusUserName}:${this.inputPortusToken}"]]
+		def url = this.PortusUrl + api
 		
-		def response = httpRequest httpMode: 'GET', url: "${repo_url}${health_api}", customHeaders: headers
+		def response = httpRequest httpMode: 'GET', url: url, customHeaders: headers
 		
 		if( response.status == 200 )
 		{
-			return true
+			responseGroovy =  new JsonSlurperClassic().parseText(response.content)
+			return responseGroovy
 		}
 		else
 			return false
+		
 	}
 	
 	def getManifestsFromDockhub()
@@ -157,5 +168,4 @@ class PortusApi implements Serializable
 		return constants.ERROR
 		
 	}
-	*/
 }
