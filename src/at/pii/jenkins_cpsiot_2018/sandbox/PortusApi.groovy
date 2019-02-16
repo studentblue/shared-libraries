@@ -178,7 +178,10 @@ class PortusApiData implements Serializable
 	
 	def test()
 	{
-		return "Hello Dave !"
+		if( PortusApi.outerClassMethod().equals("Test") )
+			return "Hello Dave !"
+		else
+			return "Dave is not here :("
 	}
 }
 
@@ -228,6 +231,11 @@ def portusApiGetCall(url, user, token, api)
 	}
 	else
 		return false
+}
+
+def outerClassMethod()
+{
+	return "Test"
 }
 
 return this
