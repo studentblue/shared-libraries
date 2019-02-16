@@ -102,8 +102,9 @@ class PortusApi implements Serializable
 		request.put( "url", url + api )
 		request.put( "customHeaders", headers)
 		
+		HttpRequest test = new HttpRequest(url + api)
 		
-		def response = httpRequest request
+		//def response = httpRequest request
 		
 		if( response.status == 200 )
 		{
