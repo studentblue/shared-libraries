@@ -16,7 +16,7 @@ def call( environment, buildParameters )
 		agent any
 		stages
 		{
-			stage('Test Parameters')
+			stage('Init Env & Test Parameters')
 			{
 				steps
 				{
