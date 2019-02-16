@@ -50,6 +50,7 @@ def call( environment, buildParameters )
 					script
 					{
 						portusApi.getManifestsFromDockhub()
+						println portusApi.testConstants()
 					}
 				}
 			}

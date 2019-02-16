@@ -165,6 +165,11 @@ class PortusApiData implements Serializable
 		else
 			return outer.constants.ERROR
 	}
+	
+	def testConstants()
+	{
+		return outer.constants.ERROR
+	}
 }
 
 def PortusData
