@@ -21,11 +21,7 @@ def call( environment, currentBuild, buildParameters )
 					{
 						script
 						{
-							portusApi.getInputParameters().each
-							{
-								test1 ->
-									println test1
-							}
+							println() portusApi.getRepoUrl()							
 						}
 					}
 				}

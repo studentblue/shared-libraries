@@ -32,8 +32,8 @@ class PortusApi
 		}
 	}
 	
-	def getInputParameters()
+	def getRepoUrl()
 	{
-		return this.buildParameters
+		return this.environment.REPO_URL
 	}
 }
