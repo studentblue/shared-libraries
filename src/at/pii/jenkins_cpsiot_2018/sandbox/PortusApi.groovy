@@ -97,6 +97,10 @@ class PortusApi implements Serializable
 		
 		//def url = this.PortusUrl + api
 		
+		def test = []
+		test.put("name", 1)
+		return true
+		/*
 		def response = httpRequest httpMode: 'GET', url: "${this.PortusUrl}${api}", customHeaders: [[name: "Portus-Auth", value: "${this.PortusUserName}:{this.inputPortusToken}"]]
 		
 		if( response.status == 200 )
@@ -106,7 +110,7 @@ class PortusApi implements Serializable
 		}
 		else
 			return false
-		
+		*/
 	}
 	
 	def getManifestsFromDockhub()
