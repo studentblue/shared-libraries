@@ -83,17 +83,17 @@ class PortusApiData implements Serializable
 		return true
 	}
 	
-	/*
+
 	def isPortusHealthy()
 	{
-		def health = this.portusApiGetCall(this.PortusUrl, this.PortusUserName, this.inputPortusToken, this.healthApi)
+		def health = outer.portusApiGetCall(this.PortusUrl, this.PortusUserName, this.inputPortusToken, this.healthApi)
 		
 		if( health == false )
 			return constants.ERROR_PORTUS_UNHEALTHY
 		else
 			return true
 	}
-	
+	/*
 	def portusApiGetCall(url, user, token, api)
 	{
 		def portusAuthToken = user + ":" + token
@@ -178,14 +178,6 @@ class PortusApiData implements Serializable
 		return constants.ERROR
 		
 	}
-	
-	def test()
-	{
-		if( this.outer.outerClassMethod().equals("Test") )
-			return "Hello Dave !"
-		else
-			return "Dave is not here :("
-	}
 }
 
 def PortusData
@@ -193,26 +185,6 @@ def PortusData
 def init(environment, buildParameters)
 {
 	PortusData = new PortusApiData(environment, buildParameters, this)
-}
-
-def initData()
-{
-	PortusData.init()
-}
-
-def checkInputParameters()
-{
-	return PortusData.checkInputParameters()
-}
-
-def isPortusHealthy()
-{
-	def health = portusApiGetCall(PortusData.PortusUrl, PortusData.PortusUserName, PortusData.inputPortusToken, PortusData.healthApi)
-	
-	if( health == false )
-		return constants.ERROR_PORTUS_UNHEALTHY
-	else
-		return true
 }
 	
 def portusApiGetCall(url, user, token, api)
@@ -234,11 +206,6 @@ def portusApiGetCall(url, user, token, api)
 	}
 	else
 		return false
-}
-
-def outerClassMethod()
-{
-	return "Test"
 }
 
 return this

@@ -23,13 +23,13 @@ def call( environment, currentBuild, buildParameters )
 							script
 							{							
 								//println jenkinsBuildApi.getBuildNumber()
-								portusApi.initData()
-								def message = portusApi.checkInputParameters()
+								portusApi.PortusData.init()
+								def message = portusApi.PortusData.checkInputParameters()
 								if( message != true )
 									error(message)
 								
-								portusApi.isPortusHealthy()
-								println portusApi.PortusData.test()
+								println portusApi.PortusData.isPortusHealthy()
+								//println portusApi.PortusData.test()
 								//portusApi.test()
 							}
 						}
