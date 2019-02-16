@@ -28,7 +28,7 @@ def jenkinsApiInstance
 
 def init()
 {
-	jenkinsApiInstance = new JenkinsApi(currentBuild, this) 
+	jenkinsApiInstance = new JenkinsApiClass(this)
 }
 
 return this
