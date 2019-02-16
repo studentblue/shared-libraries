@@ -335,7 +335,6 @@ def createNameSpaceForTeam(repo_url, portus_user, token, name, teamID, teamDescr
 def getTeamWithID(repo_url, portus_user, token, teamID )
 {
 	def portus_api = "/api/v1/teams/" + teamID
-	def portus_api = "/api/v1/namespaces"
 	
 	def portusAuthToken = portus_user + ":" + token
 	def headers = [[name: "Portus-Auth", value: portusAuthToken]]
