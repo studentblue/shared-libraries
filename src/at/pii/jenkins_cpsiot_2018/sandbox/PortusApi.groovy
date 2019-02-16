@@ -37,7 +37,7 @@ class PortusApi
 		this.inputPortusImageName = environment.Image_Name
 	}
 	
-	public String toString()
+	public getVars()
 	{
 		return 
 				this.PortusUrl + "\n" +
