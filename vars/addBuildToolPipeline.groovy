@@ -1,6 +1,7 @@
 def call( environment, currentBuild, buildParameters )
 {
-	portusApi = new at.pii.jenkins_cpsiot_2018.sandbox.PortusApi(environment, buildParameters)
+	portusApiData = new at.pii.jenkins_cpsiot_2018.sandbox.PortusApi.PortusApi(environment, buildParameters)
+	portusApi = new at.pii.jenkins_cpsiot_2018.sandbox.PortusApi()
 	jenkinsBuildApi = new at.pii.jenkins_cpsiot_2018.sandbox.JenkinsApi(currentBuild)
 	
 	pipeline
@@ -19,12 +20,13 @@ def call( environment, currentBuild, buildParameters )
 							script
 							{							
 								//println jenkinsBuildApi.getBuildNumber()
-								portusApi.init()
-								def message = portusApi.checkInputParameters()
+								portusApiData.init()
+								def message = portusApiData.checkInputParameters()
 								if( message != true )
 									error(message)
 								
-								portusApi.isPortusHealthy()
+								//portusApi.isPortusHealthy()
+								portusApi.test()
 							}
 						}
 					}
