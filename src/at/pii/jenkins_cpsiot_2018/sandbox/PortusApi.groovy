@@ -92,7 +92,9 @@ class PortusApi implements Serializable
 	
 	def portusApiGetCall(api)
 	{
-		def headers = [[name: "Portus-Auth", value: "${this.PortusUserName}:${this.inputPortusToken}"]]
+		def portusAuthToken = this.PortusUserName + ":" + this.inputPortusToken
+		def headers = [[name: "Portus-Auth", value: portusAuthToken]]
+		
 		def url = this.PortusUrl + api
 		
 		def response = httpRequest httpMode: 'GET', url: url, customHeaders: headers
