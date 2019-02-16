@@ -18,6 +18,8 @@ def call( environment, currentBuild, buildParameters )
 						{
 							println portusApi.getRepoUrl()
 							println jenkinsBuildApi.getBuildNumber()
+							
+							println portusApi
 						}
 					}
 				}
