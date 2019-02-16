@@ -6,7 +6,7 @@ import groovy.json.*
 class PortusApi implements Serializable
 {
 	//Folder Properties
-	def PortusUrl
+	private String PortusUrl
 	def PortusUserName
 	
 	//Build Parameters from Input
@@ -44,7 +44,7 @@ class PortusApi implements Serializable
 	
 	def getVars()
 	{
-		return "${this.PortusUrl.getClass()} vs ${this.environment.REPO_URL.getClass()}"
+		return "${this.PortusUrl.getClass()} vs ${this.environment.REPO_URL.getClass()}, ${this.PortusUrl vs ${this.environment.REPO_URL}"
 				//+ " vs " + this.environment.REPO_URL
 				/*
 				+ "\n" +
