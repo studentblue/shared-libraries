@@ -26,7 +26,7 @@ class PortusApiData implements Serializable
 	
 	def healthApi = "/api/v1/health"
 	
-	PortusApi(environment, buildParameters)
+	PortusApiData(environment, buildParameters)
 	{
 		this.environment = environment
 		this.buildParameters = buildParameters
