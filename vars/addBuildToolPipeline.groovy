@@ -14,11 +14,14 @@ def call( environment, currentBuild, buildParameters )
 				{
 					withFolderProperties
 					{
-						script
-						{							
-							//println jenkinsBuildApi.getBuildNumber()
-							portusApi.init()
-							println portusApi.getVars()
+						withCredentials([string(credentialsId: env.Portus_Token, variable: 'TOKEN2')])
+						{
+							script
+							{							
+								//println jenkinsBuildApi.getBuildNumber()
+								portusApi.init()
+								println portusApi.getVars()
+							}
 						}
 					}
 				}
