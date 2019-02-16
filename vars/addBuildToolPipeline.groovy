@@ -1,4 +1,4 @@
-def call( environment, currentBuild, buildParameters )
+def call( environment, buildParameters )
 {
 	//portusApiData = new at.pii.jenkins_cpsiot_2018.sandbox.PortusApi.PortusApiData(environment, buildParameters)
 	
@@ -6,7 +6,10 @@ def call( environment, currentBuild, buildParameters )
 	portus.init(environment, buildParameters)
 	portusApi = portus.PortusData
 	
-	jenkinsBuildApi = new at.pii.jenkins_cpsiot_2018.sandbox.JenkinsApi(currentBuild)
+	jenkinsOuterBuildApi = new at.pii.jenkins_cpsiot_2018.sandbox.JenkinsApi()
+	jenkinsOuterBuildApi.init()
+	jenkinsBuildApi = jenkinsOuterBuildApi.jenkinsApiInstance
+	
 	
 	pipeline
 	{
@@ -22,8 +25,10 @@ def call( environment, currentBuild, buildParameters )
 						withCredentials([string(credentialsId: env.Portus_Token, variable: 'TOKEN2')])
 						{
 							script
-							{							
-								//println jenkinsBuildApi.getBuildNumber()
+							{
+								jenkinsBuildApi.init( currentBuild )
+								println jenkinsBuildApi.getBuildNumber()
+								
 								portusApi.init()
 								def message = portusApi.checkInputParameters()
 								if( message != true )

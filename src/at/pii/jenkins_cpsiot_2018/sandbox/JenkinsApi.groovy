@@ -3,12 +3,18 @@ package at.pii.jenkins_cpsiot_2018.sandbox
 import groovy.json.*
 //import groovy.json.JsonSlurperClassic
 
-class JenkinsApi
+class JenkinsApiClass
 {	
 	def currentBuild
+	def outer
 	
-	JenkinsApi(currentBuild)
-	{		
+	JenkinsApi(outer)
+	{
+		this.outer = outer
+	}
+	
+	def init(currentBuild)
+	{
 		this.currentBuild = currentBuild
 	}
 	
@@ -17,3 +23,12 @@ class JenkinsApi
 		return this.currentBuild.getNumber()
 	}
 }
+
+def jenkinsApiInstance
+
+def init()
+{
+	jenkinsApiInstance = new JenkinsApi(currentBuild, this) 
+}
+
+return this
