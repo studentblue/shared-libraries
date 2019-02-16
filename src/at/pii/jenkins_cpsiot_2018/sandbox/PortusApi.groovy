@@ -3,7 +3,7 @@ package at.pii.jenkins_cpsiot_2018.sandbox
 import groovy.json.*
 //import groovy.json.JsonSlurperClassic
 
-class PortusApi
+class PortusApi implements Serializable
 {
 	//Folder Properties
 	def PortusUrl
