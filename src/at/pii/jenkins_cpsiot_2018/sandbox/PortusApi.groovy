@@ -4,7 +4,7 @@ import groovy.json.*
 
 //import groovy.json.JsonSlurperClassic
 
-class PortusApi implements Serializable
+class PortusApiData implements Serializable
 {
 	//Folder Properties
 	def PortusUrl

@@ -1,6 +1,6 @@
 def call( environment, currentBuild, buildParameters )
 {
-	portusApiData = new at.pii.jenkins_cpsiot_2018.sandbox.PortusApi.PortusApi(environment, buildParameters)
+	portusApiData = new at.pii.jenkins_cpsiot_2018.sandbox.PortusApi.PortusApiData(environment, buildParameters)
 	portusApi = new at.pii.jenkins_cpsiot_2018.sandbox.PortusApi()
 	jenkinsBuildApi = new at.pii.jenkins_cpsiot_2018.sandbox.JenkinsApi(currentBuild)
 	
