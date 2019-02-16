@@ -220,8 +220,7 @@ def httpRequestWithPlugin(url, mode, headers = [])
 	
 	if( response.status == 200 )
 	{
-		responseGroovy =  new JsonSlurperClassic().parseText(response.content)
-		return responseGroovy
+		return response
 	}
 	else
 		return false
