@@ -84,10 +84,24 @@ class PortusApiData implements Serializable
 		if ( ! this.inputPortusTeam )
 			return "Portus Team is empty"
 		
-		def findCool = (this.inputDockerHubRepo =~ /[^\w_\-.~\/\%]+/)
-		
-		if( findCool )
+		if( this.inputDockerHubRepo =~ /[^\w_\-.~\/\%:]+/ )
 			return "DockerHub repo name cannot be valid"
+		
+		def findcool = this.inputPortusNameSpace  =~ /[^\w_\-.~\/:]+/
+		
+		if( findcool )
+		{
+			def message = "PortusNameSpace contains unallowed characters: "
+			findcool.each
+			{
+				match ->
+					message + "\"match\" "
+			}
+			return message
+		}
+		def 
+		def inputPortusNameSpaceDescription 
+		def inputPortusImageName
 		
 		return true
 	}
