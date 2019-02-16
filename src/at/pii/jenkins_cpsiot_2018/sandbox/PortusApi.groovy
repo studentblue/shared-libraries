@@ -175,6 +175,11 @@ class PortusApiData implements Serializable
 		return constants.ERROR
 		
 	}
+	
+	def test()
+	{
+		return "Hello Dave !"
+	}
 }
 
 def PortusData
