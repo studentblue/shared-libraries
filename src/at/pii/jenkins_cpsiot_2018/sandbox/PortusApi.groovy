@@ -189,11 +189,10 @@ class PortusApiData implements Serializable
 }
 
 def PortusData
-def Me = this
 
 def init(environment, buildParameters)
 {
-	PortusData = new PortusApiData(environment, buildParameters, Me)
+	PortusData = new PortusApiData(environment, buildParameters, this)
 }
 
 def initData()
