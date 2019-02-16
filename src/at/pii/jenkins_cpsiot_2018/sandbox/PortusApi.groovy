@@ -47,10 +47,7 @@ class PortusApi implements Serializable
 	
 	def getVars()
 	{
-		return "${this.PortusUrl.getClass()} vs ${this.environment.REPO_URL.getClass()}, ${this.PortusUrl} vs ${this.environment.REPO_URL}"
-				//+ " vs " + this.environment.REPO_URL
-				/*
-				+ "\n" +
+		return	this.PortusUrl + "\n" +
 				this.PortusUserName + "\n" +
 				this.inputDockerHubRepo + "\n" +
 				this.inputDockerHubTag + "\n" +
@@ -59,7 +56,6 @@ class PortusApi implements Serializable
 				this.inputPortusNameSpace + "\n" +
 				this.inputPortusNameSpaceDescription + "\n" +
 				this.inputPortusImageName
-				*/
 	}
 		
 	def checkInputParameters()
