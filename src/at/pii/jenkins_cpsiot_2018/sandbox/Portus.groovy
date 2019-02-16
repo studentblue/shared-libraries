@@ -1,6 +1,7 @@
 package at.pii.jenkins_cpsiot_2018.sandbox
 
-import groovy.json.JsonSlurperClassic
+import groovy.json.*
+//import groovy.json.JsonSlurperClassic
 
 def getDigestFromString(manifests, input)
 {
