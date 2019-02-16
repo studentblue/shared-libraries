@@ -179,7 +179,7 @@ class PortusApiData implements Serializable
 
 def PortusData
 
-def init()
+def init(environment, buildParameters)
 {
 	PortusData = new PortusApiData(environment, buildParameters)
 }
