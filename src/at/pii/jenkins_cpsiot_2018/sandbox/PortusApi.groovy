@@ -6,7 +6,7 @@ import groovy.json.*
 class PortusApi implements Serializable
 {
 	//Folder Properties
-	private String PortusUrl
+	def PortusUrl
 	def PortusUserName
 	
 	//Build Parameters from Input
@@ -28,18 +28,21 @@ class PortusApi implements Serializable
 	{
 		this.environment = environment
 		this.buildParameters = buildParameters
+	}
 	
-		this.PortusUrl = this.environment.REPO_URL
-		this.PortusUserName = this.environment.PORTUS_USER
+	def init()
+	{
+		this.PortusUrl = environment.REPO_URL
+		this.PortusUserName = environment.PORTUS_USER
 		
-		this.inputDockerHubRepo = this.environment.DockerHub_Repo_Name
-		this.inputDockerHubTag = this.environment.Tag_Name
+		this.inputDockerHubRepo = environment.DockerHub_Repo_Name
+		this.inputDockerHubTag = environment.Tag_Name
 		
-		this.inputPortusToken = this.environment.Portus_Token
-		this.inputPortusTeam = this.environment.Teams
-		this.inputPortusNameSpace = this.environment.NameSpace
-		this.inputPortusNameSpaceDescription = this.environment.NameSpace_Description
-		this.inputPortusImageName = this.environment.Image_Name
+		this.inputPortusToken = environment.Portus_Token
+		this.inputPortusTeam = environment.Teams
+		this.inputPortusNameSpace = environment.NameSpace
+		this.inputPortusNameSpaceDescription = environment.NameSpace_Description
+		this.inputPortusImageName = environment.Image_Name
 	}
 	
 	def getVars()
