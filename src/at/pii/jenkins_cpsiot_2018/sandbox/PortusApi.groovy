@@ -82,7 +82,7 @@ class PortusApi implements Serializable
 
 	def isPortusHealthy()
 	{
-		def health = portusApiGetCall(this.healthApi)
+		def health = this.portusApiGetCall(this.healthApi)
 		
 		if( health == false )
 			return constants.ERROR_PORTUS_UNHEALTHY
