@@ -8,7 +8,7 @@ class JenkinsApiClass
 	def currentBuild
 	def outer
 	
-	JenkinsApi(outer)
+	JenkinsApiClass(outer)
 	{
 		this.outer = outer
 	}
