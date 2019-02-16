@@ -194,4 +194,40 @@ def checkInputParameters()
 	return PortusData.checkInputParameters()
 }
 
+def isPortusHealthy()
+{
+	
+}
+
+def isPortusHealthy()
+{
+	def health = portusApiGetCall(PortusData.PortusUrl, PortusData.PortusUserName, PortusData.inputPortusToken, PortusData.healthApi)
+	
+	if( health == false )
+		return constants.ERROR_PORTUS_UNHEALTHY
+	else
+		return true
+}
+	
+def portusApiGetCall(url, user, token, api)
+{
+	def portusAuthToken = user + ":" + token
+	def headers = [[name: "Portus-Auth", value: portusAuthToken]]
+	
+	def request = [:]
+	request.put( "httpMode", 'GET' )
+	request.put( "url", url + api )
+	request.put( "customHeaders", headers)
+	
+	def response = httpRequest request
+	
+	if( response.status == 200 )
+	{
+		responseGroovy =  new JsonSlurperClassic().parseText(response.content)
+		return responseGroovy
+	}
+	else
+		return false
+}
+
 return this

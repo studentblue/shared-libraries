@@ -28,7 +28,7 @@ def call( environment, currentBuild, buildParameters )
 								if( message != true )
 									error(message)
 								
-								//portusApi.isPortusHealthy()
+								portusApi.isPortusHealthy()
 								//portusApi.test()
 							}
 						}
