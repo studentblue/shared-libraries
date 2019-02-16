@@ -82,7 +82,7 @@ class PortusApi implements Serializable
 
 	def isPortusHealthy()
 	{
-		def health = this.portusApiGetCall(this.healthApi)
+		def health = portusApiGetCall(this.healthApi)
 		
 		if( health == false )
 			return constants.ERROR_PORTUS_UNHEALTHY
@@ -92,7 +92,7 @@ class PortusApi implements Serializable
 	
 	def portusApiGetCall(api)
 	{
-		def headers = [[name: "Portus-Auth", value: "${PortusUserName}:${this.inputPortusToken}"]]
+		def headers = [[name: "Portus-Auth", value: "${this.PortusUserName}:${this.inputPortusToken}"]]
 		def url = this.PortusUrl + api
 		
 		def response = httpRequest httpMode: 'GET', url: url, customHeaders: headers
