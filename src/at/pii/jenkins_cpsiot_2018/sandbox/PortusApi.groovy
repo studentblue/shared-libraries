@@ -84,7 +84,9 @@ class PortusApiData implements Serializable
 		if ( ! this.inputPortusTeam )
 			return "Portus Team is empty"
 		
-		if( this.inputDockerHubRepo.matches("/[\\W]+/") )
+		def findCool = (this.inputDockerHubRepo =~ /[^\w_\-.~\/\%]+/)
+		
+		if( findCool )
 			return "DockerHub repo name cannot be valid"
 		
 		return true
