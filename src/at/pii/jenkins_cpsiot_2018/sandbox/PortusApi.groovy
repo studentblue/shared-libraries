@@ -160,10 +160,10 @@ class PortusApiData implements Serializable
 				return true
 			}
 			else
-				return constants.ERROR
+				return outer.constants.ERROR
 		}
 		else
-			return constants.ERROR
+			return outer.constants.ERROR
 	}
 }
 
