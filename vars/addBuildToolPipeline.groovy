@@ -15,10 +15,8 @@ def call( environment, currentBuild, buildParameters )
 					withFolderProperties
 					{
 						script
-						{
-							println portusApi.getRepoUrl()
+						{							
 							println jenkinsBuildApi.getBuildNumber()
-							
 							println portusApi
 						}
 					}
