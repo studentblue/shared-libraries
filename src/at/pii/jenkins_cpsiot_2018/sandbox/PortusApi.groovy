@@ -102,7 +102,7 @@ class PortusApi implements Serializable
 		test.put("value", this.PortusUserName + ":" + this.inputPortusToken)
 		
 
-		def response = httpRequest httpMode: 'GET', url: "${this.PortusUrl}${api}", customHeaders: test
+		def response = httpRequest httpMode: 'GET', url: "${this.PortusUrl}${api}", customHeaders: []
 		
 		if( response.status == 200 )
 		{
