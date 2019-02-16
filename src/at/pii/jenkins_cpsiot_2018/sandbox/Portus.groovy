@@ -301,7 +301,7 @@ def sanitizeImageName(Image_Name)
 	return Image_Name.replaceAll("[^\\w-_]", '_')
 }
 
-def createNameSpaceForTeam(repo_url, portus_user, token, name, teamID, teamDescription = "")
+def createNameSpaceForTeam(repo_url, portus_user, token, name, teamID, teamDescription)
 {
 	def portus_api = "/api/v1/namespaces"
 	
