@@ -196,11 +196,6 @@ def checkInputParameters()
 
 def isPortusHealthy()
 {
-	
-}
-
-def isPortusHealthy()
-{
 	def health = portusApiGetCall(PortusData.PortusUrl, PortusData.PortusUserName, PortusData.inputPortusToken, PortusData.healthApi)
 	
 	if( health == false )
