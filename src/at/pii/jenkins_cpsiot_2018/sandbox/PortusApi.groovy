@@ -18,6 +18,9 @@ class PortusApi
 		
 	def checkInputParameters()
 	{
+		println this.environment.getClass()
+		println this.buildParameters.getClass()
+		
 		this.environment.each
 		{
 			var1 ->
