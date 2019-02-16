@@ -20,10 +20,15 @@ class PortusApi implements Serializable
 	def inputPortusNameSpaceDescription 
 	def inputPortusImageName
 	
+	def environment
+	def buildParameters
 	
 	
 	PortusApi(environment, buildParameters)
 	{
+		this.environment = environment
+		this.buildParameters = buildParameters
+	
 		this.PortusUrl = environment.REPO_URL
 		this.PortusUserName = environment.PORTUS_USER
 		
@@ -39,7 +44,7 @@ class PortusApi implements Serializable
 	
 	def getVars()
 	{
-		return this.PortusUrl 
+		return this.PortusUrl + " vs " + this.environment.REPO_URL
 				/*
 				+ "\n" +
 				this.PortusUserName + "\n" +
