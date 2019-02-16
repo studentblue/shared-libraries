@@ -97,7 +97,7 @@ class PortusApi implements Serializable
 		
 		//def url = this.PortusUrl + api
 		
-		def test = []
+		def test = [:]
 		test.put("name", 1)
 		return true
 		/*
