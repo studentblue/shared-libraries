@@ -95,8 +95,13 @@ class PortusApi implements Serializable
 		def portusAuthToken = user + ":" + token
 		def headers = [[name: "Portus-Auth", value: portusAuthToken]]
 		
-
-		def response = httpRequest httpMode: 'GET', url: url + api, customHeaders: headers
+		def request = [:]
+		request.put( "httpMode", 'GET' )
+		request.put( "url", url + api )
+		request.put( "customHeaders", headers)
+		
+		
+		def response = httpRequest request
 		
 		if( response.status == 200 )
 		{
