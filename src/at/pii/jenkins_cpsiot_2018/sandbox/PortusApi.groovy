@@ -95,7 +95,7 @@ class PortusApiData implements Serializable
 			findcool.each
 			{
 				match ->
-					message + "\"match\" "
+					message += "\"${match}\" "
 			}
 			return message
 		}
@@ -108,7 +108,7 @@ class PortusApiData implements Serializable
 			findcool.each
 			{
 				match ->
-					message + "\"match\" "
+					message += "\"${match}\" "
 			}
 			return message
 		}
