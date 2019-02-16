@@ -41,7 +41,18 @@ def call( environment, buildParameters )
 						}
 					}
 				}
-			}			
+			}
+			
+			stage('Fetch Manifests from DockerHub')
+			{
+				steps
+				{
+					script
+					{
+						portusApi.getManifestsFromDockhub()
+					}
+				}
+			}
 		}
 	}
 }

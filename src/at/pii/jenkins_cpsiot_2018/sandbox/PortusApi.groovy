@@ -28,6 +28,8 @@ class PortusApiData implements Serializable
 	
 	def outer
 	
+	def manifests
+	
 	PortusApiData(environment, buildParameters, outerClass)
 	{
 		this.environment = environment
@@ -83,45 +85,32 @@ class PortusApiData implements Serializable
 		return true
 	}
 	
+	def private getPortusAuthHeaders()
+	{
+		def headers = [:]
+		
+		headers.put([name: "Portus-Auth", value: this.PortusUserName + ":" + this.inputPortusToken])
+		return headers
+	}
 
 	def isPortusHealthy()
-	{
-		def health = outer.portusApiGetCall(this.PortusUrl, this.PortusUserName, this.inputPortusToken, this.healthApi)
+	{	
+		def url = this.PortusUrl + this.healthApi
+		def mode = 'GET'
+		def headers = getPortusAuthHeaders()
+		
+		def health = outer.httpRequestWithPlugin(url, mode, headers)
 		
 		if( health == false )
 			return constants.ERROR_PORTUS_UNHEALTHY
 		else
 			return true
 	}
-	/*
-	def portusApiGetCall(url, user, token, api)
-	{
-		def portusAuthToken = user + ":" + token
-		def headers = [[name: "Portus-Auth", value: portusAuthToken]]
-		
-		def request = [:]
-		request.put( "httpMode", 'GET' )
-		request.put( "url", url + api )
-		request.put( "customHeaders", headers)
-		
-		HttpRequest test = new HttpRequest(url + api)
-		
-		//def response = httpRequest request
-		
-		if( response.status == 200 )
-		{
-			responseGroovy =  new JsonSlurperClassic().parseText(response.content)
-			return responseGroovy
-		}
-		else
-			return false
-	}
-	*/
+	
 	def getManifestsFromDockhub()
-	{
-		def test = 1
-		def image = repo
-		def resolve = repo.split(':')
+	{				
+		def image = this.inputDockerHubRepo
+		def resolve = this.inputDockerHubRepo.split(':')
 		
 		def tag = "latest"
 		
@@ -130,8 +119,8 @@ class PortusApiData implements Serializable
 			if( ! image.contains("/") )
 				image = "library/" + image
 			
-			if( tagArg )
-				tag = tagArg
+			if( this.inputDockerHubTag )
+				tag = this.inputDockerHubTag
 		}
 		else
 		{
@@ -152,31 +141,29 @@ class PortusApiData implements Serializable
 		def get_manifest_template = "https://registry.hub.docker.com/v2/${image}/manifests/${tag}"
 		def accept_types = "application/vnd.docker.distribution.manifest.list.v2+json,application/vnd.docker.distribution.manifestv2+json"
 		
-		def response2 = httpRequest httpMode: 'GET', url: login_template
-		def response2Groovy = ""
+		def response = outer.httpRequestWithPlugin(login_template, 'GET')
+		def responseGroovy = ""
 		
-		if( response2.status == 200 )
+		if( response.status == 200 )
 		{
-			response2Groovy =  new JsonSlurperClassic().parseText(response2.content)
+			responseGroovy =  new JsonSlurperClassic().parseText(response.content)
+			
+			def dockerHubToken = responseGroovy["token"]
+			def headers = [[name: "Authorization", value: "Bearer ${dockerHubToken}"], [name: "accept", value: accept_types]]
+			
+			response = outer.httpRequestWithPlugin(get_manifest_template, 'GET', headers)
+			
+			if( response.status == 200 )
+			{
+				responseGroovy =  new JsonSlurperClassic().parseText(response.content)
+				this.manifests = responseGroovy
+				return true
+			}
+			else
+				return constants.ERROR
 		}
 		else
 			return constants.ERROR
-		
-		def dockerHubToken = response2Groovy["token"]
-		
-		def headers = [[name: "Authorization", value: "Bearer ${dockerHubToken}"], [name: "accept", value: accept_types]]
-		
-		def response3 = httpRequest httpMode: 'GET', url: get_manifest_template, contentType: 'APPLICATION_JSON', customHeaders: headers
-		def response3Groovy = ""
-		
-		if( response3.status == 200 )
-		{
-			response3Groovy =  new JsonSlurperClassic().parseText(response3.content)
-			return response3Groovy
-		}
-		
-		return constants.ERROR
-		
 	}
 }
 
@@ -187,17 +174,9 @@ def init(environment, buildParameters)
 	PortusData = new PortusApiData(environment, buildParameters, this)
 }
 	
-def portusApiGetCall(url, user, token, api)
-{
-	def portusAuthToken = user + ":" + token
-	def headers = [[name: "Portus-Auth", value: portusAuthToken]]
-	
-	def request = [:]
-	request.put( "httpMode", 'GET' )
-	request.put( "url", url + api )
-	request.put( "customHeaders", headers)
-	
-	def response = httpRequest request
+def httpRequestWithPlugin(url, mode, headers = [:])
+{	
+	def response = httpRequest httpMode: mode, url: url, acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', customHeaders: headers
 	
 	if( response.status == 200 )
 	{
@@ -207,5 +186,7 @@ def portusApiGetCall(url, user, token, api)
 	else
 		return false
 }
+
+def getCall
 
 return this
