@@ -84,7 +84,7 @@ class PortusApiData implements Serializable
 		if ( ! this.inputPortusTeam )
 			return "Portus Team is empty"
 		
-		if( this.inputDockerHubRepo.matches("[\\W]+") )
+		if( this.inputDockerHubRepo.matches("/[\\W]+/") )
 			return "DockerHub repo name cannot be valid"
 		
 		return true
