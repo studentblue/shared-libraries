@@ -87,7 +87,7 @@ class PortusApiData implements Serializable
 		if( this.inputDockerHubRepo =~ /[^\w_\-.~\/\%:]+/ )
 			return "DockerHub repo name cannot be valid"
 		
-		def findcool = this.inputPortusNameSpace  =~ /[^\w_\-.~\/:]+/
+		def findcool = this.inputPortusNameSpace  =~ /[^\w_.~]+/
 		
 		if( findcool )
 		{
@@ -100,7 +100,7 @@ class PortusApiData implements Serializable
 			return message
 		}
 		
-		findcool = this.inputPortusImageName =~ /[^\w_\-.~\/:]+/
+		findcool = this.inputPortusImageName =~ /[^\w_\-.~]+/
 		
 		if( findcool )
 		{
