@@ -80,7 +80,7 @@ class PortusApiData implements Serializable
 		return true
 	}
 	
-
+	/*
 	def isPortusHealthy()
 	{
 		def health = this.portusApiGetCall(this.PortusUrl, this.PortusUserName, this.inputPortusToken, this.healthApi)
@@ -113,7 +113,7 @@ class PortusApiData implements Serializable
 		else
 			return false
 	}
-	
+	*/
 	def getManifestsFromDockhub()
 	{
 		def test = 1
