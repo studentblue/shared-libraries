@@ -301,5 +301,54 @@ def sanitizeImageName(Image_Name)
 	return Image_Name.replaceAll("[^\\w-_]", '_')
 }
 
-return this
+def createNameSpaceForTeam(repo_url, portus_user, token, name, teamID, teamDescription = "")
+{
+	def portus_api = "/api/v1/namespaces"
+	
+	def portusAuthToken = portus_user + ":" + token
+	def headers = [[name: "Portus-Auth", value: portusAuthToken]]
+	
+	def jsonForm = ""
+	
+	def teamName = ""
+	
+	def teamFull = getTeamWithID(repo_url, portus_user, token, teamID )
+	
+	teamName = teamFull["name"]
+	
+	if( teamDescription )
+		jsonForm = JsonOutput.toJson([name: name, team: teamName, description: teamDescription])
+	else
+		jsonForm = JsonOutput.toJson([name: name, team: teamName])
+	
+	def response = httpRequest httpMode: 'POST', url: "${repo_url}${portus_api}", acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', customHeaders: headers, requestBody: jsonForm
+	
+	if( response.status == 200 )
+	{
+		responseGroovy =  new JsonSlurperClassic().parseText(response.content)
+		return responseGroovy
+	}
+	else
+		return constants.ERROR
+}
 
+def getTeamWithID(repo_url, portus_user, token, teamID )
+{
+	def portus_api = "/api/v1/teams/" + teamID
+	def portus_api = "/api/v1/namespaces"
+	
+	def portusAuthToken = portus_user + ":" + token
+	def headers = [[name: "Portus-Auth", value: portusAuthToken]]
+	
+	def response = httpRequest httpMode: 'GET', url: "${repo_url}${portus_api}", acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', customHeaders: headers
+	
+	if( response.status == 200 )
+	{
+		responseGroovy =  new JsonSlurperClassic().parseText(response.content)
+		return responseGroovy
+	}
+	else
+		return constants.ERROR
+}
+
+return this
