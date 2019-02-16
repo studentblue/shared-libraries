@@ -24,7 +24,8 @@ class PortusApi
 	
 	PortusApi(environment, buildParameters)
 	{
-		this.PortusUrl = environment.REPO_URL
+		//this.PortusUrl = environment.REPO_URL
+		this.PortusUrl = "Test"
 		this.PortusUserName = environment.PORTUS_USER
 		
 		this.inputDockerHubRepo = environment.DockerHub_Repo_Name
