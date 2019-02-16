@@ -44,7 +44,8 @@ class PortusApi implements Serializable
 	
 	def getVars()
 	{
-		return this.PortusUrl + " vs " + this.environment.REPO_URL
+		return this.PortusUrl.getClass()
+				//+ " vs " + this.environment.REPO_URL
 				/*
 				+ "\n" +
 				this.PortusUserName + "\n" +
