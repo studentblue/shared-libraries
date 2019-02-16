@@ -91,7 +91,7 @@ class PortusApiData implements Serializable
 		
 		if( findcool )
 		{
-			def message = "PortusNameSpace contains unallowed characters: "
+			def message = "Portus NameSpace contains unallowed characters: "
 			findcool.each
 			{
 				match ->
@@ -99,9 +99,19 @@ class PortusApiData implements Serializable
 			}
 			return message
 		}
-		def 
-		def inputPortusNameSpaceDescription 
-		def inputPortusImageName
+		
+		findcool = this.inputPortusImageName =~ /[^\w_\-.~\/:]+/
+		
+		if( findcool )
+		{
+			def message = "Portus Image Name contains unallowed characters: "
+			findcool.each
+			{
+				match ->
+					message + "\"match\" "
+			}
+			return message
+		}
 		
 		return true
 	}
