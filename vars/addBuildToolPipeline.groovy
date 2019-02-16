@@ -50,7 +50,28 @@ def call( environment, buildParameters )
 					script
 					{
 						portusApi.getManifestsFromDockhub()
-						println portusApi.testConstants()
+					}
+				}
+			}
+			
+			stage('Select Image')
+			{
+				steps
+				{
+					timeout(time: 5, unit: 'MINUTES')
+					{
+						script
+						{	
+							def choices = portusApi.getChoices()
+							
+							if( choices )
+							{
+								def userInput = input(id: "Digest", message: 'Please Select Image', ok: 'Select',
+										parameters: [choice(name: 'SELECT_IMAGE', choices: choices, description: 'Select the image variant')])
+								
+								portusApi.setChoice(userInput)
+							}
+						}
 					}
 				}
 			}

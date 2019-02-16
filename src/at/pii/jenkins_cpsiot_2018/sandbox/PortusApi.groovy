@@ -30,6 +30,8 @@ class PortusApiData implements Serializable
 	
 	def manifests
 	
+	def chosenImage = ""
+	
 	PortusApiData(environment, buildParameters, outerClass)
 	{
 		this.environment = environment
@@ -169,6 +171,39 @@ class PortusApiData implements Serializable
 	def testConstants()
 	{
 		return outer.constants.ERROR
+	}
+	
+	def getChoices()
+	{
+		def choices = []
+	
+		if( ! this.manifests["manifests"] )
+			return choices
+		
+		this.manifests["manifests"].each
+		{
+			manifest ->
+				
+				def manifestDesc = ""
+				
+				manifest["platform"].keySet().each
+				{
+					detail ->
+						manifestDesc += detail + ": " + manifest["platform"][detail] + ", "
+				}
+				
+				def values = manifest["digest"].split(':')
+				
+				manifestDesc += outer.constants.SPLITTER + values[1].substring(0,10)
+				
+				choices.add(manifestDesc)
+		}
+		return choices
+	}
+	
+	def setChoice(userInput)
+	{
+		this.chosenImage = userInput
 	}
 }
 
