@@ -18,13 +18,13 @@ class PortusApi
 		
 	def checkInputParameters()
 	{
-		environment.each
+		this.environment.each
 		{
 			var1 ->
 				println var1
 		}
 		
-		buildParameters.each
+		this.buildParameters.each
 		{
 			var1 ->
 				println var1
