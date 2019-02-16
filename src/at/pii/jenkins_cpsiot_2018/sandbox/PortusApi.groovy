@@ -26,10 +26,13 @@ class PortusApiData implements Serializable
 	
 	def healthApi = "/api/v1/health"
 	
-	PortusApiData(environment, buildParameters)
+	def outer
+	
+	PortusApiData(environment, buildParameters, outerClass)
 	{
 		this.environment = environment
 		this.buildParameters = buildParameters
+		this.outer = outerClass
 	}
 	
 	def init()
@@ -178,7 +181,7 @@ class PortusApiData implements Serializable
 	
 	def test()
 	{
-		if( PortusApi.outerClassMethod().equals("Test") )
+		if( this.outer.outerClassMethod().equals("Test") )
 			return "Hello Dave !"
 		else
 			return "Dave is not here :("
