@@ -102,7 +102,7 @@ class PortusApiData implements Serializable
 		def health = outer.httpRequestWithPlugin(url, mode, headers)
 		
 		if( health == false )
-			return constants.ERROR_PORTUS_UNHEALTHY
+			return outer.constants.ERROR_PORTUS_UNHEALTHY
 		else
 			return true
 	}
@@ -134,7 +134,7 @@ class PortusApiData implements Serializable
 				tag = resolve[1]
 			}
 			else
-				return constants.ERROR
+				return outer.constants.ERROR
 		}
 	
 		def login_template = "https://auth.docker.io/token?service=registry.docker.io&scope=repository:${image}:pull"
