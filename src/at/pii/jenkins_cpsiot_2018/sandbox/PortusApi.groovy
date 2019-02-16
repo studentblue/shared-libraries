@@ -177,9 +177,21 @@ class PortusApiData implements Serializable
 	}
 }
 
-def test()
+def PortusData
+
+def init()
 {
-	println "Test"
+	PortusData = new PortusApiData(environment, buildParameters)
+}
+
+def initData()
+{
+	PortusData.init()
+}
+
+def checkInputParameters()
+{
+	return PortusData.checkInputParameters()
 }
 
 return this
