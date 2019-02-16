@@ -21,7 +21,7 @@ def call( environment, currentBuild, buildParameters )
 					{
 						script
 						{
-							println() portusApi.getRepoUrl()							
+							println portusApi.getRepoUrl()
 						}
 					}
 				}
