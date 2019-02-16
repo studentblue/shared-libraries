@@ -18,11 +18,6 @@ class PortusApi
 		
 	def checkInputParameters()
 	{
-		println "Test"
-		
-		/*
-		println this.environment.
-		println this.buildParameters.
 		
 		this.environment.each
 		{
@@ -35,6 +30,5 @@ class PortusApi
 			var1 ->
 				println var1
 		}
-		*/
 	}
 }

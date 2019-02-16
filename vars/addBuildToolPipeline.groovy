@@ -1,6 +1,12 @@
 def call( environment, currentBuild, buildParameters )
 {
+	println environment.getClass()
+	println currentBuild.getClass()
+	println buildParameters.getClass()
+	
 	portusApi = new at.pii.jenkins_cpsiot_2018.sandbox.PortusApi(environment, currentBuild, buildParameters)
+	
+	portusApi.checkInputParameters()
 	
 	pipeline
 	{
@@ -15,7 +21,8 @@ def call( environment, currentBuild, buildParameters )
 					{
 						script
 						{
-							portusApi.checkInputParameters()
+							//portusApi.checkInputParameters()
+							echo "Test"
 						}
 					}
 				}
