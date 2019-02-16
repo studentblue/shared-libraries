@@ -31,4 +31,9 @@ class PortusApi
 				println var1
 		}
 	}
+	
+	def getInputParameters()
+	{
+		return this.buildParameters
+	}
 }

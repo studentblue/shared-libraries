@@ -21,8 +21,11 @@ def call( environment, currentBuild, buildParameters )
 					{
 						script
 						{
-							//portusApi.checkInputParameters()
-							echo "Test"
+							portusApi.getInputParameters().each
+							{
+								test1 ->
+									println test1
+							}
 						}
 					}
 				}
