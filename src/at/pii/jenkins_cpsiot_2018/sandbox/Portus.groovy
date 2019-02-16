@@ -291,5 +291,15 @@ def generateDefaultNameSpace(manifests, digest)
 	
 }
 
+def sanitizeNameSpace(NameSpace)
+{
+	return NameSpace.replaceAll("[\\W]", '_')
+}
+
+def sanitizeImageName(Image_Name)
+{
+	return Image_Name.replaceAll("[^\\w-_]", '_')
+}
+
 return this
 
