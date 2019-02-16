@@ -20,7 +20,9 @@ def call( environment, currentBuild, buildParameters )
 							{							
 								//println jenkinsBuildApi.getBuildNumber()
 								portusApi.init()
-								println portusApi.getVars()
+								def message = portusApi.checkInputParameters()
+								if( message != true )
+									error(message)
 							}
 						}
 					}

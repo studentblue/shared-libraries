@@ -74,6 +74,8 @@ class PortusApi implements Serializable
 		
 		if ( ! this.inputPortusTeam )
 			return "Portus Team is empty"
+		
+		return true
 	}
 	
 	/*
