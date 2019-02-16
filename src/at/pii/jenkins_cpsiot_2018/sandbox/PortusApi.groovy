@@ -27,14 +27,14 @@ class PortusApi
 		this.PortusUrl = environment.REPO_URL
 		this.PortusUserName = environment.PORTUS_USER
 		
-		this.inputDockerHubRepo = buildParameters.DockerHub_Repo_Name
-		this.inputDockerHubTag = buildParameters.Tag_Name
+		this.inputDockerHubRepo = environment.DockerHub_Repo_Name
+		this.inputDockerHubTag = environment.Tag_Name
 		
-		this.inputPortusToken = buildParameters.Portus_Token
-		this.inputPortusTeam = buildParameters.Teams
-		this.inputPortusNameSpace = buildParameters.NameSpace
-		this.inputPortusNameSpaceDescription = buildParameters.NameSpace_Description
-		this.inputPortusImageName = buildParameters.Image_Name
+		this.inputPortusToken = environment.Portus_Token
+		this.inputPortusTeam = environment.Teams
+		this.inputPortusNameSpace = environment.NameSpace
+		this.inputPortusNameSpaceDescription = environment.NameSpace_Description
+		this.inputPortusImageName = environment.Image_Name
 	}
 	
 	public String toString()
