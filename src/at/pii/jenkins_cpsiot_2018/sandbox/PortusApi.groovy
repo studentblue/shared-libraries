@@ -87,9 +87,9 @@ class PortusApiData implements Serializable
 	
 	def private getPortusAuthHeaders()
 	{
-		def headers = [:]
+		def headers = []
 		
-		headers.put([name: "Portus-Auth", value: this.PortusUserName + ":" + this.inputPortusToken])
+		headers.add([name: "Portus-Auth", value: this.PortusUserName + ":" + this.inputPortusToken])
 		return headers
 	}
 
@@ -174,7 +174,7 @@ def init(environment, buildParameters)
 	PortusData = new PortusApiData(environment, buildParameters, this)
 }
 	
-def httpRequestWithPlugin(url, mode, headers = [:])
+def httpRequestWithPlugin(url, mode, headers = [])
 {	
 	def response = httpRequest httpMode: mode, url: url, acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', customHeaders: headers
 	
