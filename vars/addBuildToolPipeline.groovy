@@ -75,6 +75,18 @@ def call( environment, buildParameters )
 					}
 				}
 			}
+			
+			stage("Push Selected Image")
+			{
+				steps
+				{
+					script
+					{
+						println portusApi.PortusNameSpace
+						println portusApi.PortusImageName
+					}
+				}
+			}
 		}
 	}
 }

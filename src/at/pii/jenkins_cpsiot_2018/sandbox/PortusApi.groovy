@@ -32,6 +32,16 @@ class PortusApiData implements Serializable
 	
 	def chosenImage = ""
 	
+	def defaultImageName = ""
+	def defaultNameSpace = ""
+	
+	def PortusNameSpace = ""
+	def PortusImageName = ""
+	
+	def digest = ""
+	
+	def 
+	
 	PortusApiData(environment, buildParameters, outerClass)
 	{
 		this.environment = environment
@@ -233,7 +243,118 @@ class PortusApiData implements Serializable
 	def setChoice(userInput)
 	{
 		this.chosenImage = userInput
+		
+		this.digest = getDigestFromString()
+		
+		this.defaultImageName = generateDefaultImageName()
+		this.defaultNameSpace = generateDefaultNameSpace()
+		
+		//def PortusNameSpace = ""
+		//def PortusImageName = ""
+		
+		if( ! this.inputPortusNameSpace )
+			this.PortusNameSpace = this.defaultNameSpace
+		else
+			this.PortusNameSpace = this.inputPortusNameSpace
+		
+		if( ! this.inputPortusImageName )
+			this.PortusImageName = this.defaultImageName
+		else
+			this.PortusImageName = this.inputPortusImageName
 	}
+	
+	def getDigestFromString()
+	{
+	
+		def digest = ""
+		
+		if( ! this.chosenImage )
+			return digest
+		
+		if( ! this.manifests["manifests"] )
+			return digest
+	
+		def values = this.chosenImage.split(outer.constants.SPLITTER)
+		def pattern = values[1].trim()
+		
+		this.manifests["manifests"].each
+		{
+			manifest ->
+				// "digest": "sha256:3be17715f14ac6f0834554ab4fc7a7440449690e58d45291dfae420c8d3422f1",
+				
+				println manifest
+				def temp = manifest["digest"]
+				
+				def values2 = temp.split(':')
+				
+				
+				def match = values2[1].substring(0,10).trim()
+				if( match.equals(pattern) )
+				{
+					digest = manifest["digest"]
+					return true 
+				}
+		}
+		
+		return digest
+	}
+	
+	def generateDefaultImageName()
+	{
+		def image = this.inputPortusImageName
+		def resolve = image.split(':')
+		
+		if( resolve.length == 1 )
+		{
+			return outer.constants.DEFAULT_IMAGE_PREFIX + image.replaceAll("[\\W]", '_')
+		}
+		else
+		{
+			return outer.constants.DEFAULT_IMAGE_PREFIX + resolve[0].replaceAll("[\\W]", '_')
+		}
+	}
+	
+	def generateDefaultNameSpace()
+	{	
+		
+		if( ! this.digest )
+			return outer.constants.DEFAULT_NAMESPACE_PREFIX + constants.UNKNOWN_ARCH_OS
+		
+		//DEFAULT_NAMESPACE_PREFIX
+		def defaultNameSpace = outer.constants.DEFAULT_NAMESPACE_PREFIX
+		def platform = getPlatformFromDigest()
+		
+		list = []
+		platform.keySet().each
+		{
+			key ->
+				list.add(platform[key])
+		}
+		
+		return defaultNameSpace + list.join('_')
+		
+	}
+	
+	def getPlatformFromDigest()
+	{
+		
+		def platform = []
+		
+		this.manifests["manifests"].each
+		{
+			manifest ->
+				
+				if( manifest["digest"].equals(this.digest) )
+				{
+					platform = manifest["platform"]
+					return true 
+				}
+		}
+		
+		return platform
+	}
+	
+	
 }
 
 def PortusData
