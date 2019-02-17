@@ -324,7 +324,7 @@ class PortusApiData implements Serializable
 		def defaultNameSpace = outer.constants.DEFAULT_NAMESPACE_PREFIX
 		def platform = getPlatformFromDigest()
 		
-		list = []
+		def list = []
 		platform.keySet().each
 		{
 			key ->
