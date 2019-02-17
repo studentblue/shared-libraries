@@ -70,6 +70,7 @@ def call( environment, buildParameters )
 										parameters: [choice(name: 'SELECT_IMAGE', choices: choices, description: 'Select the image variant')])
 								
 								portusApi.setChoice(userInput)
+								println "Chosen: " + "\"${userInput}\""
 							}
 						}
 					}
