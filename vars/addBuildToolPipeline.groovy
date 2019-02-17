@@ -81,9 +81,8 @@ def call( environment, buildParameters )
 				steps
 				{
 					script
-					{
-						println portusApi.PortusNameSpace
-						println portusApi.PortusImageName
+					{						
+						input(id: "Push_Image", message: "Push as \"${portusApi.PortusImageName}\" in Namespace \"${portusApi.PortusNameSpace}\"", ok: 'PUSH')
 					}
 				}
 			}
