@@ -20,6 +20,7 @@ class PortusApiData implements Serializable
 	def inputPortusNameSpace 
 	def inputPortusNameSpaceDescription 
 	def inputPortusImageName
+	def inputCustomTeamName
 	
 	def environment
 	def buildParameters
@@ -54,14 +55,25 @@ class PortusApiData implements Serializable
 		this.PortusUrl = environment.REPO_URL
 		this.PortusUserName = environment.PORTUS_USER
 		
-		this.inputDockerHubRepo = environment.DockerHub_Repo_Name
-		this.inputDockerHubTag = environment.Tag_Name
+		
+		this.inputDockerHubRepo = environment.DockerHub.repo
+		this.inputDockerHubTag = environment.DockerHub.tag
 		
 		this.inputPortusToken = environment.TOKEN2
-		this.inputPortusTeam = environment.Teams
-		this.inputPortusNameSpace = environment.NameSpace
-		this.inputPortusNameSpaceDescription = environment.NameSpace_Description
-		this.inputPortusImageName = environment.Image_Name
+		this.inputPortusTeam = environment.Portus.team
+		this.inputPortusNameSpace = environment.Portus.namespace
+		this.inputPortusNameSpaceDescription = environment.Portus.description
+		this.inputPortusImageName = environment.Portus.repo
+		
+		//~ this.inputDockerHubRepo = environment.DockerHub_Repo_Name
+		//~ this.inputDockerHubTag = environment.Tag_Name
+		
+		//~ this.inputPortusToken = environment.TOKEN2
+		//~ this.inputPortusTeam = environment.Teams
+		//~ this.inputPortusNameSpace = environment.NameSpace
+		//~ this.inputPortusNameSpaceDescription = environment.NameSpace_Description
+		//~ this.inputPortusImageName = environment.Image_Name
+		//~ this.inputCustomTeamName = environment.Custom_Team_Name
 	}
 	
 	def getVars()
@@ -261,6 +273,10 @@ class PortusApiData implements Serializable
 			this.PortusImageName = this.defaultImageName
 		else
 			this.PortusImageName = this.inputPortusImageName
+	}
+	
+	def pushImage()
+	{
 	}
 	
 	def getDigestFromString()

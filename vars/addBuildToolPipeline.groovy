@@ -84,6 +84,8 @@ def call( environment, buildParameters )
 					script
 					{						
 						input(id: "Push_Image", message: "Push as \"${portusApi.PortusImageName}\" in Namespace \"${portusApi.PortusNameSpace}\"", ok: 'PUSH')
+						portusApi.pushImage()
+						
 					}
 				}
 			}
