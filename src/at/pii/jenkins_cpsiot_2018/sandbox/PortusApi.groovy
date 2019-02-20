@@ -11,17 +11,21 @@ class PortusApiData implements Serializable
 	def PortusUrl
 	def PortusUserName
 	
+	//Portus Auth
+	def inputPortusToken
+	
 	//Build Parameters from Input
-	//Docker
+	
+	//DockerHub
 	def inputDockerHubRepo
 	def inputDockerHubTag
+	
 	//Portus
-	def inputPortusToken
 	def inputPortusTeam
 	def inputPortusNameSpace 
 	def inputPortusNameSpaceDescription 
 	def inputPortusImageName
-	def inputCustomTeamName
+	def inputPortusTag
 	
 	def environment
 	def buildParameters
@@ -51,30 +55,8 @@ class PortusApiData implements Serializable
 	
 	def init(environment)
 	{
-		def userInput = Boon.fromJson(environment.AddBuildTool)
-		this.PortusUrl = environment.REPO_URL
-		this.PortusUserName = environment.PORTUS_USER
 		
-		
-		this.inputDockerHubRepo = environment.userInput.DockerHub.repo
-		this.inputDockerHubTag = environment.userInput.DockerHub.tag
-		
-		this.inputPortusToken = environment.TOKEN2
-		this.inputPortusTeam = environment.userInput.Portus.team
-		this.inputPortusNameSpace = environment.userInput.Portus.namespace
-		this.inputPortusNameSpaceDescription = environment.userInput.Portus.description
-		this.inputPortusImageName = environment.userInput.Portus.repo
-		
-		//~ this.inputDockerHubRepo = environment.DockerHub_Repo_Name
-		//~ this.inputDockerHubTag = environment.Tag_Name
-		
-		//~ this.inputPortusToken = environment.TOKEN2
-		//~ this.inputPortusTeam = environment.Teams
-		//~ this.inputPortusNameSpace = environment.NameSpace
-		//~ this.inputPortusNameSpaceDescription = environment.NameSpace_Description
-		//~ this.inputPortusImageName = environment.Image_Name
-		//~ this.inputCustomTeamName = environment.Custom_Team_Name
-		return userInput
+		this.environment = environment		
 	}
 	
 	def getVars()
@@ -92,6 +74,34 @@ class PortusApiData implements Serializable
 		
 	def checkInputParameters()
 	{
+		
+		
+		
+		this.inputPortusToken = this.environment.TOKEN2
+		this.PortusUrl = this.environment.REPO_URL
+		this.PortusUserName = this.environment.PORTUS_USER
+		
+		def userInput = Boon.fromJson(this.environment.AddBuildTool)
+		
+		if(userInput.DockerHub )
+		{
+			this.inputDockerHubRepo = userInput.DockerHub.repo
+			this.inputDockerHubTag = userInput.DockerHub.tag
+		}
+		else
+			return "DockerHub parameter not found"
+		
+		if(userInput.Portus )
+		{
+			this.inputPortusTeam = userInput.Portus.team
+			this.inputPortusNameSpace = userInput.Portus.namespace
+			this.inputPortusNameSpaceDescription = userInput.Portus.description
+			this.inputPortusImageName = userInput.Portus.repo
+			this.inputPortusTag = userInput.Portus.tag
+		}
+		else
+			return "Portus parameter not found"
+		
 		if ( ! this.PortusUrl )
 			return "Portus Url not found"
 		
