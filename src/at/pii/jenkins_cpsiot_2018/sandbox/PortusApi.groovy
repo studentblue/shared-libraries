@@ -52,18 +52,18 @@ class PortusApiData implements Serializable
 	def init(environment)
 	{
 		def userInput = Boon.fromJson(environment.AddBuildTool)
-		this.PortusUrl = environment.REPO_URL
-		this.PortusUserName = environment.PORTUS_USER
+		//~ this.PortusUrl = environment.REPO_URL
+		//~ this.PortusUserName = environment.PORTUS_USER
 		
 		
-		this.inputDockerHubRepo = environment.userInput.DockerHub.repo
-		this.inputDockerHubTag = environment.userInput.DockerHub.tag
+		//~ this.inputDockerHubRepo = environment.userInput.DockerHub.repo
+		//~ this.inputDockerHubTag = environment.userInput.DockerHub.tag
 		
-		this.inputPortusToken = environment.TOKEN2
-		this.inputPortusTeam = environment.userInput.Portus.team
-		this.inputPortusNameSpace = environment.userInput.Portus.namespace
-		this.inputPortusNameSpaceDescription = environment.userInput.Portus.description
-		this.inputPortusImageName = environment.userInput.Portus.repo
+		//~ this.inputPortusToken = environment.TOKEN2
+		//~ this.inputPortusTeam = environment.userInput.Portus.team
+		//~ this.inputPortusNameSpace = environment.userInput.Portus.namespace
+		//~ this.inputPortusNameSpaceDescription = environment.userInput.Portus.description
+		//~ this.inputPortusImageName = environment.userInput.Portus.repo
 		
 		//~ this.inputDockerHubRepo = environment.DockerHub_Repo_Name
 		//~ this.inputDockerHubTag = environment.Tag_Name
@@ -74,6 +74,7 @@ class PortusApiData implements Serializable
 		//~ this.inputPortusNameSpaceDescription = environment.NameSpace_Description
 		//~ this.inputPortusImageName = environment.Image_Name
 		//~ this.inputCustomTeamName = environment.Custom_Team_Name
+		return userInput
 	}
 	
 	def getVars()

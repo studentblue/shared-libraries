@@ -29,7 +29,7 @@ def call( environment, currentBuild )
 								jenkinsBuildApi.init( currentBuild )
 								println jenkinsBuildApi.getBuildNumber()
 								println env.AddBuildTool
-								portusApi.init(environment)
+								println portusApi.init(environment)
 								def message = portusApi.checkInputParameters()
 								if( message != true )
 									error(message)
