@@ -20,7 +20,7 @@ class JenkinsApiClass
 	
 	def getBuildNumber()
 	{
-		return this.currentBuild.getNumber()
+		return this.currentBuild.number
 	}
 }
 
