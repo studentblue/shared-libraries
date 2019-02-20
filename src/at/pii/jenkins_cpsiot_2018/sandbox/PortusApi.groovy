@@ -1,6 +1,7 @@
 package at.pii.jenkins_cpsiot_2018.sandbox
 
 import groovy.json.*
+import org.boon.Boon
 
 //import groovy.json.JsonSlurperClassic
 
@@ -52,18 +53,19 @@ class PortusApiData implements Serializable
 	
 	def init()
 	{
+		def userInput = Boon.fromJson(environment.AddBuildTool)
 		this.PortusUrl = environment.REPO_URL
 		this.PortusUserName = environment.PORTUS_USER
 		
 		
-		this.inputDockerHubRepo = environment.AddBuildTool.DockerHub.repo
-		this.inputDockerHubTag = environment.AddBuildTool.DockerHub.tag
+		this.inputDockerHubRepo = environment.userInput.DockerHub.repo
+		this.inputDockerHubTag = environment.userInput.DockerHub.tag
 		
 		this.inputPortusToken = environment.TOKEN2
-		this.inputPortusTeam = environment.AddBuildTool.Portus.team
-		this.inputPortusNameSpace = environment.AddBuildTool.Portus.namespace
-		this.inputPortusNameSpaceDescription = environment.AddBuildTool.Portus.description
-		this.inputPortusImageName = environment.AddBuildTool.Portus.repo
+		this.inputPortusTeam = environment.userInput.Portus.team
+		this.inputPortusNameSpace = environment.userInput.Portus.namespace
+		this.inputPortusNameSpaceDescription = environment.userInput.Portus.description
+		this.inputPortusImageName = environment.userInput.Portus.repo
 		
 		//~ this.inputDockerHubRepo = environment.DockerHub_Repo_Name
 		//~ this.inputDockerHubTag = environment.Tag_Name
