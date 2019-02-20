@@ -56,14 +56,14 @@ class PortusApiData implements Serializable
 		this.PortusUserName = environment.PORTUS_USER
 		
 		
-		this.inputDockerHubRepo = environment.DockerHub.repo
-		this.inputDockerHubTag = environment.DockerHub.tag
+		this.inputDockerHubRepo = environment.AddBuildTool.DockerHub.repo
+		this.inputDockerHubTag = environment.AddBuildTool.DockerHub.tag
 		
 		this.inputPortusToken = environment.TOKEN2
-		this.inputPortusTeam = environment.Portus.team
-		this.inputPortusNameSpace = environment.Portus.namespace
-		this.inputPortusNameSpaceDescription = environment.Portus.description
-		this.inputPortusImageName = environment.Portus.repo
+		this.inputPortusTeam = environment.AddBuildTool.Portus.team
+		this.inputPortusNameSpace = environment.AddBuildTool.Portus.namespace
+		this.inputPortusNameSpaceDescription = environment.AddBuildTool.Portus.description
+		this.inputPortusImageName = environment.AddBuildTool.Portus.repo
 		
 		//~ this.inputDockerHubRepo = environment.DockerHub_Repo_Name
 		//~ this.inputDockerHubTag = environment.Tag_Name
