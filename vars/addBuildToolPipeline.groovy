@@ -1,9 +1,9 @@
-def call( environment, buildParameters )
+def call( environment, currentBuild )
 {
 	//portusApiData = new at.pii.jenkins_cpsiot_2018.sandbox.PortusApi.PortusApiData(environment, buildParameters)
 	
 	portus = new at.pii.jenkins_cpsiot_2018.sandbox.PortusApi()
-	portus.init(environment, buildParameters)
+	portus.init()
 	portusApi = portus.PortusData
 	
 	jenkinsOuterBuildApi = new at.pii.jenkins_cpsiot_2018.sandbox.JenkinsApi()
@@ -29,7 +29,7 @@ def call( environment, buildParameters )
 								jenkinsBuildApi.init( currentBuild )
 								println jenkinsBuildApi.getBuildNumber()
 								println env.AddBuildTool
-								portusApi.init()
+								portusApi.init(environment)
 								def message = portusApi.checkInputParameters()
 								if( message != true )
 									error(message)

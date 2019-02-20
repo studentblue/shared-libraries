@@ -44,14 +44,12 @@ class PortusApiData implements Serializable
 	
 	def 
 	
-	PortusApiData(environment, buildParameters, outerClass)
-	{
-		this.environment = environment
-		this.buildParameters = buildParameters
+	PortusApiData(outerClass)
+	{		
 		this.outer = outerClass
 	}
 	
-	def init()
+	def init(environment)
 	{
 		def userInput = Boon.fromJson(environment.AddBuildTool)
 		this.PortusUrl = environment.REPO_URL
@@ -377,9 +375,9 @@ class PortusApiData implements Serializable
 
 def PortusData
 
-def init(environment, buildParameters)
+def init()
 {
-	PortusData = new PortusApiData(environment, buildParameters, this)
+	PortusData = new PortusApiData(this)
 }
 	
 def httpRequestWithPlugin(url, mode, headers = [])
