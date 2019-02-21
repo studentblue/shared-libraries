@@ -12,7 +12,7 @@ class DockerHub
 	
 	def Constants	
 	
-	DockerHub(inputJson, Constants)
+	def init(inputJson, Constants)
 	{
 		def input = new JsonSlurperClassic().parseText(inputJson)
 		this.Constants = Constants		
