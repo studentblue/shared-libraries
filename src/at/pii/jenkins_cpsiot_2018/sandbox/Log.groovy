@@ -1,5 +1,7 @@
 package at.pii.jenkins_cpsiot_2018.sandbox
 
+def outer
+
 class Log
 {
 	def private log = []
@@ -21,7 +23,7 @@ class Log
 	
 	Log()
 	{
-		constants = new at.pii.jenkins_cpsiot_2018.sandbox.Log.constants()
+		constants = new at.pii.jenkins_cpsiot_2018.sandbox.constants()
 	}
 	
 	def addEntry(scope, action, message )
