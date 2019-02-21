@@ -12,6 +12,8 @@ class Log
 	
 	def outer
 	
+	def constants
+	
 	//~ LogData(outerClass)
 	//~ {
 		//~ outer = outerClass
@@ -19,17 +21,18 @@ class Log
 	
 	Log()
 	{
+		constants = new at.pii.jenkins_cpsiot_2018.sandbox.constants()
 	}
 	
 	def addEntry(scope, action, message )
 	{
-		if( scope == at.pii.jenkins_cpsiot_2018.sandbox.constants.ERROR )
+		if( scope == constants.ERROR )
 		{
 			errors ++
 			log.add(ERROR + action + message )
 		}
 		
-		if( scope == at.pii.jenkins_cpsiot_2018.sandbox.constants.LOG )
+		if( scope == constants.LOG )
 		{
 			log.add(LOG + action + message )
 		}
