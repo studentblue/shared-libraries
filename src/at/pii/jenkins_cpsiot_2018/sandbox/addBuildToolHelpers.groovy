@@ -189,36 +189,27 @@ class addBuildToolHelpers
 		
 		
 		if( checkTeam )
-			validateTeam(team, teamDescription)
+		{
+			def code = PortusApi.validateTeam(team, teamDescription)
+			if( code == -1 )
+			{
+				log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Validation of team \"" + team + "\" failed")
+				return ""
+			}
+		}
 		
 		if( checkNamespace )
-			validateNamespace(namespace, team, description)
+		{
+			def code = PortusApi.validateNamespace(namespace, team, description)
 		
-		
+			if( code == -1 )
+			{
+				log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Validation of namespace \"" + namespace + "\" failed")
+				return ""
+			}
+		}
 		
 		return namespace + "/" + repo + ":" + tag
-	}
-	
-	def validateNamespace(namespace, team, description)
-	{
-		def code = PortusApi.validateNamespace(namespace)
-		
-		if( code == -1 )
-			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Validation of namespace \"" + namespace + "\" failed")
-		else
-		{
-			return true
-		}
-	}
-	
-	def validateTeam(team, teamDescription)
-	{
-		def code = PortusApi.validateTeam(team, teamDescription)
-		
-		if( code == -1 )
-			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Validation of team \"" + team + "\" failed")
-		
-		return
 	}
 	
 	def generateDefaultNameSpace()
