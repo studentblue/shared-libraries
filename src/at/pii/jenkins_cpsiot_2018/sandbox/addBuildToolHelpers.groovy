@@ -91,7 +91,7 @@ class addBuildToolHelpers
 				
 				def values = manifest["digest"].split(':')
 				
-				manifestDesc += outer.constants.SPLITTER + values[1].substring(0,10)
+				manifestDesc += Constants.SPLITTER + values[1].substring(0,10)
 				
 				choices.add(manifestDesc)
 		}
