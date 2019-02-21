@@ -12,13 +12,13 @@ class Log
 	
 	def addEntry(scope, action, message )
 	{
-		if( scope == constants.ERROR )
+		if( scope == at.pii.jenkins_cpsiot_2018.sandbox.constants.ERROR )
 		{
 			this.errors ++
 			this.log.add(this.ERROR + action + message )
 		}
 		
-		if( scope == constants.LOG )
+		if( scope == at.pii.jenkins_cpsiot_2018.sandbox.constants.LOG )
 		{
 			this.log.add(this.LOG + action + message )
 		}
