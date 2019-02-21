@@ -83,7 +83,7 @@ def call( environment, currentBuild )
 				{
 					script
 					{						
-						input(id: "Push_Image", message: "Push as \"${portusApi.namespace}\/${portusApi.repoName}:${portusApi.repoTag}\"", ok: 'PUSH')
+						input(id: "Push_Image", message: "Push as \"${portusApi.namespace}/${portusApi.repoName}:${portusApi.repoTag}\"", ok: 'PUSH')
 						//portusApi.pushImage()
 						
 					}
