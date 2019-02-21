@@ -14,7 +14,7 @@ class Log
 	
 	Log()
 	{
-		Constants = new at.pii.jenkins_cpsiot_2018.sandbox.Constants()
+		Constants = new Constants()
 		log = []
 		
 	}
