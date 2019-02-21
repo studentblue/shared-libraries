@@ -1,6 +1,6 @@
 package at.pii.jenkins_cpsiot_2018.sandbox
 
-class Constants
+static class Constants
 {
 	def SPLITTER = " @::@ "
 	def ERROR = 1

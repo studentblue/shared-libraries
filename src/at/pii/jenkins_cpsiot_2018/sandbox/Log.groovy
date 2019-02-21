@@ -14,8 +14,8 @@ class Log
 	
 	Log()
 	{
-		Constants = new Constants()
-		log = []
+		//~ Constants = new Constants()
+		//~ log = []
 		
 	}
 	
