@@ -2,6 +2,8 @@ package at.pii.jenkins_cpsiot_2018.sandbox
 
 import groovy.json.*
 
+def Constants = new Constants()
+
 def httpRequestWithPlugin(url, mode, headers = [], body = "")
 {	
 	def response = httpRequest httpMode: mode, url: url, acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', customHeaders: headers, requestBody: body
