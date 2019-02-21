@@ -77,6 +77,10 @@ class DockerHub
 		def headers = [[name: "Authorization", value: "test"], [name: "accept", value: accept_types]]
 		utils.httpRequestWithPlugin("https://docker-registry-cpsiot-2018.pii.at/api/v1/_ping", Constants.HTTP_MODE_GET, headers)
 		
+		
+		def test = "test"
+		headers = [[name: "Authorization", value: "${test}"], [name: "accept", value: accept_types]]
+		
 		utils.httpRequestWithPlugin("https://docker-registry-cpsiot-2018.pii.at/api/v1/_ping", Constants.HTTP_MODE_GET, headers)
 		//~ try
 		//~ {
