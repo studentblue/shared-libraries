@@ -18,11 +18,11 @@ class DockerHub implements Serializable
 	def private final ACTION_CHECK
 	def private final ACTION_EXCEPTION
 	
-	def Constants
+	def ConstantsRef
 	
-	DockerHub(repo, tag, Constants)
+	DockerHub(repo, tag, ConstantsRef)
 	{
-		this.Constants = Constants				
+		this.ConstantsRef = ConstantsRef
 		
 		if( repo )
 			repoInput = repo
@@ -30,13 +30,13 @@ class DockerHub implements Serializable
 		if( tag )
 			tagInput = tag
 		
-		log = new Log(Constants)
+		log = new Log(ConstantsRef)
 		utils = new Utils()
 		
-		log.addEntry(Constants.LOG, Constants.ACTION_LOG_START, "DockerHub init" )
+		log.addEntry(ConstantsRef.LOG, ConstantsRef.ACTION_LOG_START, "DockerHub init" )
 		
 		if( ! repoInput )
-			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "DockerHub repo init failed" )
+			log.addEntry(ConstantsRef.ERROR, ConstantsRef.ACTION_CHECK, "DockerHub repo init failed" )
 	}
 	/*
 	def getManifests()
