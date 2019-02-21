@@ -12,7 +12,7 @@ class Log
 	
 	def Constants
 	
-	init(Constants)
+	def init(Constants)
 	{
 		this.Constants = Constants
 		log = []
