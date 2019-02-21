@@ -60,17 +60,7 @@ def call( environment, currentBuild )
 					}
 				}
 			}
-			/*
-			stage('Fetch Manifests from DockerHub')
-			{
-				steps
-				{
-					script
-					{
-						portusApi.getManifestsFromDockhub()
-					}
-				}
-			}
+			
 			
 			stage('Select Image')
 			{
@@ -80,14 +70,14 @@ def call( environment, currentBuild )
 					{
 						script
 						{	
-							def choices = portusApi.getChoices()
+							def choices = AddBuildToolHelpers.getChoices()
 							
 							if( choices )
 							{
 								def userInput = input(id: "Digest", message: 'Please Select Image', ok: 'Select',
 										parameters: [choice(name: 'SELECT_IMAGE', choices: choices, description: 'Select the image variant')])
 								
-								portusApi.setChoice(userInput)
+								AddBuildToolHelpers.setChoice(userInput)
 								println "Chosen: " + "\"${userInput}\""
 							}
 						}
@@ -95,6 +85,7 @@ def call( environment, currentBuild )
 				}
 			}
 			
+			/*			
 			stage("Push Selected Image")
 			{
 				steps

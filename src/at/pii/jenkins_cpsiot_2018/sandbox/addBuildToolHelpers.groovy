@@ -19,6 +19,10 @@ class addBuildToolHelpers
 	def DockerHub
 	def utils
 	
+	def userChoice
+	
+	def digest
+	
 	def init( inputParameter, PortusApi, DockerHub, Constants  )
 	{
 		input = new JsonSlurperClassic().parseText(inputParameter)
@@ -61,5 +65,59 @@ class addBuildToolHelpers
 	def getLog()
 	{
 		return log
+	}
+	
+	def getChoices()
+	{
+		def choices = []
+	
+		if( ! DockerHub.getManifests()["manifests"] )
+		{
+			log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Manifests not defined for this repo" )
+			return choices
+		}
+		
+		DockerHub.getManifests()["manifests"].each
+		{
+			manifest ->
+				
+				def manifestDesc = ""
+				
+				manifest["platform"].keySet().each
+				{
+					detail ->
+						manifestDesc += detail + ": " + manifest["platform"][detail] + ", "
+				}
+				
+				def values = manifest["digest"].split(':')
+				
+				manifestDesc += outer.constants.SPLITTER + values[1].substring(0,10)
+				
+				choices.add(manifestDesc)
+		}
+		return choices
+	}
+	
+	def setChoice(userInput)
+	{
+		userChoice = userInput
+		
+		digest = DockerHub.getDigestFromString(userChoice)
+		
+		//~ this.defaultImageName = generateDefaultImageName()
+		//~ this.defaultNameSpace = generateDefaultNameSpace()
+		
+		//~ def PortusNameSpace = ""
+		//~ def PortusImageName = ""
+		
+		//~ if( ! this.inputPortusNameSpace )
+			//~ this.PortusNameSpace = this.defaultNameSpace
+		//~ else
+			//~ this.PortusNameSpace = this.inputPortusNameSpace
+		
+		//~ if( ! this.inputPortusImageName )
+			//~ this.PortusImageName = this.defaultImageName
+		//~ else
+			//~ this.PortusImageName = this.inputPortusImageName
 	}
 }
