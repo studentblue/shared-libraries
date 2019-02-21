@@ -22,10 +22,7 @@ class DockerHub
 	
 	DockerHub(repo, tag, Constants)
 	{
-		this.Constants = Constants
-		this.log = log
-		this.utils = utils
-				
+		this.Constants = Constants				
 		repoInput = repo
 		tagInput = tag
 		
