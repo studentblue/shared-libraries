@@ -156,18 +156,28 @@ class PortusApi
 		def mode = Constants.HTTP_MODE_POST
 		def body = JsonOutput.toJson([name: namespace, team: team, description: description])
 		
-		
-		def response = makeRequest(url, mode, getPortusAuthHeaders(), body)
-		def content = new JsonSlurperClassic().parseText(response.content)
-		
-		if( response.status == Constants.HTTP_RESPONSE_CREATED )
+		try
 		{
-			log.addEntry(Constants.LOG, Constants.NAMESPACE_CREATED, "Namespace: " + namespace + " = " + content)
-			return true
+			def response = makeRequest(url, mode, getPortusAuthHeaders(), body)
+			def content = new JsonSlurperClassic().parseText(response.content)
+			
+			if( response.status == Constants.HTTP_RESPONSE_CREATED )
+			{
+				log.addEntry(Constants.LOG, Constants.NAMESPACE_CREATED, "Namespace: " + namespace + " = " + content)
+				return true
+			}
+			else
+			{
+				log.addEntry(Constants.ERROR, Constants.HTTP_ERROR, "Tried to create namespace \""+namespace+"\" got Code " + response.status)
+				return -1
+			}
 		}
-		else
+		catch( Exception e )
 		{
-			log.addEntry(Constants.ERROR, Constants.HTTP_ERROR, "Tried to create namespace \""+namespace+"\" got Code " + response.status)
+			if( response )
+				log.addEntry(Constants.ERROR, Constants.HTTP_ERROR, "Tried to create namespace \""+namespace+"\" got Code " + response.status)
+			
+			log.addEntry(Constants.ERROR, Constants.ACTION_EXCEPTION, "Tried to create namespace \""+namespace+"\" got " + e.getMessage())
 			return -1
 		}
 	}
