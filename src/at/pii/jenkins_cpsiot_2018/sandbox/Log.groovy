@@ -12,7 +12,7 @@ class Log implements Serializable
 	
 	def Constants
 	
-	def init(Constants)
+	Log(Constants)
 	{
 		this.Constants = Constants
 		log = []
