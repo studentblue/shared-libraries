@@ -23,7 +23,9 @@ class DockerHub
 		if( input.DockerHub.tag )
 			tagInput = input.DockerHub.tag
 		
-		log = new Log(Constants)
+		log = new Log()
+		
+		log.init(Constants)
 
 		utils = new Utils()
 		

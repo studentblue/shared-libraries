@@ -42,7 +42,7 @@ def call( environment, currentBuild )
 								//DockerHub.getManifests()
 								//println DockerHub.getLog().printLog()
 								
-								println DockerHub.getLog()
+								println DockerHub.getLog().printLog()
 								//println "Test"
 								
 								//dockerHub.print()
