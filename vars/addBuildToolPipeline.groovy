@@ -111,9 +111,12 @@ def call( environment, currentBuild )
 				echo 'Runs always'
 				script
 				{
-					println DockerHub.getLog().printLog()
-					println PortusApi.getLog().printLog()
-					println AddBuildToolHelpers.getLog().printLog()
+					if( DockerHub.getLog() )
+						println DockerHub.getLog().printLog()
+					if( PortusApi.getLog() ) 
+						println PortusApi.getLog().printLog()
+					if( AddBuildToolHelpers.getLog() )
+						println AddBuildToolHelpers.getLog().printLog()
 				}
 			}
 	

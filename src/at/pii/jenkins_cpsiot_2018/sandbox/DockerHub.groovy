@@ -67,7 +67,7 @@ class DockerHub
 			}
 			else
 			{
-				log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "DockerHub repo not valid" )
+				log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "DockerHub repo not valid: " + image + "/" + tag )
 				return false
 			}
 		}
@@ -77,7 +77,7 @@ class DockerHub
 		if( manifests )
 			log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Manifests Fetched from DockerHub for " + image + ":" + tag )
 		else
-			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Failed to fetch Manifests for "  + image + ":" + tag)
+			log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Failed to fetch Manifests for "  + image + ":" + tag)
 		
 		return true
 	}
