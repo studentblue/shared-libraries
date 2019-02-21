@@ -85,7 +85,7 @@ class PortusApi
 			
 			if( content.valid )
 			{
-				return PortusApi.postNamespace(namespace, team, description)
+				return postNamespace(namespace, team, description)
 			}
 			else
 				log.addEntry(Constants.LOG, Constants.NAMESPACE_FOUND, "Namespace: " + namespace + " not created" )
