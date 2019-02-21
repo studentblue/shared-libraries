@@ -22,6 +22,7 @@ class Constants
 	final String ACTION_ALERT = "ALERT: "
 	final String ACTION_VALIDATE = "VALIDATE: "
 	final String NAMESPACE_CREATED = "ADDED_NEW_NAMESPACE: "
+	final String NAMESPACE_FOUND = "NAMESPACE_FOUND: "
 	final String TEAM_CREATED = "ADDED_NEW_TEAM: "
 	final String HTTP_MODE_GET = "GET"
 	final String HTTP_MODE_POST = "POST"

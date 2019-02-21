@@ -71,7 +71,7 @@ class PortusApi
 			
 	}
 	
-	def validateNamespace(namespace)
+	def validateNamespace(namespace, team, description)
 	{
 		def url = PortusUrl + namespacesApi + "/validate?name=" + namespace
 		def mode = Constants.HTTP_MODE_GET
@@ -82,13 +82,21 @@ class PortusApi
 		{
 			def content = new JsonSlurperClassic().parseText(response.content)
 			log.addEntry(Constants.LOG, Constants.ACTION_VALIDATE, "Namespace: " + namespace + " = " + content.valid)
-			return content.valid
+			
+			if( content.valid )
+			{
+				return PortusApi.postNamespace(namespace, team, description)
+			}
+			else
+				log.addEntry(Constants.LOG, Constants.NAMESPACE_FOUND, "Namespace: " + namespace + " not created" )
 		}
 		else
 		{
 			log.addEntry(Constants.ERROR, Constants.HTTP_ERROR, "Tried to validate namespace \""+namespace+"\" got Code " + response.status)
 			return -1
 		}
+		
+		return true
 	}
 	
 	def validateTeam(teamToFind, teamDescription)

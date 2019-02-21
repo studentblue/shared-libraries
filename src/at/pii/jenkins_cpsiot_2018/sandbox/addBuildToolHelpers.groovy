@@ -207,19 +207,8 @@ class addBuildToolHelpers
 			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Validation of namespace \"" + namespace + "\" failed")
 		else
 		{
-			if( valid )
-				return
-			else
-			{
-				code = PortusApi.postNamespace(namespace, team, description)
-				
-				if( code == -1 )
-					log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Creation of namespace \"" + namespace + "\" failed")
-			}
-				
+			return true
 		}
-		
-		return
 	}
 	
 	def validateTeam(team, teamDescription)
