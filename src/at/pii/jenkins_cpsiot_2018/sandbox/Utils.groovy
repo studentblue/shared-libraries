@@ -49,8 +49,9 @@ def getDockerManifests(repo, tag)
 			responseGroovy =  new JsonSlurperClassic().parseText(response.content)
 			return responseGroovy
 		}
+	}
 		
-		return false
+	return false
 		
 }
 
