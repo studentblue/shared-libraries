@@ -12,20 +12,24 @@ class LogData
 	
 	def outer
 	
-	LogData(outerClass)
+	//~ LogData(outerClass)
+	//~ {
+		//~ outer = outerClass
+	//~ }
+	
+	LogData()
 	{
-		outer = outerClass
 	}
 	
 	def addEntry(scope, action, message )
 	{
-		if( scope == outer.constants.ERROR )
+		if( scope == at.pii.jenkins_cpsiot_2018.sandbox.constants.ERROR )
 		{
 			errors ++
 			log.add(ERROR + action + message )
 		}
 		
-		if( scope == outer.constants.LOG )
+		if( scope == at.pii.jenkins_cpsiot_2018.sandbox.constants.LOG )
 		{
 			log.add(LOG + action + message )
 		}
@@ -58,11 +62,11 @@ class LogData
 	}
 }
 
-def Data
+//~ def Data
 
-def init()
-{
-	Data = new LogData( this )
-}
+//~ def init()
+//~ {
+	//~ Data = new LogData( this )
+//~ }
 
-return this
+//~ return this
