@@ -224,7 +224,7 @@ class addBuildToolHelpers
 		
 		//DEFAULT_NAMESPACE_PREFIX
 		def defaultNameSpace = Constants.DEFAULT_NAMESPACE_PREFIX
-		def platform = DockerHub.getPlatformFromDigest()
+		def platform = DockerHub.getPlatformFromDigest(digest)
 		
 		def list = []
 		platform.keySet().each
