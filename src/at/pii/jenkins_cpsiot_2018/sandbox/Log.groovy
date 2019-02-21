@@ -10,14 +10,15 @@ class Log
 	
 	def private final ERROR = "error: "
 	
-	
+	def constants
 	//~ LogData(outerClass)
 	//~ {
 		//~ outer = outerClass
 	//~ }
 	
-	Log()
+	Log(constants)
 	{
+		this.constants = constants
 	}
 	
 	def addEntry(scope, action, message )

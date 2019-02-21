@@ -12,8 +12,10 @@ def call( environment, currentBuild )
 	*/
 	
 	//DockerHub = new at.pii.jenkins_cpsiot_2018.sandbox.DockerHub()
+	Constants = new at.pii.jenkins_cpsiot_2018.sandbox.constants()
 	
-	def Log = new at.pii.jenkins_cpsiot_2018.sandbox.Log()
+	Log = new at.pii.jenkins_cpsiot_2018.sandbox.Log(Constants)
+	
 	//Log.init()
 	//Log = Log.Data
 	
