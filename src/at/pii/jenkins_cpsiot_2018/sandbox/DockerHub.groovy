@@ -38,7 +38,7 @@ class DockerHub implements Serializable
 		if( ! repoInput )
 			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "DockerHub repo init failed" )
 	}
-	
+	/*
 	def getManifests()
 	{
 		def image = repoInput
@@ -107,4 +107,5 @@ class DockerHub implements Serializable
 	{
 		return log
 	}
+	*/
 }

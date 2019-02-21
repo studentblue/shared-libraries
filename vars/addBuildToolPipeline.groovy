@@ -34,8 +34,8 @@ def call( environment, currentBuild )
 							script
 							{
 								
-								DockerHub.getManifests()
-								println DockerHub.getLog().printLog()
+								//DockerHub.getManifests()
+								//println DockerHub.getLog().printLog()
 								
 								
 								
