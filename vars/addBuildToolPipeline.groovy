@@ -34,6 +34,7 @@ def call( environment, currentBuild )
 							script
 							{
 								println environment.AddBuildTool
+								println DockerHub.init(environment.AddBuildTool, Constants)
 								//DockerHub.init(environment.AddBuildTool, Constants)
 								//DockerHub.getManifests()
 								//println DockerHub.getLog().printLog()
