@@ -11,7 +11,7 @@ def call( environment, currentBuild )
 	jenkinsBuildApi = jenkinsOuterBuildApi.jenkinsApiInstance
 	*/
 	
-	dockerHub = new at.pii.jenkins_cpsiot_2018.sandbox.DockerHub()
+	DockerHub = new at.pii.jenkins_cpsiot_2018.sandbox.DockerHub()
 	
 	pipeline
 	{
@@ -28,8 +28,8 @@ def call( environment, currentBuild )
 						{
 							script
 							{
-								//DockerHub.init(environment.AddBuildTool.DockerHub.repo, environment.AddBuildTool.DockerHub.tag)
-								dockerHub.print()
+								DockerHub.init(environment.AddBuildTool.DockerHub.repo, environment.AddBuildTool.DockerHub.tag)
+								//dockerHub.print()
 								//jenkinsBuildApi.init( currentBuild )
 								//println jenkinsBuildApi.getBuildNumber()
 								//println env.AddBuildTool
