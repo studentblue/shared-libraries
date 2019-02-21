@@ -95,7 +95,7 @@ class DockerHub
 		}
 		catch(Exception e)
 		{
-			log.addEntry(Constants.ERROR, Constants.ACTION_EXCEPTION, e.message() )
+			log.addEntry(Constants.ERROR, Constants.ACTION_EXCEPTION, e.getMessage() )
 		}
 	}
 	
