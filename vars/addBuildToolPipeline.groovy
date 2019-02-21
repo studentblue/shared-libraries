@@ -33,7 +33,7 @@ def call( environment, currentBuild )
 						{
 							script
 							{
-								Log.addEntry(Constants.ERROR, Constants.ACTION_CREATED, "Test" )
+								Log.addEntry(at.pii.jenkins_cpsiot_2018.sandbox.Constants.ERROR, at.pii.jenkins_cpsiot_2018.sandbox.Constants.ACTION_CREATED, "Test" )
 								println Log.getLog()
 								//DockerHub.init(environment.AddBuildTool.DockerHub.repo, environment.AddBuildTool.DockerHub.tag)
 								//dockerHub.print()
