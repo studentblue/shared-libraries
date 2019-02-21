@@ -368,6 +368,11 @@ class PortusApiData implements Serializable
 		return platform
 	}
 	
+	def generatePortus()
+	{
+		
+	}
+	
 	
 }
 

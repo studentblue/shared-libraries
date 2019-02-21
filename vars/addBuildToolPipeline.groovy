@@ -84,8 +84,9 @@ def call( environment, currentBuild )
 				steps
 				{
 					script
-					{						
-						input(id: "Push_Image", message: "Push as \"${portusApi.namespace}/${portusApi.repoName}:${portusApi.repoTag}\"", ok: 'PUSH')
+					{
+						portusApi.generatePortus()
+						//input(id: "Push_Image", message: "Push as \"${portusApi.namespace}/${portusApi.repoName}:${portusApi.repoTag}\"", ok: 'PUSH')
 						//portusApi.pushImage()
 						
 					}
