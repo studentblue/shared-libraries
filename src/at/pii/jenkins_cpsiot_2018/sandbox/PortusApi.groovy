@@ -41,6 +41,8 @@ class PortusApiData implements Serializable
 	
 	def userChoice
 	
+	def digest
+	
 	PortusApiData(outerClass)
 	{		
 		this.outer = outerClass
@@ -256,6 +258,8 @@ class PortusApiData implements Serializable
 	{
 		this.userChoice = userInput
 		
+		this.digest = getDigestFromString()
+		
 		//~ this.defaultImageName = generateDefaultImageName()
 		//~ this.defaultNameSpace = generateDefaultNameSpace()
 		
@@ -282,13 +286,13 @@ class PortusApiData implements Serializable
 	
 		def digest = ""
 		
-		if( ! this.chosenImage )
+		if( ! this.userChoice )
 			return digest
 		
 		if( ! this.manifests["manifests"] )
 			return digest
 	
-		def values = this.chosenImage.split(outer.constants.SPLITTER)
+		def values = this.userChoice.split(outer.constants.SPLITTER)
 		def pattern = values[1].trim()
 		
 		this.manifests["manifests"].each
@@ -371,6 +375,74 @@ class PortusApiData implements Serializable
 	def generatePortus()
 	{
 		
+		//~ def dockerHubRepo
+		//~ def dockerHubTag
+		
+		
+		//~ def inputParameter
+		
+		
+		//~ def namespace
+		//~ def nameSpaceDescription
+		//~ def team
+		//~ def repoName
+		//~ def repoTag
+		
+		//~ def environment
+		//~ def buildParameters
+		
+		//~ def userChoice
+		
+		//generate namespace
+		if( this.inputParameter.Namespace.name && this.inputParameter.NamespaceteamFromNamespace )
+		{
+			this.namespace = this.inputParameter.Namespace.name.name
+			return true
+		}
+		else
+		{
+			def namespace = getPortusNameSpace( this.inputParameter.Namespace )
+			//generate default namespace name
+			
+			if( namespace == false )
+				return false
+			else
+			{
+				this.namespace = namespace
+				return true
+			}
+			
+		}
+	}
+	
+	def getPortusNameSpace( namespace )
+	{
+		def newNameSpace = ""
+		
+		if( namespace.newName == true)
+		{
+			newNameSpace = generateDefaultNameSpace()
+		}
+		else
+		{
+			newNameSpace = namespace.newName
+		}
+		
+		def url = URLEncoder.encode(this.PortusUrl + "/api/v1/namespaces/validate?" + newNameSpace, "UTF-8")
+		def mode = 'GET'
+		def headers = getPortusAuthHeaders()
+		
+		def response = outer.httpRequestWithPlugin(url, mode, headers)
+		
+		if( response == false )
+			return false
+		
+		response = new JsonSlurperClassic().parseText(response.content)
+		
+		if( response.valid )
+			return newNameSpace
+		else
+			return false
 	}
 	
 	

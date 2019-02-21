@@ -85,7 +85,8 @@ def call( environment, currentBuild )
 				{
 					script
 					{
-						portusApi.generatePortus()
+						if ( ! portusApi.generatePortus() )
+							error("could not validate Portus settings")
 						//input(id: "Push_Image", message: "Push as \"${portusApi.namespace}/${portusApi.repoName}:${portusApi.repoTag}\"", ok: 'PUSH')
 						//portusApi.pushImage()
 						
