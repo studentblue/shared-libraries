@@ -42,7 +42,7 @@ def getDockerManifests(repo, tag)
 		def dockerHubToken = responseGroovy["token"]
 		def headers = [[name: "Authorization", value: "Bearer "+dockerHubToken], [name: "accept", value: accept_types]]
 		//~ response = utils.httpRequestWithPlugin(get_manifest_template, Constants.HTTP_MODE_GET, headers)
-		response = httpRequest httpMode: mode, url: url, acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', customHeaders: headers, requestBody: body
+		response = httpRequest httpMode: mode, url: get_manifest_template, acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', customHeaders: headers, requestBody: body
 		
 		if( response.status == Constants.HTTP_RESPONSE_OK )
 		{
