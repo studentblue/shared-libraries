@@ -21,19 +21,19 @@ class LogData
 	{
 		if( scope == outer.constants.ERROR )
 		{
-			this.errors ++
-			this.log.add(this.ERROR + action + message )
+			errors ++
+			log.add(this.ERROR + action + message )
 		}
 		
 		if( scope == outer.constants.LOG )
 		{
-			this.log.add(this.LOG + action + message )
+			log.add(this.LOG + action + message )
 		}
 	}
 	
 	def errorsOccured()
 	{
-		if( this.errors > 0 )
+		if( errors > 0 )
 			return true
 		else
 			return false
@@ -48,7 +48,7 @@ class LogData
 	{
 		def logAsString = ""
 		
-		this.log.each
+		log.each
 		{
 			entry ->
 				logAsString += entry + "\n"
