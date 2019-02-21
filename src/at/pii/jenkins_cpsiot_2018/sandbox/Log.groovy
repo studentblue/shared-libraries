@@ -1,4 +1,4 @@
-//~ package at.pii.jenkins_cpsiot_2018.sandbox
+package at.pii.jenkins_cpsiot_2018.sandbox
 
 class Log
 {
@@ -10,26 +10,15 @@ class Log
 	
 	def private final ERROR = "error: "
 	
-	def constants
-	//~ LogData(outerClass)
-	//~ {
-		//~ outer = outerClass
-	//~ }
-	
-	Log(constants)
-	{
-		this.constants = constants
-	}
-	
 	def addEntry(scope, action, message )
 	{
-		if( scope == constants.ERROR )
+		if( scope == Constants.ERROR )
 		{
 			errors ++
 			log.add(ERROR + action + message )
 		}
 		
-		if( scope == constants.LOG )
+		if( scope == Constants.LOG )
 		{
 			log.add(LOG + action + message )
 		}
