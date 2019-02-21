@@ -1,7 +1,6 @@
 package at.pii.jenkins_cpsiot_2018.sandbox
 
-class Constants
-{
+
 	def SPLITTER = " @::@ "
 	def ERROR = 1
 	def LOG = 2
@@ -17,4 +16,5 @@ class Constants
 	def HTTP_MODE_POST = "POST"
 	def HTTP_RESPONSE_OK = 200
 	def HTTP_RESPONSE_CREATED = 201
-}
+
+return this
