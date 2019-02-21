@@ -128,7 +128,7 @@ class DockerHub
 		return digest
 	}
 	
-	getPlatformFromDigest(digest)
+	def getPlatformFromDigest(digest)
 	{
 		def platform = []
 		
