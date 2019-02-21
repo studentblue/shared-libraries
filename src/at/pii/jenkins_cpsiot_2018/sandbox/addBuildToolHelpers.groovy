@@ -214,7 +214,7 @@ class addBuildToolHelpers
 	
 	def generateDefaultNameSpace()
 	{	
-		def user = PortusApi.PortusUserName()
+		def user = PortusApi.getPortusUserName()
 		
 		user = user.replace(/^[\W_]*/, "")
 		user = user.replace(/[\W_]*$/, "")
