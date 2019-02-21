@@ -103,6 +103,9 @@ class PortusApiData implements Serializable
 		if(! this.inputParameter.DockerHub )		
 			return "DockerHub parameter not found"
 		
+		this.dockerHubRepo = inputParameter.DockerHub.repo
+		this.dockerHubTag = inputParameter.DockerHub.tag
+		
 		if(! this.inputParameter.Namespace )
 			return "Namespace parameter not found"
 		
@@ -154,7 +157,7 @@ class PortusApiData implements Serializable
 	{
 		def headers = []
 		
-		headers.add([name: "Portus-Auth", value: this.PortusUserName + ":" + this.inputPortusToken])
+		headers.add([name: "Portus-Auth", value: this.PortusUserName + ":" + this.portusToken])
 		return headers
 	}
 
@@ -174,8 +177,8 @@ class PortusApiData implements Serializable
 	
 	def getManifestsFromDockhub()
 	{				
-		def image = this.inputDockerHubRepo
-		def resolve = this.inputDockerHubRepo.split(':')
+		def image = this.dockerHubRepo
+		def resolve = this.dockerHubRepo.split(':')
 		
 		def tag = "latest"
 		
@@ -184,8 +187,8 @@ class PortusApiData implements Serializable
 			if( ! image.contains("/") )
 				image = "library/" + image
 			
-			if( this.inputDockerHubTag )
-				tag = this.inputDockerHubTag
+			if( this.dockerHubTag )
+				tag = this.dockerHubTag
 		}
 		else
 		{
