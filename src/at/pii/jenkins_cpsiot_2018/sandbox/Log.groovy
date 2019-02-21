@@ -1,6 +1,6 @@
 package at.pii.jenkins_cpsiot_2018.sandbox
 
-class LogData
+class Log
 {
 	def private log = []
 	
@@ -17,7 +17,7 @@ class LogData
 		//~ outer = outerClass
 	//~ }
 	
-	LogData()
+	Log()
 	{
 	}
 	
