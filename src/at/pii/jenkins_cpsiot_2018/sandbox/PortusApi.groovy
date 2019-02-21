@@ -394,7 +394,7 @@ class PortusApiData implements Serializable
 		//~ def userChoice
 		
 		//generate namespace
-		if( this.inputParameter.Namespace.name && this.inputParameter.NamespaceteamFromNamespace )
+		if( this.inputParameter.Namespace.name && this.inputParameter.Namespace.teamFromNamespace )
 		{
 			this.namespace = this.inputParameter.Namespace.name.name
 			return true
@@ -428,7 +428,8 @@ class PortusApiData implements Serializable
 			newNameSpace = namespace.newName
 		}
 		
-		def url = URLEncoder.encode(this.PortusUrl + "/api/v1/namespaces/validate?" + newNameSpace, "UTF-8")
+		//~ def url = URLEncoder.encode(this.PortusUrl + "/api/v1/namespaces/validate?" + newNameSpace, "UTF-8")
+		def url = this.PortusUrl + "/api/v1/namespaces/validate?" + newNameSpace
 		def mode = 'GET'
 		def headers = getPortusAuthHeaders()
 		
