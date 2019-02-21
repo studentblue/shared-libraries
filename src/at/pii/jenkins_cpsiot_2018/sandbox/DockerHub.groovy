@@ -29,13 +29,13 @@ class DockerHub implements Serializable
 		if( tag )
 			tagInput = tag
 		
-		log = new Log(ConstantsRef)
-		utils = new Utils()
+		//~ log = new Log(ConstantsRef)
+		//~ utils = new Utils()
 		
-		log.addEntry(ConstantsRef.LOG, ConstantsRef.ACTION_LOG_START, "DockerHub init" )
+		//~ log.addEntry(ConstantsRef.LOG, ConstantsRef.ACTION_LOG_START, "DockerHub init" )
 		
-		if( ! repoInput )
-			log.addEntry(ConstantsRef.ERROR, ConstantsRef.ACTION_CHECK, "DockerHub repo init failed" )
+		//~ if( ! repoInput )
+			//~ log.addEntry(ConstantsRef.ERROR, ConstantsRef.ACTION_CHECK, "DockerHub repo init failed" )
 	}
 	/*
 	def getManifests()
