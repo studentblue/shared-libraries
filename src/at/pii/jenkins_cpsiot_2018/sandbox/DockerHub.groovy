@@ -90,7 +90,12 @@ class DockerHub
 				if( response.status == Constants.HTTP_RESPONSE_OK )
 				{
 					responseGroovy =  new JsonSlurperClassic().parseText(response.content)
-					this.manifests = responseGroovy
+					manifests = responseGroovy
+					
+					if( this.manifests )
+						log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Manifests Fetched from DockerHub for " + image + ":" + tag )
+					else
+						log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Failed to fetch Manifests for "  + image + ":" + tag)
 				}
 					
 			}

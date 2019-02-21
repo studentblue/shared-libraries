@@ -6,10 +6,10 @@ def httpRequestWithPlugin(url, mode, headers = [], body = "")
 {	
 	def response = httpRequest httpMode: mode, url: url, acceptType: 'APPLICATION_JSON', contentType: 'APPLICATION_JSON', customHeaders: headers, requestBody: body
 	
-	if( mode.equals(constants.HTTP_MODE_GET) && response.status == constants.HTTP_RESPONSE_OK )
+	if( mode.equals(Constants.HTTP_MODE_GET) && response.status == Constants.HTTP_RESPONSE_OK )
 		return response
 	
-	if( mode.equals(constants.HTTP_MODE_POST) && response.status == constants.HTTP_RESPONSE_CREATED )
+	if( mode.equals(Constants.HTTP_MODE_POST) && response.status == Constants.HTTP_RESPONSE_CREATED )
 		return response
 
 
