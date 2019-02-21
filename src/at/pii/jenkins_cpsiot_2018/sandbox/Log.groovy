@@ -1,7 +1,5 @@
 package at.pii.jenkins_cpsiot_2018.sandbox
 
-def outer
-
 class Log
 {
 	def private log = []
