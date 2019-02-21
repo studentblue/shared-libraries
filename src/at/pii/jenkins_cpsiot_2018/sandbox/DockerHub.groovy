@@ -66,7 +66,10 @@ class DockerHub
 				tag = resolve[1]
 			}
 			else
+			{
 				log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "DockerHub repo not valid" )
+				return false
+			}
 		}
 	
 		def login_template = "https://auth.docker.io/token?service=registry.docker.io&scope=repository:${image}:pull"
@@ -74,49 +77,49 @@ class DockerHub
 		def accept_types = "application/vnd.docker.distribution.manifest.list.v2+json,application/vnd.docker.distribution.manifestv2+json"
 		
 		
-		def headers = [[name: "Authorization", value: "test"], [name: "accept", value: accept_types]]
-		utils.httpRequestWithPlugin("https://docker-registry-cpsiot-2018.pii.at/api/v1/_ping", Constants.HTTP_MODE_GET, headers)
+		//~ def headers = [[name: "Authorization", value: "test"], [name: "accept", value: accept_types]]
+		//~ utils.httpRequestWithPlugin("https://docker-registry-cpsiot-2018.pii.at/api/v1/_ping", Constants.HTTP_MODE_GET, headers)
 		
 		
-		def test = "test"
-		headers = [[name: "Authorization", value: "${test}"], [name: "accept", value: accept_types]]
+		//~ def test = "test"
+		//~ headers = [[name: "Authorization", value: "${test}"], [name: "accept", value: accept_types]]
 		
-		utils.httpRequestWithPlugin("https://docker-registry-cpsiot-2018.pii.at/api/v1/_ping", Constants.HTTP_MODE_GET, headers)
-		//~ try
-		//~ {
-			//~ def utils = new Utils()
-			//~ def response = utils.httpRequestWithPlugin(login_template, Constants.HTTP_MODE_GET)
-			//~ def responseGroovy = ""
+		//~ utils.httpRequestWithPlugin("https://docker-registry-cpsiot-2018.pii.at/api/v1/_ping", Constants.HTTP_MODE_GET, headers)
+		try
+		{
+			def utils = new Utils()
+			def response = utils.httpRequestWithPlugin(login_template, Constants.HTTP_MODE_GET)
+			def responseGroovy = ""
 		
 		
-			//~ if( response.status == Constants.HTTP_RESPONSE_OK )
-			//~ {
-				//~ responseGroovy =  new JsonSlurperClassic().parseText(response.content)
+			if( response.status == Constants.HTTP_RESPONSE_OK )
+			{
+				responseGroovy =  new JsonSlurperClassic().parseText(response.content)
 				
-				//~ def dockerHubToken = responseGroovy["token"]
-				//~ def headers = [[name: "Authorization", value: "Bearer ${dockerHubToken}"], [name: "accept", value: accept_types]]
+				def dockerHubToken = responseGroovy["token"]
+				def headers = [[name: "Authorization", value: "Bearer ${dockerHubToken}"], [name: "accept", value: accept_types]]
 				
-				//~ response = utils.httpRequestWithPlugin(get_manifest_template, Constants.HTTP_MODE_GET, headers)
+				response = utils.httpRequestWithPlugin(get_manifest_template, Constants.HTTP_MODE_GET, headers)
 				
-				//~ if( response.status == Constants.HTTP_RESPONSE_OK )
-				//~ {
-					//~ responseGroovy =  new JsonSlurperClassic().parseText(response.content)
-					//~ manifests = responseGroovy
+				if( response.status == Constants.HTTP_RESPONSE_OK )
+				{
+					responseGroovy =  new JsonSlurperClassic().parseText(response.content)
+					manifests = responseGroovy
 					
-					//~ if( this.manifests )
-						//~ log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Manifests Fetched from DockerHub for " + image + ":" + tag )
-					//~ else
-						//~ log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Failed to fetch Manifests for "  + image + ":" + tag)
-				//~ }
+					if( this.manifests )
+						log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Manifests Fetched from DockerHub for " + image + ":" + tag )
+					else
+						log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Failed to fetch Manifests for "  + image + ":" + tag)
+				}
 				
-			//~ }
+			}
 			
-			//~ return true
-		//~ }
-		//~ catch(Exception e)
-		//~ {
-			//~ log.addEntry(Constants.ERROR, Constants.ACTION_EXCEPTION, e.getMessage() )
-		//~ }
+			return true
+		}
+		catch(Exception e)
+		{
+			log.addEntry(Constants.ERROR, Constants.ACTION_EXCEPTION, e.getMessage() )
+		}
 	}
 	
 	def getLog()
