@@ -429,7 +429,7 @@ class PortusApiData implements Serializable
 		}
 		
 		//~ def url = URLEncoder.encode(this.PortusUrl + "/api/v1/namespaces/validate?" + newNameSpace, "UTF-8")
-		def url = this.PortusUrl + "/api/v1/namespaces/validate?" + newNameSpace
+		def url = this.PortusUrl + "/api/v1/namespaces/validate?name=" + newNameSpace
 		def mode = 'GET'
 		def headers = getPortusAuthHeaders()
 		
