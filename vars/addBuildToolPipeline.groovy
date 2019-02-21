@@ -15,7 +15,7 @@ def call( environment, currentBuild )
 	Constants = new at.pii.jenkins_cpsiot_2018.sandbox.Constants()	
 	DockerHub = new at.pii.jenkins_cpsiot_2018.sandbox.DockerHub()
 	PortusApi = new at.pii.jenkins_cpsiot_2018.sandbox.PortusApi()
-	AddBuildToolHelpers = new at.pii.jenkins_cpsiot_2018.sandbox.DockerHub.addBuildToolHelpers()
+	AddBuildToolHelpers = new at.pii.jenkins_cpsiot_2018.sandbox.addBuildToolHelpers()
 	
 	//Log.init()
 	//Log = Log.Data
