@@ -14,9 +14,8 @@ def call( environment, currentBuild )
 	
 	Constants = new at.pii.jenkins_cpsiot_2018.sandbox.Constants()	
 	DockerHub = new at.pii.jenkins_cpsiot_2018.sandbox.DockerHub()
-	DockerHub.init(environment.AddBuildTool, Constants)
-	
 	PortusApi = new at.pii.jenkins_cpsiot_2018.sandbox.PortusApi()
+	AddBuildToolHelpers = new at.pii.jenkins_cpsiot_2018.sandbox.DockerHub.addBuildToolHelpers()
 	
 	//Log.init()
 	//Log = Log.Data
@@ -36,13 +35,7 @@ def call( environment, currentBuild )
 						{
 							script
 							{
-								//println environment.AddBuildTool
-								//def var = DockerHub.init(environment.AddBuildTool, Constants)
-								
-								//println var.DockerHub.repo
-								//DockerHub.init(environment.AddBuildTool, Constants)
-								//DockerHub.getManifests()
-								//println DockerHub.getLog().printLog()
+								DockerHub.init(environment.AddBuildTool, Constants)
 								
 								if( DockerHub.getLog().errorsOccured() )
 								{
@@ -56,22 +49,12 @@ def call( environment, currentBuild )
 									error("Failed")
 								}
 								
-								//println "Test"
+								AddBuildToolHelpers.init( environment.AddBuildTool, PortusApi, DockerHub, Constants  )
 								
-								//dockerHub.print()
-								//jenkinsBuildApi.init( currentBuild )
-								//println jenkinsBuildApi.getBuildNumber()
-								//println env.AddBuildTool
-								//println portusApi.init(environment)
-								//def message = portusApi.checkInputParameters()
-								//if( message != true )
-								//	error(message)
-								
-								//println portusApi.isPortusHealthy()
-								//println portusApi.PortusData.test()
-								//portusApi.test()
-								
-								//println portusApi.dockerHubRepo
+								if( AddBuildToolHelpers.getLog().errorsOccured() )
+								{
+									error("Failed")
+								}								
 							}
 						}
 					}
@@ -139,6 +122,7 @@ def call( environment, currentBuild )
 				{
 					println DockerHub.getLog().printLog()
 					println PortusApi.getLog().printLog()
+					println AddBuildToolHelpers.getLog().printLog()
 				}
 			}
 	
