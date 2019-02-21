@@ -39,9 +39,7 @@ class PortusApiData implements Serializable
 	
 	def manifests
 	
-	def chosenImage = ""
-	
-	def digest = ""
+	def userChoice
 	
 	PortusApiData(outerClass)
 	{		
@@ -52,19 +50,6 @@ class PortusApiData implements Serializable
 	{
 		
 		this.environment = environment		
-	}
-	
-	def getVars()
-	{
-		return	this.PortusUrl + "\n" +
-				this.PortusUserName + "\n" +
-				this.inputDockerHubRepo + "\n" +
-				this.inputDockerHubTag + "\n" +
-				this.inputPortusToken + "\n" +
-				this.inputPortusTeam + "\n" +
-				this.inputPortusNameSpace + "\n" +
-				this.inputPortusNameSpaceDescription + "\n" +
-				this.inputPortusImageName
 	}
 		
 	def checkInputParameters()
@@ -269,25 +254,23 @@ class PortusApiData implements Serializable
 	
 	def setChoice(userInput)
 	{
-		this.chosenImage = userInput
+		this.userChoice = userInput
 		
-		this.digest = getDigestFromString()
+		//~ this.defaultImageName = generateDefaultImageName()
+		//~ this.defaultNameSpace = generateDefaultNameSpace()
 		
-		this.defaultImageName = generateDefaultImageName()
-		this.defaultNameSpace = generateDefaultNameSpace()
+		//~ def PortusNameSpace = ""
+		//~ def PortusImageName = ""
 		
-		//def PortusNameSpace = ""
-		//def PortusImageName = ""
+		//~ if( ! this.inputPortusNameSpace )
+			//~ this.PortusNameSpace = this.defaultNameSpace
+		//~ else
+			//~ this.PortusNameSpace = this.inputPortusNameSpace
 		
-		if( ! this.inputPortusNameSpace )
-			this.PortusNameSpace = this.defaultNameSpace
-		else
-			this.PortusNameSpace = this.inputPortusNameSpace
-		
-		if( ! this.inputPortusImageName )
-			this.PortusImageName = this.defaultImageName
-		else
-			this.PortusImageName = this.inputPortusImageName
+		//~ if( ! this.inputPortusImageName )
+			//~ this.PortusImageName = this.defaultImageName
+		//~ else
+			//~ this.PortusImageName = this.inputPortusImageName
 	}
 	
 	def pushImage()
