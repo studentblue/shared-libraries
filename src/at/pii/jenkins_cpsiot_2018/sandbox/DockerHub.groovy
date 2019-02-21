@@ -12,7 +12,7 @@ class DockerHub implements Serializable
 	
 	def Constants	
 	
-	init(inputJson, Constants)
+	def init(inputJson, Constants)
 	{
 		def input = new JsonSlurperClassic().parseText(inputJson)
 		this.Constants = Constants
