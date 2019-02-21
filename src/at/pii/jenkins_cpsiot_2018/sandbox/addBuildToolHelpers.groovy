@@ -73,7 +73,7 @@ class addBuildToolHelpers
 	
 		if( ! DockerHub.getManifests()["manifests"] )
 		{
-			log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Manifests not defined for this repo" )
+			log.addEntry(Constants.LOG, Constants.ACTION_ALERT, "Manifests not defined for this repo" )
 			return choices
 		}
 		

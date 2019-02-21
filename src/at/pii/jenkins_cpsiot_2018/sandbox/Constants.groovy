@@ -15,6 +15,7 @@ class Constants
 	final String ACTION_CHOICE = "CHOICE: "
 	final String ACTION_LOG_START = "LOG_STARTED: "
 	final String ACTION_EXCEPTION = "AN_EXCEPTION_OCCURED: "
+	final String ACTION_ALERT = "ALERT: "
 	final String HTTP_MODE_GET = "GET"
 	final String HTTP_MODE_POST = "POST"
 	final int HTTP_RESPONSE_OK = 200
