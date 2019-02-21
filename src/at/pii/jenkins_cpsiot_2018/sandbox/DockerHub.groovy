@@ -71,8 +71,8 @@ class DockerHub
 		def get_manifest_template = "https://registry.hub.docker.com/v2/${image}/manifests/${tag}"
 		def accept_types = "application/vnd.docker.distribution.manifest.list.v2+json,application/vnd.docker.distribution.manifestv2+json"
 		
-		try
-		{
+		//~ try
+		//~ {
 		
 			def response = utils.httpRequestWithPlugin(login_template, Constants.HTTP_MODE_GET)
 			def responseGroovy = ""
@@ -99,11 +99,11 @@ class DockerHub
 				}
 					
 			}
-		}
-		catch(Exception e)
-		{
-			log.addEntry(Constants.ERROR, Constants.ACTION_EXCEPTION, e.getMessage() )
-		}
+		//~ }
+		//~ catch(Exception e)
+		//~ {
+			//~ log.addEntry(Constants.ERROR, Constants.ACTION_EXCEPTION, e.getMessage() )
+		//~ }
 	}
 	
 	def getLog()
