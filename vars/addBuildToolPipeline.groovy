@@ -46,6 +46,9 @@ def call( environment, currentBuild )
 								{
 									error("Failed")
 								}
+								
+								println DockerHub.getManifests()
+								
 								//println "Test"
 								
 								//dockerHub.print()

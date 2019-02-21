@@ -34,12 +34,12 @@ class DockerHub
 		if( ! repoInput )
 			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "DockerHub repo init failed" )
 		else
-			getManifests()
+			fetchManifests()
 		
 		return true
 	}
 
-	def getManifests()
+	def fetchManifests()
 	{
 		def image = repoInput
 		def resolve = repoInput.split(':')
@@ -80,6 +80,11 @@ class DockerHub
 			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Failed to fetch Manifests for "  + image + ":" + tag)
 		
 		return true
+	}
+	
+	def getManifests()
+	{
+		return manifests
 	}
 	
 	def getLog()
