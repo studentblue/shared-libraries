@@ -16,6 +16,8 @@ def call( environment, currentBuild )
 	DockerHub = new at.pii.jenkins_cpsiot_2018.sandbox.DockerHub()
 	DockerHub.init(environment.AddBuildTool, Constants)
 	
+	PortusApi = new at.pii.jenkins_cpsiot_2018.sandbox.PortusApi()
+	
 	//Log.init()
 	//Log = Log.Data
 	
@@ -47,7 +49,12 @@ def call( environment, currentBuild )
 									error("Failed")
 								}
 								
-								println DockerHub.getManifests()
+								PortusApi.init(environment.REPO_URL, environment.PORTUS_USER, environment.TOKEN2, Constants)
+								
+								if( PortusApi.getLog().errorsOccured() )
+								{
+									error("Failed")
+								}
 								
 								//println "Test"
 								
@@ -131,6 +138,7 @@ def call( environment, currentBuild )
 				script
 				{
 					println DockerHub.getLog().printLog()
+					println PortusApi.getLog().printLog()
 				}
 			}
 	
