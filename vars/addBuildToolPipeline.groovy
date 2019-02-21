@@ -35,7 +35,7 @@ def call( environment, currentBuild )
 							{
 								Log.addEntry(1, " Test: ", "Test" )
 								println Log.getLog()
-								Log.printLog()
+								println Log.printLog()
 								//DockerHub.init(environment.AddBuildTool.DockerHub.repo, environment.AddBuildTool.DockerHub.tag)
 								//dockerHub.print()
 								//jenkinsBuildApi.init( currentBuild )
