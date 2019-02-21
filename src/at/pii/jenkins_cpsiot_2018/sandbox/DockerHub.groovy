@@ -8,6 +8,7 @@ class DockerHub
 	def private repoInput
 	def private tagInput
 	def private log
+	def private utils
 	
 	def Constants	
 	
@@ -23,6 +24,8 @@ class DockerHub
 			tagInput = input.DockerHub.tag
 		
 		log = new Log()
+		
+		utils = new Utils()
 		
 		log.init(Constants)
 		
@@ -71,7 +74,7 @@ class DockerHub
 		def accept_types = "application/vnd.docker.distribution.manifest.list.v2+json,application/vnd.docker.distribution.manifestv2+json"
 		
 		
-		def utils = new Utils()
+		
 		utils.httpRequestWithPlugin("https://docker-registry-cpsiot-2018.pii.at/api/v1/_ping", Constants.HTTP_MODE_GET)
 		
 		utils.httpRequestWithPlugin("https://docker-registry-cpsiot-2018.pii.at/api/v1/_ping", Constants.HTTP_MODE_GET)
