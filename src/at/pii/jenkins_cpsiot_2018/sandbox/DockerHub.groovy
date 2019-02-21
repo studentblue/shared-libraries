@@ -12,8 +12,9 @@ class DockerHub implements Serializable
 	
 	def ConstantsRef
 	
-	DockerHub()
+	DockerHub(constants)
 	{
+		Constants = constants
 		//~ this.ConstantsRef = ConstantsRef
 		
 		//~ if( repo )
