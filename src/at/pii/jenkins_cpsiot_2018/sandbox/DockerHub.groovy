@@ -20,7 +20,7 @@ class DockerHub
 	
 	def Constants
 	
-	DockerHubData(repo, tag, Constants)
+	DockerHub(repo, tag, Constants)
 	{
 		this.Constants = Constants
 		this.log = log
