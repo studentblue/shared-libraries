@@ -98,7 +98,7 @@ class PortusApiData implements Serializable
 		if ( ! this.portusToken )
 			return "Portus Token not found"
 		
-		this.inputParameter = Boon.fromJson(this.environment.AddBuildTool)
+		this.inputParameter = new JsonSlurperClassic().parseText(this.environment.AddBuildTool)
 		
 		if(! this.inputParameter.DockerHub )		
 			return "DockerHub parameter not found"
