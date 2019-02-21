@@ -14,7 +14,7 @@ class LogData
 	
 	LogData(outerClass)
 	{
-		this.outer = outerClass
+		outer = outerClass
 	}
 	
 	def addEntry(scope, action, message )
@@ -22,12 +22,12 @@ class LogData
 		if( scope == outer.constants.ERROR )
 		{
 			errors ++
-			log.add(this.ERROR + action + message )
+			log.add(ERROR + action + message )
 		}
 		
 		if( scope == outer.constants.LOG )
 		{
-			log.add(this.LOG + action + message )
+			log.add(LOG + action + message )
 		}
 	}
 	
