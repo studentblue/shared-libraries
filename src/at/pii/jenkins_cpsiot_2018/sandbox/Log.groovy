@@ -1,6 +1,6 @@
 package at.pii.jenkins_cpsiot_2018.sandbox
 
-class Log
+class LogData
 {
 	def private log = []
 	
@@ -10,15 +10,22 @@ class Log
 	
 	def private final ERROR = "error: "
 	
+	def outer
+	
+	LogData(outerClass)
+	{
+		this.outer = outerClass
+	}
+	
 	def addEntry(scope, action, message )
 	{
-		if( scope == at.pii.jenkins_cpsiot_2018.sandbox.constants.ERROR )
+		if( scope == outer.constants.ERROR )
 		{
 			this.errors ++
 			this.log.add(this.ERROR + action + message )
 		}
 		
-		if( scope == at.pii.jenkins_cpsiot_2018.sandbox.constants.LOG )
+		if( scope == outer.constants.LOG )
 		{
 			this.log.add(this.LOG + action + message )
 		}
@@ -50,3 +57,12 @@ class Log
 		return logAsString
 	}
 }
+
+def Data
+
+def init()
+{
+	Data = new LogData( this )
+}
+
+return this
