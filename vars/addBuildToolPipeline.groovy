@@ -42,7 +42,7 @@ def call( environment, currentBuild )
 									error("Failed")
 								}
 								
-								PortusApi.init(environment.REPO_URL, environment.PORTUS_USER, environment.TOKEN2, Constants)
+								PortusApi.init(environment.REPO_URL, environment.PORTUS_USER, environment.TOKEN2, environment.PORTUS_USER_ID, Constants)
 								
 								if( PortusApi.getLog().errorsOccured() )
 								{

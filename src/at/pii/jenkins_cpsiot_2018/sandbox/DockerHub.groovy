@@ -127,5 +127,23 @@ class DockerHub
 		
 		return digest
 	}
+	
+	getPlatformFromDigest(digest)
+	{
+		def platform = []
+		
+		manifests["manifests"].each
+		{
+			manifest ->
+				
+				if( manifest["digest"].equals(digest) )
+				{
+					platform = manifest["platform"]
+					return true 
+				}
+		}
+		
+		return platform
+	}
 
 }

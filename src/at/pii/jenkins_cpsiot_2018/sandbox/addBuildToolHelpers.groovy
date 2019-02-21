@@ -129,8 +129,142 @@ class addBuildToolHelpers
 		def namespace = ""
 		def repo = ""
 		def tag = ""
+		def team = ""
+		def description = ""
+		def teamDescription = ""
 		
-		return namespace + "/" + repo + "/" + tag
+		def checkNamespace = true
+		def checkTeam = true
+		
+		//existing namespace , team from namespace
+		if( input.Namespace.teamFromNamespace == true && input.Namespace.name.name )
+		{
+			namespace = input.Namespace.name.name
+			team = input.Namespace.name.team
+			
+			checkNamespace = false
+			checkTeam = false
+		}
+		else
+		{
+		
+			//generate namespace
+			if( input.Namespace.newName == true )
+				namespace = generateDefaultNameSpace()
+			else
+			{
+				if( !input.Namespace.newName )
+					namespace = generateDefaultNameSpace()
+				else
+					namespace = input.Namespace.newName
+			}
+
+			//generate description
+			if( input.Namespace.description == true )
+				description = generateDefaultDescription()
+			else
+			{
+				if( input.Namespace.description )
+					description = input.Namespace.description
+				else
+					description = generateDefaultDescription()
+			}
+			
+			//team
+			if( input.Namespace.team.new == true )
+			{
+				team = input.Namespace.team.name
+				if( input.Namespace.team.description )
+					teamDescription = input.Namespace.team.name
+				
+				checkTeam = true
+			}
+			else
+			{
+				team = input.Namespace.team.name
+			}
+			
+			checkNamespace = true
+		}
+		
+		
+		if( checkTeam )
+			validateTeam(team, teamDescription)
+		
+		if( checkNamespace )
+			validateNamespace(namespace, team, description)
+		
+		
+		
+		return namespace + "/" + repo + ":" + tag
+	}
+	
+	def validateNamespace(namespace, team, description)
+	{
+		def code = PortusApi.validateNamespace(namespace, team, description)
+		
+		if( code == -1 )
+			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Validation of namespace \"" + namespace + "\" failed")
+		else
+		{
+			if( valid )
+				return
+			else
+			{
+				code = PortusApi.postNamespace(namespace, team, description)
+				
+				if( code == -1 )
+					log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Creation of namespace \"" + namespace + "\" failed")
+			}
+				
+		}
+		
+		return
+	}
+	
+	def validateTeam(team, teamDescription)
+	{
+		def code = PortusApi.validateTeam(team, teamDescription)
+		
+		if( code == -1 )
+			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Validation of team \"" + team + "\" failed")
+		
+		return
+	}
+	
+	def generateDefaultNameSpace()
+	{	
+		def user = PortusApi.PortusUserName()
+		
+		user = user.replace(/^[\W_]*/, "")
+		user = user.replace(/[\W_]*$/, "")
+		
+		if( ! digest )
+			return Constants.DEFAULT_NAMESPACE_PREFIX + Constants.UNKNOWN_ARCH_OS + "-" + user
+		
+		//DEFAULT_NAMESPACE_PREFIX
+		def defaultNameSpace = Constants.DEFAULT_NAMESPACE_PREFIX
+		def platform = DockerHub.getPlatformFromDigest()
+		
+		def list = []
+		platform.keySet().each
+		{
+			key ->
+				list.add(platform[key])
+		}
+		
+		return defaultNameSpace + list.join('_') + "-" + user
+		
+	}
+	
+	def generateDefaultDescription()
+	{	
+		def user = PortusApi.PortusUserName()
+		
+		
+		
+		return "Namespace created by User " + user
+		
 	}
 	
 	def pushImage()
