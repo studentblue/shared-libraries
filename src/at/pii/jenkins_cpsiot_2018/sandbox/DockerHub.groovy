@@ -2,12 +2,12 @@ package at.pii.jenkins_cpsiot_2018.sandbox
 
 import groovy.json.*
 
-class DockerHubData
+class DockerHub
 {
 	def private outer
 	def private manifests
-	def private repo
-	def private tag
+	def private repoInput
+	def private tagInput
 	def private log 
 	def private utils 
 	
@@ -18,35 +18,30 @@ class DockerHubData
 	def private final ACTION_CHECK
 	def private final ACTION_EXCEPTION
 	
+	def Constants
 	
-	
-	DockerHubData(outerClass, repo, tag, log, utils)
-	{		
-		this.outer = outerClass
-		
+	DockerHubData(repo, tag, Constants)
+	{
+		this.Constants = Constants
 		this.log = log
 		this.utils = utils
+				
+		repoInput = repo
+		tagInput = tag
 		
-		this.LOG = this.outer.constants.LOG
-		this.ERROR = this.outer.constants.ERROR
-		this.ACTION_LOG_START = this.outer.constants.ACTION_LOG_START
-		this.ACTION_CHECK = this.outer.constants.ACTION_CHECK
-		this.ACTION_EXCEPTION = this.outer.constants.ACTION_EXCEPTION
-		this.repo = repo
-		this.tag = tag
+		log = new Log(Constants)
+		utils = new Utils()
 		
-		this.log = new at.pii.jenkins_cpsiot_2018.sandbox.Log()
+		log.addEntry(Constants.LOG, Constants.ACTION_LOG_START, "DockerHub init" )
 		
-		this.log.addEntry(this.LOG, this.ACTION_LOG_START, "DockerHub init" )
-		
-		if( ! this.repo )
-			this.log.addEntry(this.ERROR, this.ACTION_CHECK, "DockerHub repo init failed" )
+		if( ! repo )
+			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "DockerHub repo init failed" )
 	}
 	
 	def getManifests()
 	{
-		def image = this.repo
-		def resolve = this.repo.split(':')
+		def image = repoInput
+		def resolve = repoInput.split(':')
 		
 		def tag = "latest"
 		
@@ -55,8 +50,8 @@ class DockerHubData
 			if( ! image.contains("/") )
 				image = "library/" + image
 			
-			if( input.DockerHub.tag )
-				tag = input.DockerHub.tag
+			if( tagInput )
+				tag = tagInput
 		}
 		else
 		{
@@ -70,7 +65,7 @@ class DockerHubData
 				tag = resolve[1]
 			}
 			else
-				log.addEntry(this.ERROR, this.ACTION_CHECK, "DockerHub repo not valid" )
+				log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "DockerHub repo not valid" )
 		}
 	
 		def login_template = "https://auth.docker.io/token?service=registry.docker.io&scope=repository:${image}:pull"
@@ -80,20 +75,20 @@ class DockerHubData
 		try
 		{
 		
-			def response = this.utils.httpRequestWithPlugin(login_template, this.outer.constants.HTTP_MODE_GET)
+			def response = utils.httpRequestWithPlugin(login_template, Constants.HTTP_MODE_GET)
 			def responseGroovy = ""
 		
 		
-			if( response.status == this.outer.constants.HTTP_RESPONSE_OK )
+			if( response.status == Constants.HTTP_RESPONSE_OK )
 			{
 				responseGroovy =  new JsonSlurperClassic().parseText(response.content)
 				
 				def dockerHubToken = responseGroovy["token"]
 				def headers = [[name: "Authorization", value: "Bearer ${dockerHubToken}"], [name: "accept", value: accept_types]]
 				
-				response = this.utils.httpRequestWithPlugin(get_manifest_template, this.outer.constants.HTTP_MODE_GET, headers)
+				response = utils.httpRequestWithPlugin(get_manifest_template, Constants.HTTP_MODE_GET, headers)
 				
-				if( response.status == this.outer.constants.HTTP_RESPONSE_OK )
+				if( response.status == Constants.HTTP_RESPONSE_OK )
 				{
 					responseGroovy =  new JsonSlurperClassic().parseText(response.content)
 					this.manifests = responseGroovy
@@ -103,36 +98,12 @@ class DockerHubData
 		}
 		catch(Exception e)
 		{
-			log.addEntry(this.ERROR, this.ACTION_EXCEPTION, e.message() )
+			log.addEntry(Constants.ERROR, Constants.ACTION_EXCEPTION, e.message() )
 		}
 	}
 	
 	def getLog()
 	{
-		return this.log
+		return log
 	}
 }
-
-
-def Data
-
-def init(name, tag)
-{
-	def log = new at.pii.jenkins_cpsiot_2018.sandbox.Log()
-	def utils = new at.pii.jenkins_cpsiot_2018.sandbox.Utils()
-	
-	Data = new DockerHubData(this, name, tag, log, utils)
-	Data.getManifests()
-}
-
-//~ def print()
-//~ {
-	//~ println "Test"
-//~ }
-
-def getLog()
-{
-	return Data.getLog()
-}
-
-return this

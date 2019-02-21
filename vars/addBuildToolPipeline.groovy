@@ -11,9 +11,9 @@ def call( environment, currentBuild )
 	jenkinsBuildApi = jenkinsOuterBuildApi.jenkinsApiInstance
 	*/
 	
-	//DockerHub = new at.pii.jenkins_cpsiot_2018.sandbox.DockerHub()	
+	
 	Constants = new at.pii.jenkins_cpsiot_2018.sandbox.Constants()
-	Log = new at.pii.jenkins_cpsiot_2018.sandbox.Log(Constants)
+	DockerHub = new at.pii.jenkins_cpsiot_2018.sandbox.DockerHub(environment.AddBuildTool.DockerHub.repo, environment.AddBuildTool.DockerHub.tag, Constants)
 	
 	//Log.init()
 	//Log = Log.Data
@@ -33,11 +33,14 @@ def call( environment, currentBuild )
 						{
 							script
 							{
+								/*
 								Log.addEntry(1, " Test: ", "Test" )
 								println Log.getLog()
 								println Log.printLog()
 								println Log.errorsOccured()
-								//DockerHub.init(environment.AddBuildTool.DockerHub.repo, environment.AddBuildTool.DockerHub.tag)
+								*/
+								DockerHub.getManifests()
+								println DockerHub.getLog().printLog()
 								//dockerHub.print()
 								//jenkinsBuildApi.init( currentBuild )
 								//println jenkinsBuildApi.getBuildNumber()
