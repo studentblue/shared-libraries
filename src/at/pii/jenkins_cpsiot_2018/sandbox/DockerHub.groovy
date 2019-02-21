@@ -23,15 +23,19 @@ class DockerHub
 	DockerHub(repo, tag, Constants)
 	{
 		this.Constants = Constants				
-		repoInput = repo
-		tagInput = tag
+		
+		if( repo )
+			repoInput = repo
+		
+		if( tag )
+			tagInput = tag
 		
 		log = new Log(Constants)
 		utils = new Utils()
 		
 		log.addEntry(Constants.LOG, Constants.ACTION_LOG_START, "DockerHub init" )
 		
-		if( ! repo )
+		if( ! repoInput )
 			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "DockerHub repo init failed" )
 	}
 	
