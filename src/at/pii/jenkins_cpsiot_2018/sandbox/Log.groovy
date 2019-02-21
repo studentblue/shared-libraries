@@ -10,15 +10,17 @@ class Log
 	
 	def private final ERROR = "error: "
 	
+	def Constants = new at.pii.jenkins_cpsiot_2018.sandbox.Constants()
+	
 	def addEntry(scope, action, message )
 	{
-		if( scope == at.pii.jenkins_cpsiot_2018.sandbox.Constants.ERROR )
+		if( scope == Constants.ERROR )
 		{
 			errors ++
 			log.add(ERROR + action + message )
 		}
 		
-		if( scope == at.pii.jenkins_cpsiot_2018.sandbox.Constants.LOG )
+		if( scope == Constants.LOG )
 		{
 			log.add(LOG + action + message )
 		}
