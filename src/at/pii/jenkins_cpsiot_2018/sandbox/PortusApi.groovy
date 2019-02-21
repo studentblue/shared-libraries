@@ -332,7 +332,7 @@ class PortusApiData implements Serializable
 	
 	def generateDefaultImageName()
 	{
-		def image = this.inputDockerHubRepo
+		def image = this.dockerHubRepo
 		def resolve = image.split(':')
 		
 		if( resolve.length == 1 )
