@@ -23,6 +23,7 @@ class PortusApi
 	
 	def utils
 	def Constants
+	def log
 	
 	def init(PortusUrl, PortusUserName, portusToken, Constants)
 	{	
