@@ -123,4 +123,12 @@ class addBuildToolHelpers
 		//~ else
 			//~ this.PortusImageName = this.inputPortusImageName
 	}
+	
+	def generatePortus()
+	{
+	}
+	
+	def pushImage()
+	{
+	}
 }

@@ -85,22 +85,26 @@ def call( environment, currentBuild )
 				}
 			}
 			
-			/*			
+
 			stage("Push Selected Image")
 			{
 				steps
 				{
 					script
 					{
-						if ( ! portusApi.generatePortus() )
-							error("could not validate Portus settings")
-						//input(id: "Push_Image", message: "Push as \"${portusApi.namespace}/${portusApi.repoName}:${portusApi.repoTag}\"", ok: 'PUSH')
-						//portusApi.pushImage()
+						AddBuildToolHelpers.generatePortus()
+						
+						if( AddBuildToolHelpers.getLog().errorsOccured() )
+						{
+							error("Failed")
+						}
+						
+						input(id: "Push_Image", message: "Push as \"${portusApi.namespace}/${portusApi.repoName}:${portusApi.repoTag}\"", ok: 'PUSH')
+						AddBuildToolHelpers.pushImage()
 						
 					}
 				}
 			}
-			*/
 		}
 		
 		
