@@ -17,6 +17,7 @@ class addBuildToolHelpers
 	def Constants
 	
 	def DockerHub
+	def utils
 	
 	def init( inputParameter, PortusApi, DockerHub, Constants  )
 	{
