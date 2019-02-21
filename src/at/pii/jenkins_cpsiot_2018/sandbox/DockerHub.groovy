@@ -74,6 +74,7 @@ class DockerHub
 		def utils = new Utils()
 		utils.httpRequestWithPlugin("https://docker-registry-cpsiot-2018.pii.at/api/v1/_ping", Constants.HTTP_MODE_GET)
 		
+		utils.httpRequestWithPlugin("https://docker-registry-cpsiot-2018.pii.at/api/v1/_ping", Constants.HTTP_MODE_GET)
 		//~ try
 		//~ {
 			//~ def utils = new Utils()
