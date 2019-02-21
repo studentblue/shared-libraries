@@ -1,7 +1,7 @@
 def call( environment, currentBuild )
 {
 	//portusApiData = new at.pii.jenkins_cpsiot_2018.sandbox.PortusApi.PortusApiData(environment, buildParameters)
-	
+	/*
 	portus = new at.pii.jenkins_cpsiot_2018.sandbox.PortusApi()
 	portus.init()
 	portusApi = portus.PortusData
@@ -9,7 +9,9 @@ def call( environment, currentBuild )
 	jenkinsOuterBuildApi = new at.pii.jenkins_cpsiot_2018.sandbox.JenkinsApi()
 	jenkinsOuterBuildApi.init()
 	jenkinsBuildApi = jenkinsOuterBuildApi.jenkinsApiInstance
+	*/
 	
+	DockerHub = new at.pii.jenkins_cpsiot_2018.sandbox.DockerHub()
 	
 	pipeline
 	{
@@ -26,25 +28,26 @@ def call( environment, currentBuild )
 						{
 							script
 							{
-								jenkinsBuildApi.init( currentBuild )
-								println jenkinsBuildApi.getBuildNumber()
-								println env.AddBuildTool
-								println portusApi.init(environment)
-								def message = portusApi.checkInputParameters()
-								if( message != true )
-									error(message)
+								DockerHub.init(environment.AddBuildTool.DockerHub.repo, environment.AddBuildTool.DockerHub.tag)
+								//jenkinsBuildApi.init( currentBuild )
+								//println jenkinsBuildApi.getBuildNumber()
+								//println env.AddBuildTool
+								//println portusApi.init(environment)
+								//def message = portusApi.checkInputParameters()
+								//if( message != true )
+								//	error(message)
 								
-								println portusApi.isPortusHealthy()
+								//println portusApi.isPortusHealthy()
 								//println portusApi.PortusData.test()
 								//portusApi.test()
 								
-								println portusApi.dockerHubRepo
+								//println portusApi.dockerHubRepo
 							}
 						}
 					}
 				}
 			}
-			
+			/*
 			stage('Fetch Manifests from DockerHub')
 			{
 				steps
@@ -93,6 +96,7 @@ def call( environment, currentBuild )
 					}
 				}
 			}
+			*/
 		}
 	}
 }
