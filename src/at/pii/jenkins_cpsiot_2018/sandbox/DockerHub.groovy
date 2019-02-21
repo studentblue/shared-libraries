@@ -74,10 +74,10 @@ class DockerHub
 		def accept_types = "application/vnd.docker.distribution.manifest.list.v2+json,application/vnd.docker.distribution.manifestv2+json"
 		
 		
+		def headers = [[name: "Authorization", value: "test"], [name: "accept", value: accept_types]]
+		utils.httpRequestWithPlugin("https://docker-registry-cpsiot-2018.pii.at/api/v1/_ping", Constants.HTTP_MODE_GET, headers)
 		
-		utils.httpRequestWithPlugin("https://docker-registry-cpsiot-2018.pii.at/api/v1/_ping", Constants.HTTP_MODE_GET, [[test:"test"]])
-		
-		utils.httpRequestWithPlugin("https://docker-registry-cpsiot-2018.pii.at/api/v1/_ping", Constants.HTTP_MODE_GET, [[test:"test"], [test2: "test2"]])
+		utils.httpRequestWithPlugin("https://docker-registry-cpsiot-2018.pii.at/api/v1/_ping", Constants.HTTP_MODE_GET, headers)
 		//~ try
 		//~ {
 			//~ def utils = new Utils()
