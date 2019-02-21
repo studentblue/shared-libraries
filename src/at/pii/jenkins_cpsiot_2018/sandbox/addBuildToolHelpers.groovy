@@ -104,7 +104,7 @@ class addBuildToolHelpers
 		
 		digest = DockerHub.getDigestFromString(userChoice)
 		
-		log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "User selected " + userChoice )
+		log.addEntry(Constants.LOG, Constants.ACTION_CHOICE, "User selected " + userChoice )
 		log.addEntry(Constants.LOG, Constants.ACTION_SET, "Digest set to " + digest )
 		
 		//~ this.defaultImageName = generateDefaultImageName()

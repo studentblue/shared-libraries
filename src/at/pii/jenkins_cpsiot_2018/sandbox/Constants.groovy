@@ -12,6 +12,7 @@ class Constants
 	final String ACTION_CREATED = "CREATED: "
 	final String ACTION_CHECK = "CHECK: "
 	final String ACTION_SET = "SET: "
+	final String ACTION_CHOICE = "CHOICE: "
 	final String ACTION_LOG_START = "LOG_STARTED: "
 	final String ACTION_EXCEPTION = "AN_EXCEPTION_OCCURED: "
 	final String HTTP_MODE_GET = "GET"
