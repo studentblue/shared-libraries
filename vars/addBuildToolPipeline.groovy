@@ -33,14 +33,12 @@ def call( environment, currentBuild )
 						{
 							script
 							{
-								/*
-								Log.addEntry(1, " Test: ", "Test" )
-								println Log.getLog()
-								println Log.printLog()
-								println Log.errorsOccured()
-								*/
+								
 								DockerHub.getManifests()
 								println DockerHub.getLog().printLog()
+								
+								
+								
 								//dockerHub.print()
 								//jenkinsBuildApi.init( currentBuild )
 								//println jenkinsBuildApi.getBuildNumber()
