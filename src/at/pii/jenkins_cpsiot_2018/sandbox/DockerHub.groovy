@@ -20,12 +20,12 @@ class DockerHubData
 	
 	
 	
-	DockerHubData(outerClass, repo, tag)
+	DockerHubData(outerClass, repo, tag, log, utils)
 	{		
 		this.outer = outerClass
 		
-		this.log = new at.pii.jenkins_cpsiot_2018.sandbox.Log()
-		this.utils = new at.pii.jenkins_cpsiot_2018.sandbox.Utils()
+		this.log = log
+		this.utils = utils
 		
 		this.LOG = this.outer.constants.LOG
 		this.ERROR = this.outer.constants.ERROR
@@ -118,7 +118,10 @@ def Data
 
 def init(name, tag)
 {
-	Data = new DockerHubData(this, name, tag)
+	def log = new at.pii.jenkins_cpsiot_2018.sandbox.Log()
+	def utils = new at.pii.jenkins_cpsiot_2018.sandbox.Utils()
+	
+	Data = new DockerHubData(this, name, tag, log, utils)
 	Data.getManifests()
 }
 
