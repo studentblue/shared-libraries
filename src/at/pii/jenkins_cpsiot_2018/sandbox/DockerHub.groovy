@@ -4,7 +4,6 @@ import groovy.json.*
 
 class DockerHub implements Serializable
 {
-	def private outer
 	def private manifests
 	def private repoInput
 	def private tagInput
