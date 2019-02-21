@@ -2,19 +2,19 @@ package at.pii.jenkins_cpsiot_2018.sandbox
 
 class Constants
 {
-	def SPLITTER = " @::@ "
-	def ERROR = 1
-	def LOG = 2
-	def ERROR_PORTUS_UNHEALTHY = 2
-	def DEFAULT_IMAGE_PREFIX = "cpsiot-build-"
-	def DEFAULT_NAMESPACE_PREFIX = "cpsiot_build_"
-	def UNKNOWN_ARCH_OS = "unknown_arch_os"
-	def ACTION_CREATED = "CREATED: "
-	def ACTION_CHECK = "CHECK: "
-	def ACTION_LOG_START = "LOG_STARTED: "
-	def ACTION_EXCEPTION = "AN_EXCEPTION_OCCURED: "
-	def HTTP_MODE_GET = "GET"
-	def HTTP_MODE_POST = "POST"
-	def HTTP_RESPONSE_OK = 200
-	def HTTP_RESPONSE_CREATED = 201
+	final String SPLITTER = " @::@ "
+	final int ERROR = 1
+	final int LOG = 2
+	final int ERROR_PORTUS_UNHEALTHY = 2
+	final String DEFAULT_IMAGE_PREFIX = "cpsiot-build-"
+	final String DEFAULT_NAMESPACE_PREFIX = "cpsiot_build_"
+	final String UNKNOWN_ARCH_OS = "unknown_arch_os"
+	final String ACTION_CREATED = "CREATED: "
+	final String ACTION_CHECK = "CHECK: "
+	final String ACTION_LOG_START = "LOG_STARTED: "
+	final String ACTION_EXCEPTION = "AN_EXCEPTION_OCCURED: "
+	final String HTTP_MODE_GET = "GET"
+	final String HTTP_MODE_POST = "POST"
+	final int HTTP_RESPONSE_OK = 200
+	final int HTTP_RESPONSE_CREATED = 201
 }

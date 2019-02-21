@@ -33,7 +33,7 @@ def call( environment, currentBuild )
 						{
 							script
 							{
-								Log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Test" )
+								Log.addEntry(1, " Test: ", "Test" )
 								println Log.getLog()
 								//DockerHub.init(environment.AddBuildTool.DockerHub.repo, environment.AddBuildTool.DockerHub.tag)
 								//dockerHub.print()
