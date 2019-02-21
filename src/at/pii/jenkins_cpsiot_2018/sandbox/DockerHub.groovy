@@ -8,20 +8,13 @@ class DockerHub implements Serializable
 	def private repoInput
 	def private tagInput
 	def private log 
-	def private utils 
-	
-	def private final LOG
-	def private final ERROR
-	
-	def private final ACTION_LOG_START
-	def private final ACTION_CHECK
-	def private final ACTION_EXCEPTION
+	def private utils
 	
 	def ConstantsRef
 	
-	DockerHub(repo, tag, ConstantsRef)
+	DockerHub(repo, tag)
 	{
-		this.ConstantsRef = ConstantsRef
+		//~ this.ConstantsRef = ConstantsRef
 		
 		if( repo )
 			repoInput = repo
