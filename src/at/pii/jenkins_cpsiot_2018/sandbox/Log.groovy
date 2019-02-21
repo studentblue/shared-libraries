@@ -1,5 +1,7 @@
 package at.pii.jenkins_cpsiot_2018.sandbox
 
+import at.pii.jenkins_cpsiot_2018.sandbox.constants
+
 class Log
 {
 	def private log = []
@@ -12,8 +14,6 @@ class Log
 	
 	def outer
 	
-	def constants
-	
 	//~ LogData(outerClass)
 	//~ {
 		//~ outer = outerClass
@@ -21,18 +21,17 @@ class Log
 	
 	Log()
 	{
-		constants = new at.pii.jenkins_cpsiot_2018.sandbox.constants()
 	}
 	
 	def addEntry(scope, action, message )
 	{
-		if( scope == constants.ERROR )
+		if( scope == at.pii.jenkins_cpsiot_2018.sandbox.constants.ERROR )
 		{
 			errors ++
 			log.add(ERROR + action + message )
 		}
 		
-		if( scope == constants.LOG )
+		if( scope == at.pii.jenkins_cpsiot_2018.sandbox.constants.LOG )
 		{
 			log.add(LOG + action + message )
 		}
