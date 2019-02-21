@@ -12,29 +12,27 @@ class DockerHub implements Serializable
 	
 	def Constants	
 	
-	def init(inputJson, Constants)
+	DockerHub(inputJson, Constants)
 	{
 		def input = new JsonSlurperClassic().parseText(inputJson)
-		this.Constants = Constants
+		this.Constants = Constants		
 		
-		return input
+		if( input.DockerHub.repo )
+			repoInput = input.DockerHub.repo
 		
-		//~ if( input.DockerHub.repo )
-			//~ repoInput = repo
+		if( input.DockerHub.tag )
+			tagInput = input.DockerHub.tag
 		
-		//~ if( input.DockerHub.tag )
-			//~ tagInput = tag
-		
-		//~ log = new Log(Constants)
+		log = new Log(Constants)
 
-		//~ utils = new Utils()
+		utils = new Utils()
 		
-		//~ log.addEntry(Constants.LOG, Constants.ACTION_LOG_START, "DockerHub init" )
+		log.addEntry(Constants.LOG, Constants.ACTION_LOG_START, "DockerHub init" )
 		
-		//~ if( ! repoInput )
-			//~ log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "DockerHub repo init failed" )
-		//~ else
-			//~ getManifests()
+		if( ! repoInput )
+			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "DockerHub repo init failed" )
+		else
+			getManifests()
 	}
 
 	def getManifests()
