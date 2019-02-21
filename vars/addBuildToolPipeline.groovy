@@ -37,6 +37,8 @@ def call( environment, currentBuild )
 								println portusApi.isPortusHealthy()
 								//println portusApi.PortusData.test()
 								//portusApi.test()
+								
+								println portusApi.dockerHubRepo
 							}
 						}
 					}
