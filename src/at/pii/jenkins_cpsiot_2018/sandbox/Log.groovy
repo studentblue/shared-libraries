@@ -41,7 +41,7 @@ class LogData
 	
 	def getLog()
 	{
-		return this.log
+		return log
 	}
 	
 	def printLog()
