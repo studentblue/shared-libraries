@@ -201,7 +201,7 @@ class addBuildToolHelpers
 	
 	def validateNamespace(namespace, team, description)
 	{
-		def code = PortusApi.validateNamespace(namespace, team, description)
+		def code = PortusApi.validateNamespace(namespace)
 		
 		if( code == -1 )
 			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Validation of namespace \"" + namespace + "\" failed")
