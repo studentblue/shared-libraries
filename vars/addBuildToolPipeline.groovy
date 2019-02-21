@@ -11,8 +11,7 @@ def call( environment, currentBuild )
 	jenkinsBuildApi = jenkinsOuterBuildApi.jenkinsApiInstance
 	*/
 	
-	//DockerHub = new at.pii.jenkins_cpsiot_2018.sandbox.DockerHub()
-	Constants = new at.pii.jenkins_cpsiot_2018.sandbox.constants()
+	//DockerHub = new at.pii.jenkins_cpsiot_2018.sandbox.DockerHub()	
 	
 	Log = new at.pii.jenkins_cpsiot_2018.sandbox.Log()
 	
