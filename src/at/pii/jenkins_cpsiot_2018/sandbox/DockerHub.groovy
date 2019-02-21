@@ -7,8 +7,7 @@ class DockerHub
 	def private manifests
 	def private repoInput
 	def private tagInput
-	def private log 
-	def private utils
+	def private log
 	
 	def Constants	
 	
@@ -26,8 +25,6 @@ class DockerHub
 		log = new Log()
 		
 		log.init(Constants)
-
-		utils = new Utils()
 		
 		log.addEntry(Constants.LOG, Constants.ACTION_LOG_START, "DockerHub init" )
 		
@@ -75,7 +72,7 @@ class DockerHub
 		
 		//~ try
 		//~ {
-		
+			def utils = new Utils()
 			def response = utils.httpRequestWithPlugin(login_template, Constants.HTTP_MODE_GET)
 			def responseGroovy = ""
 		
