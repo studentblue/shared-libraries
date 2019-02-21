@@ -92,14 +92,14 @@ def call( environment, currentBuild )
 				{
 					script
 					{
-						AddBuildToolHelpers.generatePortus()
+						def image = AddBuildToolHelpers.generatePortus()
 						
 						if( AddBuildToolHelpers.getLog().errorsOccured() )
 						{
 							error("Failed")
 						}
 						
-						input(id: "Push_Image", message: "Push as \"${portusApi.namespace}/${portusApi.repoName}:${portusApi.repoTag}\"", ok: 'PUSH')
+						input(id: "Push_Image", message: "Push as \""+image+"\"", ok: 'PUSH')
 						AddBuildToolHelpers.pushImage()
 						
 					}

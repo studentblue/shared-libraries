@@ -126,6 +126,11 @@ class addBuildToolHelpers
 	
 	def generatePortus()
 	{
+		def namespace = ""
+		def repo = ""
+		def tag = ""
+		
+		return namespace + "/" + repo + "/" + tag
 	}
 	
 	def pushImage()
