@@ -12,20 +12,23 @@ class PortusApiData implements Serializable
 	def PortusUserName
 	
 	//Portus Auth
-	def inputPortusToken
+	def portusToken
 	
 	//Build Parameters from Input
 	
 	//DockerHub
-	def inputDockerHubRepo
-	def inputDockerHubTag
+	def dockerHubRepo
+	def dockerHubTag
+	
+	//Input
+	def inputParameter
 	
 	//Portus
-	def inputPortusTeam
-	def inputPortusNameSpace 
-	def inputPortusNameSpaceDescription 
-	def inputPortusImageName
-	def inputPortusTag
+	def namespace
+	def nameSpaceDescription
+	def team
+	def repoName
+	def repoTag
 	
 	def environment
 	def buildParameters
@@ -38,15 +41,7 @@ class PortusApiData implements Serializable
 	
 	def chosenImage = ""
 	
-	def defaultImageName = ""
-	def defaultNameSpace = ""
-	
-	def PortusNameSpace = ""
-	def PortusImageName = ""
-	
 	def digest = ""
-	
-	def 
 	
 	PortusApiData(outerClass)
 	{		
@@ -75,32 +70,24 @@ class PortusApiData implements Serializable
 	def checkInputParameters()
 	{
 		
+
+		//~ def PortusUrl
+		//~ def PortusUserName
+		//~ def portusToken
+		//~ def dockerHubRepo
+		//~ def dockerHubTag
+		//~ def inputParameter
+		//~ def namespace
+		//~ def nameSpaceDescription
+		//~ def team
+		//~ def repoName
+		//~ def repoTag
 		
-		
-		this.inputPortusToken = this.environment.TOKEN2
+		//Auth, Url
+		this.portusToken = this.environment.TOKEN2
 		this.PortusUrl = this.environment.REPO_URL
 		this.PortusUserName = this.environment.PORTUS_USER
 		
-		def userInput = Boon.fromJson(this.environment.AddBuildTool)
-		
-		if(userInput.DockerHub )
-		{
-			this.inputDockerHubRepo = userInput.DockerHub.repo
-			this.inputDockerHubTag = userInput.DockerHub.tag
-		}
-		else
-			return "DockerHub parameter not found"
-		
-		if(userInput.Portus )
-		{
-			this.inputPortusTeam = userInput.Portus.team
-			this.inputPortusNameSpace = userInput.Portus.namespace
-			this.inputPortusNameSpaceDescription = userInput.Portus.description
-			this.inputPortusImageName = userInput.Portus.repo
-			this.inputPortusTag = userInput.Portus.tag
-		}
-		else
-			return "Portus parameter not found"
 		
 		if ( ! this.PortusUrl )
 			return "Portus Url not found"
@@ -108,43 +95,57 @@ class PortusApiData implements Serializable
 		if ( ! this.PortusUserName )
 			return "Portus User Name not found"
 		
-		if ( ! this.inputDockerHubRepo )
-			return "DockerHub repo name is empty"
+		if ( ! this.portusToken )
+			return "Portus Token not found"
 		
-		if ( ! this.inputPortusToken )
-			return "Portus Token is empty"
+		this.inputParameter = Boon.fromJson(this.environment.AddBuildTool)
 		
-		if ( ! this.inputPortusTeam )
-			return "Portus Team is empty"
+		if(! this.inputParameter.DockerHub )		
+			return "DockerHub parameter not found"
 		
-		if( this.inputDockerHubRepo =~ /[^\w_\-.~\/\%:]+/ )
-			return "DockerHub repo name cannot be valid"
+		if(! this.inputParameter.Namespace )
+			return "Namespace parameter not found"
 		
-		def findcool = this.inputPortusNameSpace  =~ /[^\w_.~]+/
+		if(! this.inputParameter.Repo )
+			return "Namespace parameter not found"
 		
-		if( findcool )
-		{
-			def message = "Portus NameSpace contains unallowed characters: "
-			findcool.each
-			{
-				match ->
-					message += "\"${match}\" "
-			}
-			return message
-		}
+		//~ if ( ! this.inputDockerHubRepo )
+			//~ return "DockerHub repo name is empty"
 		
-		findcool = this.inputPortusImageName =~ /[^\w_\-.~]+/
+		//~ if ( ! this.inputPortusToken )
+			//~ return "Portus Token is empty"
 		
-		if( findcool )
-		{
-			def message = "Portus Image Name contains unallowed characters: "
-			findcool.each
-			{
-				match ->
-					message += "\"${match}\" "
-			}
-			return message
-		}
+		//~ if ( ! this.inputPortusTeam )
+			//~ return "Portus Team is empty"
+		
+		//~ if( this.inputDockerHubRepo =~ /[^\w_\-.~\/\%:]+/ )
+			//~ return "DockerHub repo name cannot be valid"
+		
+		//~ def findcool = this.inputPortusNameSpace  =~ /[^\w_.~]+/
+		
+		//~ if( findcool )
+		//~ {
+			//~ def message = "Portus NameSpace contains unallowed characters: "
+			//~ findcool.each
+			//~ {
+				//~ match ->
+					//~ message += "\"${match}\" "
+			//~ }
+			//~ return message
+		//~ }
+		
+		//~ findcool = this.inputPortusImageName =~ /[^\w_\-.~]+/
+		
+		//~ if( findcool )
+		//~ {
+			//~ def message = "Portus Image Name contains unallowed characters: "
+			//~ findcool.each
+			//~ {
+				//~ match ->
+					//~ message += "\"${match}\" "
+			//~ }
+			//~ return message
+		//~ }
 		
 		return true
 	}
