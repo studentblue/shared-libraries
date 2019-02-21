@@ -121,7 +121,7 @@ class PortusApi
 			
 			if( found )
 			{
-				log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Team: " + teamToFind + " found must not be created ")
+				log.addEntry(Constants.LOG, Constants.TEAM_FOUND, "Team: " + teamToFind + " found must not be created ")
 				return true
 			}
 			else
