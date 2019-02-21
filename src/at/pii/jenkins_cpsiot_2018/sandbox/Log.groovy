@@ -2,7 +2,7 @@ package at.pii.jenkins_cpsiot_2018.sandbox
 
 class Log
 {
-	def private log = []
+	def private log
 	
 	def private errors = 0
 	
@@ -10,7 +10,14 @@ class Log
 	
 	def private final ERROR = "error: "
 	
-	def Constants = new at.pii.jenkins_cpsiot_2018.sandbox.Constants()
+	def Constants
+	
+	Log()
+	{
+		Constants = new at.pii.jenkins_cpsiot_2018.sandbox.Constants()
+		log = []
+		
+	}
 	
 	def addEntry(scope, action, message )
 	{
