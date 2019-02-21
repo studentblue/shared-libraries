@@ -12,9 +12,9 @@ def call( environment, currentBuild )
 	*/
 	
 	//DockerHub = new at.pii.jenkins_cpsiot_2018.sandbox.DockerHub()	
-	
-	Log = new at.pii.jenkins_cpsiot_2018.sandbox.Log()
 	Constants = new at.pii.jenkins_cpsiot_2018.sandbox.Constants()
+	Log = new at.pii.jenkins_cpsiot_2018.sandbox.Log(Constants)
+	
 	//Log.init()
 	//Log = Log.Data
 	
@@ -33,7 +33,7 @@ def call( environment, currentBuild )
 						{
 							script
 							{
-								Log.addEntry(1, "Test", "Test" )
+								Log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Test" )
 								println Log.getLog()
 								//DockerHub.init(environment.AddBuildTool.DockerHub.repo, environment.AddBuildTool.DockerHub.tag)
 								//dockerHub.print()

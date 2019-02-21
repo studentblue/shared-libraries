@@ -12,10 +12,10 @@ class Log
 	
 	def Constants
 	
-	Log()
+	Log(Constants)
 	{
-		//~ Constants = new Constants()
-		//~ log = []
+		this.Constants = Constants
+		log = []
 		
 	}
 	
