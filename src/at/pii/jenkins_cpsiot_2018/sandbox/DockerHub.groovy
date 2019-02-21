@@ -10,28 +10,28 @@ class DockerHub implements Serializable
 	def private log 
 	def private utils
 	
-	def ConstantsRef
+	def Constants	
 	
-	DockerHub(constants)
+	init(repo, tag, Constants)
 	{
-		Constants = constants
-		//~ this.ConstantsRef = ConstantsRef
+		this.Constants = Constants
 		
-		//~ if( repo )
-			//~ repoInput = repo
+		if( repo )
+			repoInput = repo
 		
-		//~ if( tag )
-			//~ tagInput = tag
+		if( tag )
+			tagInput = tag
 		
-		//~ log = new Log(ConstantsRef)
-		//~ utils = new Utils()
+		log = new Log()
+		log.init(Constants)
+		utils = new Utils()
 		
-		//~ log.addEntry(ConstantsRef.LOG, ConstantsRef.ACTION_LOG_START, "DockerHub init" )
+		log.addEntry(Constants.LOG, Constants.ACTION_LOG_START, "DockerHub init" )
 		
-		//~ if( ! repoInput )
-			//~ log.addEntry(ConstantsRef.ERROR, ConstantsRef.ACTION_CHECK, "DockerHub repo init failed" )
+		if( ! repoInput )
+			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "DockerHub repo init failed" )
 	}
-	/*
+
 	def getManifests()
 	{
 		def image = repoInput
@@ -100,5 +100,5 @@ class DockerHub implements Serializable
 	{
 		return log
 	}
-	*/
+
 }

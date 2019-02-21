@@ -12,11 +12,10 @@ class Log implements Serializable
 	
 	def Constants
 	
-	Log(Constants)
+	def init(Constants)
 	{
 		this.Constants = Constants
 		log = []
-		
 	}
 	
 	def addEntry(scope, action, message )
