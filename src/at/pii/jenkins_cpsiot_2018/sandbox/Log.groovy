@@ -21,7 +21,7 @@ class Log
 	
 	Log()
 	{
-		constants = new at.pii.jenkins_cpsiot_2018.sandbox.constants()
+		constants = new at.pii.jenkins_cpsiot_2018.sandbox.Log.constants()
 	}
 	
 	def addEntry(scope, action, message )
