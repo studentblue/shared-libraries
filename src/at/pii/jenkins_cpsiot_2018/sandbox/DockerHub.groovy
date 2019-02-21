@@ -1,7 +1,7 @@
 package at.pii.jenkins_cpsiot_2018.sandbox
 
 import groovy.json.*
-
+/*
 class DockerHubData
 {
 	def private outer
@@ -112,8 +112,8 @@ class DockerHubData
 		return this.log
 	}
 }
-
-
+*/
+/*
 def Data
 
 def init(name, tag)
@@ -124,10 +124,15 @@ def init(name, tag)
 	Data = new DockerHubData(this, name, tag, log, utils)
 	Data.getManifests()
 }
-
-def getLog()
+*/
+def print()
 {
-	return Data.getLog()
+	println "Test"
 }
+
+//~ def getLog()
+//~ {
+	//~ return Data.getLog()
+//~ }
 
 return this
