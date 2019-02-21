@@ -2,7 +2,7 @@ package at.pii.jenkins_cpsiot_2018.sandbox
 
 import groovy.json.*
 
-class DockerHub
+class DockerHub implements Serializable
 {
 	def private outer
 	def private manifests
