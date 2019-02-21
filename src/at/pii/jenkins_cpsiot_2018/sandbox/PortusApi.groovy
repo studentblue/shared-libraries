@@ -156,10 +156,12 @@ class PortusApi
 		def mode = Constants.HTTP_MODE_POST
 		def body = JsonOutput.toJson([name: namespace, team: team, description: description])
 		
+		def response = ""
+		def content = ""
 		try
 		{
-			def response = makeRequest(url, mode, getPortusAuthHeaders(), body)
-			def content = new JsonSlurperClassic().parseText(response.content)
+			response = makeRequest(url, mode, getPortusAuthHeaders(), body)
+			content = new JsonSlurperClassic().parseText(response.content)
 			
 			if( response.status == Constants.HTTP_RESPONSE_CREATED )
 			{
