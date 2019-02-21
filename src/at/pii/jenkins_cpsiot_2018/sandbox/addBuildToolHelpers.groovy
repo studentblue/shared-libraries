@@ -259,7 +259,7 @@ class addBuildToolHelpers
 	
 	def generateDefaultDescription()
 	{	
-		def user = PortusApi.PortusUserName()
+		def user = PortusApi.getPortusUserName()
 		
 		
 		
