@@ -174,7 +174,7 @@ class PortusApi
 		return log
 	}
 	
-	getPortusUserName()
+	def getPortusUserName()
 	{
 		return PortusUserName
 	}
