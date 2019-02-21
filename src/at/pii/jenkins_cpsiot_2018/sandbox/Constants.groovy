@@ -1,6 +1,6 @@
 package at.pii.jenkins_cpsiot_2018.sandbox
 
-class Constants implements Serializable
+class Constants
 {
 	final String SPLITTER = " @::@ "
 	final int ERROR = 1

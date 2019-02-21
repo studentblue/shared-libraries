@@ -1,6 +1,6 @@
 package at.pii.jenkins_cpsiot_2018.sandbox
 
-class Log implements Serializable
+class Log
 {
 	def private log
 	
