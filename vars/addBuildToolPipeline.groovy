@@ -38,7 +38,7 @@ def call( environment, currentBuild )
 								//DockerHub.getManifests()
 								//println DockerHub.getLog().printLog()
 								
-								println "Test"
+								println DockerHub.getLog()
 								
 								//dockerHub.print()
 								//jenkinsBuildApi.init( currentBuild )

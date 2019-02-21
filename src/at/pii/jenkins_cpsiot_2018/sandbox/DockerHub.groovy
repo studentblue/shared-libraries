@@ -12,7 +12,7 @@ class DockerHub implements Serializable
 	
 	def Constants	
 	
-	init(repo, tag, Constants)
+	def init(repo, tag, Constants)
 	{
 		this.Constants = Constants
 		
@@ -30,6 +30,8 @@ class DockerHub implements Serializable
 		
 		if( ! repoInput )
 			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "DockerHub repo init failed" )
+		else
+			getManifests()
 	}
 
 	def getManifests()
