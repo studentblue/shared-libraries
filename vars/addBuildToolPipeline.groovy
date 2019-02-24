@@ -17,6 +17,9 @@ def call( environment, currentBuild )
 	PortusApi = new at.pii.jenkins_cpsiot_2018.sandbox.PortusApi()
 	AddBuildToolHelpers = new at.pii.jenkins_cpsiot_2018.sandbox.addBuildToolHelpers()
 	
+	JenkinsApi = new at.pii.jenkins_cpsiot_2018.sandbox.JenkinsApi()
+	
+	
 	//Log.init()
 	//Log = Log.Data
 	
@@ -45,6 +48,13 @@ def call( environment, currentBuild )
 								PortusApi.init(environment.REPO_URL, environment.PORTUS_USER, environment.TOKEN2, environment.PORTUS_USER_ID, Constants)
 								
 								if( PortusApi.getLog().errorsOccured() )
+								{
+									error("Failed")
+								}
+								
+								JenkinsApi.init(currentBuild, Constants)
+								
+								if( JenkinsApi.getLog().errorsOccured() )
 								{
 									error("Failed")
 								}

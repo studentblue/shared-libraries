@@ -145,5 +145,26 @@ class DockerHub
 		
 		return platform
 	}
-
+	
+	def getRepoName()
+	{
+		def repoName = repoInput
+		
+		repoName.replace("/", "_")
+		
+		return repoName
+	}
+	
+	def getTag()
+	{
+		if( repoInput.contains(":") )
+		{
+			def tag = repoInput.split(":")
+			
+			if( tag.length == 2 )
+				return tag[1]
+		}
+		
+		return ""
+	}
 }

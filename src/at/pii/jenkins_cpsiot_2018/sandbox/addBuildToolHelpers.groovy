@@ -17,6 +17,8 @@ class addBuildToolHelpers
 	def Constants
 	
 	def DockerHub
+	
+	def JenkinsApi
 	def utils
 	
 	def userChoice
@@ -209,7 +211,60 @@ class addBuildToolHelpers
 			}
 		}
 		
+		//~ def repo = ""
+		//~ def tag = ""
+		
+		def dockerhubRepo = DockerHub.getRepoName()
+		def dockerTag = DockerHub.getTag()
+		
+		if( input.Repo.name == true )
+		{
+			//generate repo name
+			
+			
+			if( ! dockerhubRepo )
+			{
+				log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Dockerhub Repo Name not found.")
+			}
+			
+			repo = generateDefaultImageName(dockerhubRepo)
+		}
+		else
+		{
+			if( input.Repo.name )
+			{
+				repo = input.Repo.name.replaceAll("^[\\W-_]*", "")
+				repo = repo.replaceAll("[\\W_]*$", "")
+				repo = repo.replaceAll("[^\\w-]*", "")
+				
+			}
+			else
+				repo = generateDefaultImageName(dockerhubRepo)
+		}
+		
+		if( input.Repo.tag == true )
+		{
+			//generate tag
+			tag = DockerHub.getTag() + "-" +JenkinsApi.getBuildNumber()
+		}
+		else
+		{
+			if( input.Repo.tag )
+			{
+				tag = input.Repo.tag.replaceAll("^[\\W-_]*", "")
+				tag = tag.replaceAll("[\\W_]*$", "")
+				tag = tag.replaceAll("[^\\w-]*", "")
+			}
+			else
+				tag = DockerHub.getTag() + "-" +JenkinsApi.getBuildNumber()
+		}
+		
 		return namespace + "/" + repo + ":" + tag
+	}
+	
+	def generateDefaultImageName(name)
+	{
+		return Constants.DEFAULT_IMAGE_PREFIX + name
 	}
 	
 	def generateDefaultNameSpace()

@@ -3,32 +3,40 @@ package at.pii.jenkins_cpsiot_2018.sandbox
 import groovy.json.*
 //import groovy.json.JsonSlurperClassic
 
-class JenkinsApiClass
+class JenkinsApi
 {	
 	def currentBuild
-	def outer
+	def Constants
+	def log
 	
-	JenkinsApiClass(outer)
-	{
-		this.outer = outer
-	}
-	
-	def init(currentBuild)
+	def init(currentBuild, Constants)
 	{
 		this.currentBuild = currentBuild
+		this.Constants = Constants
+		
+		log = new Log()
+		log.init(Constants)
+		
+		checkApi()
+	}
+	
+	def checkApi()
+	{
+		log.addEntry(Constants.LOG, Constants.ACTION_LOG_START, "JenkinsApi init" )
+		
+		if( currentBuild.number )
+			log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Current Build Number is " +  currentBuild.number)
+		else
+			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Current Build Number not found " )
 	}
 	
 	def getBuildNumber()
 	{
-		return this.currentBuild.number
+		return currentBuild.number
+	}
+	
+	def getLog()
+	{
+		return log
 	}
 }
-
-def jenkinsApiInstance
-
-def init()
-{
-	jenkinsApiInstance = new JenkinsApiClass(this)
-}
-
-return this
