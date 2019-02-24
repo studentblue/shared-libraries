@@ -248,7 +248,10 @@ class addBuildToolHelpers
 		if( input.Repo.tag == true )
 		{
 			//generate tag
-			tag = DockerHub.getTag() + "-" +JenkinsApi.getBuildNumber()
+			if( DockerHub.getTag() )
+				tag = DockerHub.getTag() + "-" + JenkinsApi.getBuildNumber()
+			else
+				tag = Constants.DEFAULT_TAG_PREFIX + "-" + JenkinsApi.getBuildNumber()
 		}
 		else
 		{
@@ -259,7 +262,10 @@ class addBuildToolHelpers
 				tag = tag.replaceAll("[^\\w-]*", "")
 			}
 			else
+			{
+				
 				tag = DockerHub.getTag() + "-" +JenkinsApi.getBuildNumber()
+			}
 		}
 		
 		return namespace + "/" + repo + ":" + tag
