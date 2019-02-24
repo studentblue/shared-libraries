@@ -8,7 +8,7 @@ class Constants
 	final int ERROR_PORTUS_UNHEALTHY = 2
 	
 	final String HTTP_ERROR = "HTTP Request Failed: "
-	
+	final String REPOSITORIES_FETCH_ID_ERROR = "REPOSITORY_FETCH_ID_FAILED: "
 	
 	final String DEFAULT_IMAGE_PREFIX = "cpsiot-build-"
 	final String DEFAULT_NAMESPACE_PREFIX = "cpsiot_build_"
@@ -24,6 +24,9 @@ class Constants
 	final String ACTION_VALIDATE = "VALIDATE: "
 	final String NAMESPACE_CREATED = "ADDED_NEW_NAMESPACE: "
 	final String NAMESPACE_FOUND = "NAMESPACE_FOUND: "
+	final String NAMESPACES_FETCHED = "NAMESPACES_FETCHED: "
+	final String REPOSITORIES_FETCHED = "REPOSITORIES_FETCHED: "
+	final String TAGS_FETCHED = "TAGS_FETCHED: "
 	final String TEAM_FOUND = "TEAM_FOUND: "
 	final String TEAM_CREATED = "ADDED_NEW_TEAM: "
 	final String HTTP_MODE_GET = "GET"

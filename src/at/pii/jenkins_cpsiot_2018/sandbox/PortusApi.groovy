@@ -99,6 +99,27 @@ class PortusApi
 		return true
 	}
 	
+	def validateNamespace(namespace)
+	{
+		def url = PortusUrl + namespacesApi + "/validate?name=" + namespace
+		def mode = Constants.HTTP_MODE_GET
+		
+		def response = makeRequest(url, mode, getPortusAuthHeaders())
+		
+		if( response.status == Constants.HTTP_RESPONSE_OK )
+		{
+			def content = new JsonSlurperClassic().parseText(response.content)
+			log.addEntry(Constants.LOG, Constants.ACTION_VALIDATE, "Namespace: " + namespace + " = " + content.valid)
+			
+			return content.valid
+		}
+		else
+		{
+			log.addEntry(Constants.ERROR, Constants.HTTP_ERROR, "Tried to validate namespace \""+namespace+"\" got Code " + response.status)
+			return -1
+		}
+	}
+	
 	def validateTeam(teamToFind, teamDescription)
 	{
 		def url = PortusUrl + teamsApi + "?all=true"
@@ -197,5 +218,177 @@ class PortusApi
 	def getPortusUserName()
 	{
 		return PortusUserName
+	}
+	
+	def checkNamespaceRepoTag(namespace, repoName, tagName )
+	{
+		if( validateNamespace(namespace) == -1 )
+			return false
+		
+		if( validateNamespace(namespace) )
+			return true
+		else
+		{
+			def nameSpaceId = getNameSpaceId( namespace )
+			
+			if( nameSpaceId == -1 )
+			{
+				log.addEntry(Constants.ERROR, Constants.ACTION_EXCEPTION, "Namespace \""+namespace+"\" was valid but not found for user " + PortusUserName )
+				return false
+			}
+			
+			//get tags for repo
+			def repos = getRepositoriesForNameSpace(nameSpaceId)
+			
+			if( ! repos )
+				return true
+			
+			def repoId = -1
+			
+			repos.each
+			{
+				repo ->
+					
+					if( repo.name.equals(repoName) )
+					{
+						repoId = repo.id
+					}
+			}
+			
+			if( repoId == -1 )
+				return true
+			
+			def tags = getTagsFromRepo(repoId)
+			
+			if( ! tags )
+				return true
+			
+			def tagFound = false
+			
+			tags.each
+			{
+				tag ->
+					
+					if( tag.name.equals(tagName)
+						tagFound = true
+			}
+			
+			if( tagFound )
+				return false
+			else
+				return true
+		}
+	}
+	
+	def getRepositoriesForNameSpace(nameSpaceId)
+	{
+		
+		if( ! ( nameSpaceId >= 0 ))
+			return []
+		
+		def url = PortusUrl + namespacesApi + "/"+nameSpaceId+"/repositories"
+		def mode = Constants.HTTP_MODE_GET
+		
+		def response = makeRequest(url, mode, getPortusAuthHeaders())
+		
+		if( response.status == Constants.HTTP_RESPONSE_OK )
+		{
+			def content = new JsonSlurperClassic().parseText(response.content)
+			log.addEntry(Constants.LOG, Constants.REPOSITORIES_FETCHED, "Loaded  Repos for NameSpace ID " + nameSpaceId)
+			
+			return content
+		}
+		
+		return []
+	}
+	
+	def getRepoId(name)
+	{
+		def repos = getAllRepositories()
+		
+		def repoId = -1
+		
+		if( !repos)
+		{
+			log.addEntry(Constants.LOG, Constants.REPOSITORIES_FETCH_ID_ERROR, "Repo Name: " + name + " ID not found ")
+			return -1
+		}
+		
+		repos.each
+		{
+			repo ->
+				
+				if( repo.name.equals(name) )
+					repoId = repo.id
+		}
+		
+		return repoId
+		
+	}
+	
+	def getNameSpaceId( name )
+	{
+		def url = PortusUrl + namespacesApi + "?all=true"
+		def mode = Constants.HTTP_MODE_GET
+		
+		def response = makeRequest(url, mode, getPortusAuthHeaders())
+		
+		def id = -1
+		
+		if( response.status == Constants.HTTP_RESPONSE_OK )
+		{
+			def content = new JsonSlurperClassic().parseText(response.content)
+			log.addEntry(Constants.LOG, Constants.NAMESPACES_FETCHED, "Loaded  Namespaces for user " + PortusUserName)
+			
+			content.each
+			{
+				namespace ->
+					
+					if( namespace.name.equals(name) )
+					{
+						id = namespace.id
+						log.addEntry(Constants.LOG, Constants.NAMESPACE_FOUND, "Namespace \""+name+"\" found ")
+					}
+			}
+		}
+		
+		return id
+		
+	}
+	
+	def getAllRepositories()
+	{
+		def url = PortusUrl + repositoryApi + "?all=true"
+		def mode = Constants.HTTP_MODE_GET
+		
+		def response = makeRequest(url, mode, getPortusAuthHeaders())
+		
+		if( response.status == Constants.HTTP_RESPONSE_OK )
+		{
+			def content = new JsonSlurperClassic().parseText(response.content)
+			log.addEntry(Constants.LOG, Constants.REPOSITORIES_FETCHED, "Loaded  Repositories for user " + PortusUserName)
+			
+			return content
+		}
+		
+		return []
+	}
+	
+	def getTagsFromRepo(repoId)
+	{
+		def url = PortusUrl + repositoryApi + "/"+repoId+"/tags"
+		def mode = Constants.HTTP_MODE_GET
+		
+		def response = makeRequest(url, mode, getPortusAuthHeaders())
+		
+		if( response.status == Constants.HTTP_RESPONSE_OK )
+		{
+			def content = new JsonSlurperClassic().parseText(response.content)
+			log.addEntry(Constants.LOG, Constants.TAGS_FETCHED, "Loaded  Tags for Repo ID " + repoId)
+			
+			return content
+		}
+		
+		return []
 	}
 }

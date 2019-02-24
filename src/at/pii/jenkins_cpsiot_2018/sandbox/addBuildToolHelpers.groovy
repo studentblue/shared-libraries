@@ -268,6 +268,9 @@ class addBuildToolHelpers
 			}
 		}
 		
+		if( ! PortusApi.checkNamespaceRepoTag(namespace, repo, tag ) )
+			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Image already exists in repo for namespace and tag")
+		
 		return namespace + "/" + repo + ":" + tag
 	}
 	
