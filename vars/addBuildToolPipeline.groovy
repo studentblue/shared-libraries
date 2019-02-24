@@ -129,6 +129,8 @@ def call( environment, currentBuild )
 						println DockerHub.getLog().printLog()
 					if( PortusApi.getLog() ) 
 						println PortusApi.getLog().printLog()
+					if( JenkinsApi.getLog() ) 
+						println JenkinsApi.getLog().printLog()
 					if( AddBuildToolHelpers.getLog() )
 						println AddBuildToolHelpers.getLog().printLog()
 				}
