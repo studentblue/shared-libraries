@@ -41,8 +41,10 @@ class addBuildToolHelpers
 		
 		log.addEntry(Constants.LOG, Constants.ACTION_LOG_START, "addBuildToolHelpers init" )
 		
-		checkInput()
+		if( ! ( PortusApi || DockerHub || JenkinsApi || utils) )
+			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Tools init failed" )
 		
+		checkInput()
 	}
 	
 	def checkInput()
