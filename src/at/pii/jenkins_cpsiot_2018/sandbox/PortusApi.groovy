@@ -269,7 +269,7 @@ class PortusApi
 			{
 				tag ->
 					
-					if( tag.name.equals(tagName)
+					if( tag.name.equals(tagName) )
 						tagFound = true
 			}
 			
