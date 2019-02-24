@@ -59,7 +59,7 @@ def call( environment, currentBuild )
 									error("Failed")
 								}
 								
-								AddBuildToolHelpers.init( environment.AddBuildTool, PortusApi, DockerHub, Constants  )
+								AddBuildToolHelpers.init( environment.AddBuildTool, PortusApi, DockerHub, JenkinsApi, Constants  )
 								
 								if( AddBuildToolHelpers.getLog().errorsOccured() )
 								{
