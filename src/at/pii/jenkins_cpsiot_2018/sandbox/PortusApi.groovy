@@ -347,9 +347,11 @@ class PortusApi
 					if( namespace.name.equals(name) )
 					{
 						id = namespace.id
-						log.addEntry(Constants.LOG, Constants.NAMESPACE_FOUND, "Namespace \""+name+"\" found ")
 					}
 			}
+			
+			if( id )
+				log.addEntry(Constants.LOG, Constants.NAMESPACE_FOUND, "Namespace \""+name+"\" found ")
 		}
 		
 		return id
