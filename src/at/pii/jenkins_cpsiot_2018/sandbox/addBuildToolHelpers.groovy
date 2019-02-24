@@ -234,7 +234,7 @@ class addBuildToolHelpers
 			if( input.Repo.name )
 			{
 				repo = input.Repo.name.replaceAll("^[\\W-_]*", "")
-				repo = repo.replaceAll("[\\W_]*$", "")
+				repo = repo.replaceAll("[\\W_]*\$", "")
 				repo = repo.replaceAll("[^\\w-]*", "")
 				
 			}
@@ -252,7 +252,7 @@ class addBuildToolHelpers
 			if( input.Repo.tag )
 			{
 				tag = input.Repo.tag.replaceAll("^[\\W-_]*", "")
-				tag = tag.replaceAll("[\\W_]*$", "")
+				tag = tag.replaceAll("[\\W_]*\$", "")
 				tag = tag.replaceAll("[^\\w-]*", "")
 			}
 			else
