@@ -25,13 +25,14 @@ class addBuildToolHelpers
 	
 	def digest
 	
-	def init( inputParameter, PortusApi, DockerHub, Constants  )
+	def init( inputParameter, PortusApi, DockerHub, JenkinsApi,  Constants  )
 	{
 		input = new JsonSlurperClassic().parseText(inputParameter)
 		
 		this.PortusApi = PortusApi
 		this.Constants = Constants
 		this.DockerHub = DockerHub
+		this.JenkinsApi = JenkinsApi
 		
 		log = new Log()
 		log.init(Constants)
