@@ -100,23 +100,24 @@ def call( environment, currentBuild )
 			{
 				steps
 				{
-					script
+					withFolderProperties
 					{
-						def image = AddBuildToolHelpers.generatePortus()
-						
-						if( AddBuildToolHelpers.getLog().errorsOccured() )
+						script
 						{
-							error("Failed")
+							def image = AddBuildToolHelpers.generatePortus()
+							
+							if( AddBuildToolHelpers.getLog().errorsOccured() )
+							{
+								error("Failed")
+							}
+							
+							input(id: "Push_Image", message: "Push as \""+image+"\"", ok: 'PUSH')
+							//AddBuildToolHelpers.pushImage(image)
+							
+							pushImage DockerHubImage: "Test", imageName: image, portusCredentials: environment.PORTUS-CREDS-STD, portusRepo: environment.REPO_URL
+							
 						}
-						
-						input(id: "Push_Image", message: "Push as \""+image+"\"", ok: 'PUSH')
-						//AddBuildToolHelpers.pushImage(image)
-						
-						pushImage DockerHubImage: "Test", imageName: image, portusCredentials: environment.PORTUS-CREDS-STD, portusRepo: environment.REPO_URL
-						
 					}
-					
-					
 				}
 			}
 		}
