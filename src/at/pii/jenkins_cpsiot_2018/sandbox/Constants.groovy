@@ -33,7 +33,11 @@ class Constants
 	final String HTTP_MODE_POST = "POST"
 	
 	
-	final enum GET_DOCKERHUB_REPO_AND_TAG_MODE { SIMPLE, URL }
+	enum GET_DOCKERHUB_REPO_AND_TAG_MODE
+	{
+		SIMPLE, URL;
+		public GET_DOCKERHUB_REPO_AND_TAG_MODE(){}
+	}
 	
 	final int HTTP_RESPONSE_OK = 200
 	final int HTTP_RESPONSE_CREATED = 201
