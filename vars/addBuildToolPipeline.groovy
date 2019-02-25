@@ -112,7 +112,7 @@ def call( environment, currentBuild )
 						input(id: "Push_Image", message: "Push as \""+image+"\"", ok: 'PUSH')
 						//AddBuildToolHelpers.pushImage(image)
 						
-						pushImage ( DockerHubImage: "test", imageName: image )
+						pushImage 
 						
 					}
 					
