@@ -37,7 +37,7 @@ class Constants
 	{
 		SIMPLE, URL;
 		public GET_DOCKERHUB_REPO_AND_TAG_MODE(){}
-	}
+	};
 	
 	final int HTTP_RESPONSE_OK = 200
 	final int HTTP_RESPONSE_CREATED = 201
