@@ -113,6 +113,8 @@ def call( environment, currentBuild )
 						AddBuildToolHelpers.pushImage(image)
 						
 					}
+					
+					pushImage "test"
 				}
 			}
 		}
