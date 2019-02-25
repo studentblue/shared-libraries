@@ -1,6 +1,6 @@
 def call( Map input = ["DockerHubImage": "", "imageName" : "", "portusCredentials" : "portus-user-creds"] )
 {	
-	echo input.portusCredentials
+	echo "${input.portusCredentials}"
 	
 	
 	/*
