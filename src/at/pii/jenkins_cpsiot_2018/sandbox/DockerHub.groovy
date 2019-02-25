@@ -43,10 +43,10 @@ class DockerHub
 	
 	def getImage()
 	{
-		def dockerHub = getRepoAndTagFromInput()
-		
+		def dockerHub = getRepoAndTagFromInput(Constants.GET_DOCKERHUB_REPO_AND_TAG_MODE.SIMPLE)
 		
 		def imageName = dockerHub.image
+		
 		
 		// docker pull ubuntu@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2
 		if( digest )
@@ -59,7 +59,7 @@ class DockerHub
 
 	def fetchManifests()
 	{
-		def dockerHub = getRepoAndTagFromInput()
+		def dockerHub = getRepoAndTagFromInput(Constants.GET_DOCKERHUB_REPO_AND_TAG_MODE.URL)
 		
 		if( ! dockerHub )
 			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "DockerHub Repo Info empty.")
@@ -139,7 +139,7 @@ class DockerHub
 		return platform
 	}
 	
-	def getRepoAndTagFromInput()
+	def getRepoAndTagFromInput(mode)
 	{
 		def image = repoInput
 		def resolve = repoInput.split(':')
@@ -148,7 +148,7 @@ class DockerHub
 		
 		if( resolve.length == 1 )
 		{
-			if( ! image.contains("/") )
+			if( ! image.contains("/") && mode == Constants.GET_DOCKERHUB_REPO_AND_TAG_MODE.URL)
 				image = "library/" + image
 			
 			if( tagInput )
@@ -160,7 +160,7 @@ class DockerHub
 			{
 				image = resolve[0]
 				
-				if( ! image.contains("/") )
+				if( ! image.contains("/") && mode == Constants.GET_DOCKERHUB_REPO_AND_TAG_MODE.URL)
 					image = "library/" + image
 				
 				tag = resolve[1]

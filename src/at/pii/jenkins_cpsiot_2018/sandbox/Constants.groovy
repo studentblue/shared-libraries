@@ -32,6 +32,9 @@ class Constants
 	final String HTTP_MODE_GET = "GET"
 	final String HTTP_MODE_POST = "POST"
 	
+	
+	final enum GET_DOCKERHUB_REPO_AND_TAG_MODE { SIMPLE, URL }
+	
 	final int HTTP_RESPONSE_OK = 200
 	final int HTTP_RESPONSE_CREATED = 201
 }
