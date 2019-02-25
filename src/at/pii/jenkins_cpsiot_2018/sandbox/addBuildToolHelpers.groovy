@@ -230,7 +230,7 @@ class addBuildToolHelpers
 				log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Dockerhub Repo Name not found.")
 			}
 			
-			repo = generateDefaultImageName(dockerhubRepo)
+			repo = generateDefaultImageName(dockerhubRepo, dockerTag)
 		}
 		else
 		{
@@ -242,7 +242,7 @@ class addBuildToolHelpers
 				
 			}
 			else
-				repo = generateDefaultImageName(dockerhubRepo)
+				repo = generateDefaultImageName(dockerhubRepo, dockerTag)
 		}
 		
 		if( input.Repo.tag == true )
@@ -274,12 +274,16 @@ class addBuildToolHelpers
 		return ["image": (namespace + "/" + repo), "tag": tag, "portusRepo": PortusApi.getPortusRegistryName()]
 	}
 	
-	def generateDefaultImageName(name)
+	def generateDefaultImageName(name, tag = "")
 	{
 		name = name.replaceAll("^[\\W]*", "")
 		name = name.replaceAll("[\\W_]*\$", "")
 		name = name.replaceAll("[^\\w_-]", "-")
-		return Constants.DEFAULT_IMAGE_PREFIX + name
+		
+		if( tag )
+			return Constants.DEFAULT_IMAGE_PREFIX + name + "-" + tag
+		else
+			return Constants.DEFAULT_IMAGE_PREFIX + name
 	}
 	
 	def generateDefaultNameSpace()

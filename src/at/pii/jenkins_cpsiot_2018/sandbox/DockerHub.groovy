@@ -52,7 +52,7 @@ class DockerHub
 		if( digest )
 			imageName += "@" + digest
 		else
-			dockerHub.image += ":" + dockerHub.tag
+			imageName += ":" + dockerHub.tag
 		
 		return imageName
 	}
@@ -180,23 +180,32 @@ class DockerHub
 	
 	def getRepoName()
 	{
-		def repoName = repoInput
+		//~ def repoName = repoInput
 		
-		repoName.replace("/", "_")
+		//~ repoName.replace("/", "_")
 		
-		return repoName
+		def dockerhub = getRepoAndTagFromInput(Constants.GET_DOCKERHUB_REPO_AND_TAG_MODE_SIMPLE)
+		
+		return dockerhub.image
 	}
 	
 	def getTag()
 	{
-		if( repoInput.contains(":") )
-		{
-			def tag = repoInput.split(":")
+		//~ if( repoInput.contains(":") )
+		//~ {
+			//~ def tag = repoInput.split(":")
 			
-			if( tag.length == 2 )
-				return tag[1]
-		}
+			//~ if( tag.length == 2 )
+				//~ return tag[1]
+		//~ }
 		
-		return ""
+		//~ return ""
+		
+		def dockerhub = getRepoAndTagFromInput(Constants.GET_DOCKERHUB_REPO_AND_TAG_MODE_SIMPLE)
+		
+		if( dockerhub.tag.equals("latest") )
+			return ""
+		else
+			return dockerhub.tag
 	}
 }
