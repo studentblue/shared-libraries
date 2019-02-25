@@ -1,10 +1,10 @@
 def call( Map input )
 {	
-	echo "${input.portusCredentials}"
+	//echo "${input.portusCredentials}"
 	
 	
-	/*
-	docker.withRegistry("https://${env.DOCKER_REPO}", "${input.portusCredentials}")
+
+	docker.withRegistry("${input.portusRepo}", "${input.portusCredentials}")
 	{
 		//customImage = docker.build("${env.DOCKER_USER_NAMESPACE}/${MY_SQL_SERVER_IMAGE_NAME}-${params.Build}-${params.Architecture}", "$WORKSPACE/database_scripts")
 		//customImage.push("latest")
@@ -12,7 +12,6 @@ def call( Map input )
 		// sh " cd database_scripts && cat Dockerfile"
 		echo "Push ${input.imageName}"
 	}
-	*/
 }
 	
 //println DockerHub.getLog().printLog()
