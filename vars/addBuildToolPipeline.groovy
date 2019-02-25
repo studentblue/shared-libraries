@@ -110,7 +110,7 @@ def call( environment, currentBuild )
 						}
 						
 						input(id: "Push_Image", message: "Push as \""+image+"\"", ok: 'PUSH')
-						AddBuildToolHelpers.pushImage()
+						AddBuildToolHelpers.pushImage(image)
 						
 					}
 				}
