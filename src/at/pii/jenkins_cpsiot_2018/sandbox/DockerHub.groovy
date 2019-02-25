@@ -10,6 +10,8 @@ class DockerHub
 	def private log
 	def private utils
 	
+	def digest
+	
 	def Constants	
 	
 	def init(inputJson, Constants)
@@ -38,46 +40,36 @@ class DockerHub
 		
 		return true
 	}
+	
+	def getImage()
+	{
+		def dockerHub = getRepoAndTagFromInput()
+		
+		
+		def imageName = dockerHub.image
+		
+		// docker pull ubuntu@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2
+		if( digest )
+			imageName += "@" + digest
+		else
+			dockerHub.image += ":" + dockerHub.tag
+		
+		return imageName
+	}
 
 	def fetchManifests()
 	{
-		def image = repoInput
-		def resolve = repoInput.split(':')
+		def dockerHub = getRepoAndTagFromInput()
 		
-		def tag = "latest"
+		if( ! dockerHub )
+			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "DockerHub Repo Info empty.")
 		
-		if( resolve.length == 1 )
-		{
-			if( ! image.contains("/") )
-				image = "library/" + image
-			
-			if( tagInput )
-				tag = tagInput
-		}
-		else
-		{
-			if( resolve.length == 2 )
-			{
-				image = resolve[0]
-				
-				if( ! image.contains("/") )
-					image = "library/" + image
-				
-				tag = resolve[1]
-			}
-			else
-			{
-				log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "DockerHub repo not valid: " + image + "/" + tag )
-				return false
-			}
-		}
-		
-		manifests = utils.getDockerManifests(image, tag)
+		manifests = utils.getDockerManifests(dockerHub.image, dockerHub.tag)
 			
 		if( manifests )
-			log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Manifests Fetched from DockerHub for " + image + ":" + tag )
+			log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Manifests Fetched from DockerHub for " + dockerHub )
 		else
-			log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Failed to fetch Manifests for "  + image + ":" + tag)
+			log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Failed to fetch Manifests for "  + dockerHub)
 		
 		return true
 	}
@@ -121,6 +113,7 @@ class DockerHub
 				if( match.equals(pattern) )
 				{
 					digest = manifest["digest"]
+					this.digest = digest
 					return true 
 				}
 		}
@@ -144,6 +137,42 @@ class DockerHub
 		}
 		
 		return platform
+	}
+	
+	def getRepoAndTagFromInput()
+	{
+		def image = repoInput
+		def resolve = repoInput.split(':')
+		
+		def tag = "latest"
+		
+		if( resolve.length == 1 )
+		{
+			if( ! image.contains("/") )
+				image = "library/" + image
+			
+			if( tagInput )
+				tag = tagInput
+		}
+		else
+		{
+			if( resolve.length == 2 )
+			{
+				image = resolve[0]
+				
+				if( ! image.contains("/") )
+					image = "library/" + image
+				
+				tag = resolve[1]
+			}
+			else
+			{
+				log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "DockerHub repo not valid: " + image + "/" + tag )
+				return []
+			}
+		}
+		
+		return [image: image, tag: tag]
 	}
 	
 	def getRepoName()

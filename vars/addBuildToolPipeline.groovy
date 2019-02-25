@@ -114,7 +114,7 @@ def call( environment, currentBuild )
 							input(id: "Push_Image", message: "Push as \""+image+"\"", ok: 'PUSH')
 							//AddBuildToolHelpers.pushImage(image)
 							
-							pushImage DockerHubImage: "Test", imageName: image, portusCredentials: environment.PORTUS_CREDS_STD, portusRepo: environment.REPO_URL
+							pushImage DockerHubImage: DockerHub.getImage(), imageName: image, portusCredentials: environment.PORTUS_CREDS_STD, portusRepo: environment.REPO_URL
 							
 						}
 					}

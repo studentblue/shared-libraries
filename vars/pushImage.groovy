@@ -2,7 +2,11 @@ def call( Map input )
 {	
 	//echo "${input.portusCredentials}"
 	
+	//pull image docker hub
 	
+	//sh "docker pull " + input.DockerHubImage
+	
+	echo "${input.DockerHubImage}"
 
 	docker.withRegistry("${input.portusRepo}", "${input.portusCredentials}")
 	{
@@ -12,6 +16,8 @@ def call( Map input )
 		// sh " cd database_scripts && cat Dockerfile"
 		echo "Push ${input.imageName}"
 	}
+	
+	//sh "docker rmi " + image.DockerHubImage
 }
 	
 //println DockerHub.getLog().printLog()
