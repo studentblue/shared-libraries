@@ -271,7 +271,7 @@ class addBuildToolHelpers
 		if( ! PortusApi.checkNamespaceRepoTag(namespace, repo, tag ) )
 			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Image already exists in repo for namespace and tag")
 		
-		return ["image": (namespace + "/" + repo), "tag": tag]
+		return ["image": (namespace + "/" + repo), "tag": tag, "portusRepo": PortusApi.getPortusRegistryName()]
 	}
 	
 	def generateDefaultImageName(name)

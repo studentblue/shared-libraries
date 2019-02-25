@@ -393,4 +393,12 @@ class PortusApi
 		
 		return []
 	}
+	
+	def getPortusRegistryName()
+	{
+		def resolve = PortusUrl.split("//")
+		
+		return resolve[1]
+		
+	}
 }

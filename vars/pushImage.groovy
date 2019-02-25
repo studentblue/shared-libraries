@@ -14,7 +14,10 @@ def call( Map input )
 		//customImage.push("latest")
 		//customImage.push("${env.BUILD_NUMBER}")
 		// sh " cd database_scripts && cat Dockerfile"
-		echo "Push ${input.imageName.image}:${input.imageName.tag}"
+		//echo "Push ${input.imageName.image}:${input.imageName.tag}"
+		
+		//sh "docker tag ${input.DockerHubImage} ${input.imageName.portusRepo}/${input.imageName.image}:${input.imageName.tag}"
+		echo "${input.imageName.portusRepo}/${input.imageName.image}:${input.imageName.tag}"
 	}
 	
 	sh "docker rmi ${input.DockerHubImage} "
