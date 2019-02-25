@@ -1,4 +1,4 @@
-def call( input = ["DockerHubImage": "", "imageName" : "", "portusCredentials" : "portus-user-creds"] )
+def call( Map input = ["DockerHubImage": "", "imageName" : "", "portusCredentials" : "portus-user-creds"] )
 {	
 	echo input
 	/*
