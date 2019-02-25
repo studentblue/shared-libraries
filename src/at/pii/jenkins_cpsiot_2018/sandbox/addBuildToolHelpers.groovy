@@ -276,6 +276,9 @@ class addBuildToolHelpers
 	
 	def generateDefaultImageName(name)
 	{
+		name = name.replace(/^[\W]*/, "")
+		name = name.replace(/[\W_]*$/, "")
+		name = name.replace(/[^\w_-]*/, "")
 		return Constants.DEFAULT_IMAGE_PREFIX + name
 	}
 	
