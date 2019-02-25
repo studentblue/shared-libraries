@@ -67,7 +67,10 @@ class DockerHub
 		manifests = utils.getDockerManifests(dockerHub.image, dockerHub.tag)
 			
 		if( manifests )
+		{
 			log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Manifests Fetched from DockerHub for " + dockerHub )
+			log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Manifests: " + manifests )
+		}
 		else
 			log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Failed to fetch Manifests for "  + dockerHub)
 		
