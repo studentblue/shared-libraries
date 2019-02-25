@@ -1,6 +1,8 @@
 def call( Map input = ["DockerHubImage": "", "imageName" : "", "portusCredentials" : "portus-user-creds"] )
 {	
-	echo input
+	echo input.portusCredentials
+	
+	
 	/*
 	docker.withRegistry("https://${env.DOCKER_REPO}", "${input.portusCredentials}")
 	{
