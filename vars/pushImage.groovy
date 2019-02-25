@@ -1,4 +1,4 @@
-def call( input = ["DockerHubImage": "", "imageName" = "", "portusCredentials" = "portus-user-creds"] )
+def call( input = ["DockerHubImage": "", "imageName" : "", "portusCredentials" : "portus-user-creds"] )
 {	
 	docker.withRegistry("https://${env.DOCKER_REPO}", "${input.portusCredentials}")
 	{
