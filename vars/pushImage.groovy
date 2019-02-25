@@ -16,11 +16,13 @@ def call( Map input )
 		// sh " cd database_scripts && cat Dockerfile"
 		//echo "Push ${input.imageName.image}:${input.imageName.tag}"
 		
-		//sh "docker tag ${input.DockerHubImage} ${input.imageName.portusRepo}/${input.imageName.image}:${input.imageName.tag}"
-		echo "${input.imageName.portusRepo}/${input.imageName.image}:${input.imageName.tag}"
+		sh "docker tag ${input.DockerHubImage} ${input.imageName.portusRepo}/${input.imageName.image}:${input.imageName.tag}"
+		sh "docker push ${input.imageName.portusRepo}/${input.imageName.image}:${input.imageName.tag}"
+		//echo "${input.imageName.portusRepo}/${input.imageName.image}:${input.imageName.tag}"
 	}
 	
 	sh "docker rmi ${input.DockerHubImage} "
+	sh "docker rmi ${input.imageName.portusRepo}/${input.imageName.image}:${input.imageName.tag} "
 }
 	
 //println DockerHub.getLog().printLog()
