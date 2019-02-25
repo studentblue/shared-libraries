@@ -294,7 +294,7 @@ class addBuildToolHelpers
 			def manifest = DockerHub.getManifests()
 			
 			if( manifest.schemaVersion == 1)
-				return Constants.DEFAULT_NAMESPACE_PREFIX + "_" + manifest.architecture + "-" + user
+				return Constants.DEFAULT_NAMESPACE_PREFIX + manifest.architecture + "-" + user
 			else
 				return Constants.DEFAULT_NAMESPACE_PREFIX + Constants.UNKNOWN_ARCH_OS + "-" + user
 		}
