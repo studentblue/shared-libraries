@@ -248,10 +248,12 @@ class addBuildToolHelpers
 		if( input.Repo.tag == true )
 		{
 			//generate tag
-			if( DockerHub.getTag() )
-				tag = DockerHub.getTag() + "-" + JenkinsApi.getBuildNumber()
-			else
-				tag = Constants.DEFAULT_TAG_PREFIX + "-" + JenkinsApi.getBuildNumber()
+			//~ if( DockerHub.getTag() )
+				//~ tag = DockerHub.getTag() + "-" + JenkinsApi.getBuildNumber()
+			//~ else
+				//~ tag = Constants.DEFAULT_TAG_PREFIX + "-" + JenkinsApi.getBuildNumber()
+			
+			tag = Constants.DEFAULT_TAG_PREFIX + "-" + JenkinsApi.getBuildNumber()
 		}
 		else
 		{
