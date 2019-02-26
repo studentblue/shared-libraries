@@ -116,7 +116,7 @@ def call( environment, currentBuild )
 								input(id: "Push_Image", message: "Push as \""+portus.namespace.name+"/"+portus.repo.name+":"+portus.repo.tag+"\"", ok: 'PUSH')
 							}
 							
-							PortusApi.validateImage(image)
+							PortusApi.validateImage(portus)
 							
 							if( PortusApi.getLog().errorsOccured() )
 							{
