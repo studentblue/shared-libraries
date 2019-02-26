@@ -116,6 +116,7 @@ def call( environment, currentBuild )
 								input(id: "Push_Image", message: "Push as \""+image.image+":"+image.tag+"\"", ok: 'PUSH')
 							}
 							
+							/*
 							PortusApi.checkNamespaceRepoTag(image.namespace, image.repo, image.tag )
 							
 							if( PortusApi.getLog().errorsOccured() )
@@ -124,6 +125,9 @@ def call( environment, currentBuild )
 							}
 							
 							pushImage DockerHubImage: DockerHub.getImage(), imageName: image, portusCredentials: environment.PORTUS_CREDS_STD, portusRepo: environment.REPO_URL
+							*/
+							
+							echo "After Choice"
 						}
 					}
 				}
