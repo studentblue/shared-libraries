@@ -123,18 +123,8 @@ def call( environment, currentBuild )
 								error("Validate Image failed")
 							}
 							
-							/*
-							PortusApi.checkNamespaceRepoTag(image.namespace, image.repo, image.tag )
-							
-							if( PortusApi.getLog().errorsOccured() )
-							{
-								error("Portus Check failed")
-							}
-							
 							pushImage DockerHubImage: DockerHub.getImage(), portus: portus, portusCredentials: environment.PORTUS_CREDS_STD, portusRepo: environment.REPO_URL
-							*/
 							
-							echo "After Choice"
 						}
 					}
 				}
