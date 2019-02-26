@@ -193,26 +193,26 @@ class addBuildToolHelpers
 		}
 		
 		
-		if( checkTeam )
-		{
-			def code = PortusApi.validateTeam(team, teamDescription)
-			if( code == -1 )
-			{
-				log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Validation of team \"" + team + "\" failed")
-				return ""
-			}
-		}
+		//~ if( checkTeam )
+		//~ {
+			//~ def code = PortusApi.validateTeam(team, teamDescription)
+			//~ if( code == -1 )
+			//~ {
+				//~ log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Validation of team \"" + team + "\" failed")
+				//~ return ""
+			//~ }
+		//~ }
 		
-		if( checkNamespace )
-		{
-			def code = PortusApi.validateNamespace(namespace, team, description)
+		//~ if( checkNamespace )
+		//~ {
+			//~ def code = PortusApi.validateNamespace(namespace, team, description)
 		
-			if( code == -1 )
-			{
-				log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Validation of namespace \"" + namespace + "\" failed")
-				return ""
-			}
-		}
+			//~ if( code == -1 )
+			//~ {
+				//~ log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Validation of namespace \"" + namespace + "\" failed")
+				//~ return ""
+			//~ }
+		//~ }
 		
 		//~ def repo = ""
 		//~ def tag = ""
@@ -271,7 +271,21 @@ class addBuildToolHelpers
 		//~ if( ! PortusApi.checkNamespaceRepoTag(namespace, repo, tag ) )
 			//~ log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Image already exists in repo for namespace and tag")
 		
-		return ["namespace": namespace, "repo": repo, "tag": tag, "image": (namespace + "/" + repo), "portusRepo": PortusApi.getPortusRegistryName()]
+		//~ def namespace = ""
+		//~ def repo = ""
+		//~ def tag = ""
+		//~ def team = ""
+		//~ def description = ""
+		//~ def teamDescription = ""
+		
+		
+		return [
+					"namespace": [name: namespace, description: description],
+					"team": [name: team, description: teamDescription],
+					"repo": [ name: repo, tag: tag ], 
+					"image": [ name: (PortusApi.getPortusRegistryName() + "/" + namespace + "/" + repo) ],
+					checkTeam: checkTeam, checkNamespace: checkNamespace
+		]
 	}
 	
 	def generateDefaultImageName(name, tag = "")

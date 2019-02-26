@@ -220,6 +220,43 @@ class PortusApi
 		return PortusUserName
 	}
 	
+	def validateImage(image)
+	{
+		def code = ""
+		
+		if( image.checkTeam )
+		{
+			code = validateTeam(image.team.name, image.team.teamDescription)
+			if(!code)
+			{
+				log.addEntry(Constants.ERROR, Constants.ACTION_TEAM_VALIDATION, "Validation of team \"" + image.team.name + "\" failed")
+				return
+			}
+		}
+		
+		if( image.checkNamespace )
+		{
+			code = validateNamespace(image.namespace.name, image.team.name, image.namespace.description)
+		
+			if(!code)
+			{
+				log.addEntry(Constants.ERROR, Constants.ACTION_NAMESPACE_VALIDATION, "Validation of namespace \"" + image.namespace.name + "\" failed")
+				return
+			}
+		}
+		
+		code = checkNamespaceRepoTag(image.namespace.name, image.repo.name, image.repo.tag )
+		
+		if(!code)
+		{
+			log.addEntry(
+				Constants.ERROR, 
+				Constants.ACTION_NAMESPACE_REPO_TAG_VALIDATION, 
+				"Validation of " + image.namespace.name + "->" +image.repo.name+ "->" + image.repo.tag + " failed")
+			return
+		}
+	}
+	
 	def checkNamespaceRepoTag(namespace, repoName, tagName )
 	{
 		if( validateNamespace(namespace) == -1 )
