@@ -5,6 +5,7 @@ def call( Map input )
 	//sh "docker pull ${input.DockerHubImage} "
 	
 	echo "${input.DockerHubImage}"
+	echo "${input.imageName.portusRepo}/${input.imageName.image}:${input.imageName.tag}"
 	/*
 	docker.withRegistry("${input.portusRepo}", "${input.portusCredentials}")
 	{
