@@ -111,7 +111,10 @@ def call( environment, currentBuild )
 								error("Failed")
 							}
 							
-							input(id: "Push_Image", message: "Push as \""+image.image+":"+image.tag+"\"", ok: 'PUSH')
+							timeout(time: 5, unit: 'MINUTES')
+							{								
+								input(id: "Push_Image", message: "Push as \""+image.image+":"+image.tag+"\"", ok: 'PUSH')
+							}
 							
 							PortusApi.checkNamespaceRepoTag(image.namespace, image.repo, image.tag )
 							
@@ -125,7 +128,7 @@ def call( environment, currentBuild )
 					}
 				}
 			}
-		}
+		}	
 		
 		
 		post
