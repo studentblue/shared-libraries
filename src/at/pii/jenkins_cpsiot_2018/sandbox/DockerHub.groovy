@@ -1,18 +1,18 @@
-package at.pii.jenkins_cpsiot_2018.sandbox
+package at.pii.jenkins_cpsiot_2018.sandbox;
 
-import groovy.json.*
+import groovy.json.*;
 
 class DockerHub
 {
-	def private manifests
-	def private repoInput
-	def private tagInput
-	def private log
-	def private utils
+	def private manifests;
+	def private repoInput;
+	def private tagInput;
+	def private log;
+	def private utils;
 	
-	def digest
+	def digest;
 	
-	def Constants	
+	def Constants;
 	
 	def init(inputJson, Constants)
 	{

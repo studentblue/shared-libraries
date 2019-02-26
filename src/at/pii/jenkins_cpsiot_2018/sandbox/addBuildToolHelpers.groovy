@@ -1,29 +1,29 @@
-package at.pii.jenkins_cpsiot_2018.sandbox
+package at.pii.jenkins_cpsiot_2018.sandbox;
 
-import groovy.json.*
-import org.boon.Boon
+import groovy.json.*;
+import org.boon.Boon;
 
 //import groovy.json.JsonSlurperClassic
 
 class addBuildToolHelpers
 {
 
-	def log
+	def log;
 	
-	def PortusApi
+	def PortusApi;
 	
-	def input 
+	def input;
 	
-	def Constants
+	def Constants;
 	
-	def DockerHub
+	def DockerHub;
 	
-	def JenkinsApi
-	def utils
+	def JenkinsApi;
+	def utils;
 	
-	def userChoice
+	def userChoice;
 	
-	def digest
+	def digest;
 	
 	def init( inputParameter, PortusApi, DockerHub, JenkinsApi,  Constants  )
 	{

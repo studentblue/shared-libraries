@@ -116,12 +116,14 @@ def call( environment, currentBuild )
 								input(id: "Push_Image", message: "Push as \""+portus.namespace.name+"/"+portus.repo.name+":"+portus.repo.tag+"\"", ok: 'PUSH')
 							}
 							
+							/*
 							PortusApi.validateImage(portus)
 							
 							if( PortusApi.getLog().errorsOccured() )
 							{
 								error("Validate Image failed")
 							}
+							*/
 							
 							pushImage DockerHubImage: DockerHub.getImage(), portus: portus, portusCredentials: environment.PORTUS_CREDS_STD, portusRepo: environment.REPO_URL
 							

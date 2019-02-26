@@ -1,29 +1,27 @@
-package at.pii.jenkins_cpsiot_2018.sandbox
+package at.pii.jenkins_cpsiot_2018.sandbox;
 
-import groovy.json.*
-import org.boon.Boon
-
-//import groovy.json.JsonSlurperClassic
+import groovy.json.*;
+import org.boon.Boon;
 
 class PortusApi
 {
 	//Folder Properties
-	def PortusUrl
-	def PortusUserName
-	def portusToken
-	def PortusUserId 
+	def PortusUrl;
+	def PortusUserName;
+	def portusToken;
+	def PortusUserId; 
 		
-	def healthApi = "/api/v1/health"
-	def usersApi = "/api/v1/users"
-	def pingApi = "/api/v1/_ping"
-	def namespacesApi = "/api/v1/namespaces"
-	def repositoryApi = "/api/v1/repositories"
-	def tagsApi = "/api/v1/tags"
-	def teamsApi = "/api/v1/teams"
+	def healthApi = "/api/v1/health";
+	def usersApi = "/api/v1/users";
+	def pingApi = "/api/v1/_ping";
+	def namespacesApi = "/api/v1/namespaces";
+	def repositoryApi = "/api/v1/repositories";
+	def tagsApi = "/api/v1/tags";
+	def teamsApi = "/api/v1/teams";
 	
-	def utils
-	def Constants
-	def log
+	def utils;
+	def Constants;
+	def log;
 	
 	def init(PortusUrl, PortusUserName, portusToken, PortusUserId, Constants)
 	{	
