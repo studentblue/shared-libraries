@@ -139,8 +139,6 @@ def call( environment, currentBuild )
 			always
 			{
 				echo 'Runs always'
-				
-				echo "$BUILD_USER"
 				script
 				{
 					if( DockerHub.getLog() )
