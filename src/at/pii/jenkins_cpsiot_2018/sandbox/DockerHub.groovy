@@ -226,8 +226,8 @@ class DockerHub
 		}
 		else
 		{
-			if( manifest.schemaVersion == 1)
-				return manifest.architecture
+			if( manifests.schemaVersion == 1)
+				return manifests.architecture
 			else
 				return Constants.UNKNOWN_ARCH_OS
 		}
