@@ -290,31 +290,35 @@ class addBuildToolHelpers
 	{	
 		def user = PortusApi.getPortusUserName()
 		
+		
+		
+		//~ if( ! digest )
+		//~ {
+			//~ def manifest = DockerHub.getManifests()
+			
+			//~ if( manifest.schemaVersion == 1)
+				//~ return Constants.DEFAULT_NAMESPACE_PREFIX + manifest.architecture + "-" + user
+			//~ else
+				//~ return Constants.DEFAULT_NAMESPACE_PREFIX + Constants.UNKNOWN_ARCH_OS + "-" + user
+		//~ }
+		
+		//~ //DEFAULT_NAMESPACE_PREFIX
+		//~ def defaultNameSpace = Constants.DEFAULT_NAMESPACE_PREFIX
+		//~ def platform = DockerHub.getPlatformFromDigest(digest)
+		
+		//~ def list = []
+		//~ platform.keySet().each
+		//~ {
+			//~ key ->
+				//~ list.add(platform[key])
+		//~ }
+		
+		//~ return defaultNameSpace + list.join('_') + "-" + user
+		
 		user = user.replace(/^[\W_]*/, "")
 		user = user.replace(/[\W_]*$/, "")
 		
-		if( ! digest )
-		{
-			def manifest = DockerHub.getManifests()
-			
-			if( manifest.schemaVersion == 1)
-				return Constants.DEFAULT_NAMESPACE_PREFIX + manifest.architecture + "-" + user
-			else
-				return Constants.DEFAULT_NAMESPACE_PREFIX + Constants.UNKNOWN_ARCH_OS + "-" + user
-		}
-		
-		//DEFAULT_NAMESPACE_PREFIX
-		def defaultNameSpace = Constants.DEFAULT_NAMESPACE_PREFIX
-		def platform = DockerHub.getPlatformFromDigest(digest)
-		
-		def list = []
-		platform.keySet().each
-		{
-			key ->
-				list.add(platform[key])
-		}
-		
-		return defaultNameSpace + list.join('_') + "-" + user
+		return Constants.DEFAULT_NAMESPACE_PREFIX + DockerHub.getPlatform(digest) + "-" + user
 		
 	}
 	
@@ -326,9 +330,5 @@ class addBuildToolHelpers
 		
 		return "Namespace created by User " + user
 		
-	}
-	
-	def pushImage(image)
-	{
 	}
 }

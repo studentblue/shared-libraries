@@ -208,4 +208,28 @@ class DockerHub
 		else
 			return dockerhub.tag
 	}
+	
+	def getPlatform(digest = "")
+	{
+		if( digest )
+		{
+			def platform = getPlatformFromDigest(digest)
+			def list = []
+			
+			platform.keySet().each
+			{
+				key ->
+					list.add(platform[key])
+			}
+			
+			return list.join('_')
+		}
+		else
+		{
+			if( manifest.schemaVersion == 1)
+				return manifest.architecture
+			else
+				return Constants.UNKNOWN_ARCH_OS
+		}
+	}
 }
