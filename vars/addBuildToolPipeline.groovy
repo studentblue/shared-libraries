@@ -104,7 +104,7 @@ def call( environment, currentBuild )
 					{
 						script
 						{
-							def image = AddBuildToolHelpers.generatePortus()
+							def portus = AddBuildToolHelpers.generatePortus()
 							
 							if( AddBuildToolHelpers.getLog().errorsOccured() )
 							{
@@ -113,7 +113,7 @@ def call( environment, currentBuild )
 							
 							timeout(time: 5, unit: 'MINUTES')
 							{								
-								input(id: "Push_Image", message: "Push as \""+image.image+":"+image.tag+"\"", ok: 'PUSH')
+								input(id: "Push_Image", message: "Push as \""+portus.namespace.name+"/"+portus.repo.name+":"+portus.repo.tag+"\"", ok: 'PUSH')
 							}
 							
 							PortusApi.validateImage(image)
@@ -131,7 +131,7 @@ def call( environment, currentBuild )
 								error("Portus Check failed")
 							}
 							
-							pushImage DockerHubImage: DockerHub.getImage(), portus: image, portusCredentials: environment.PORTUS_CREDS_STD, portusRepo: environment.REPO_URL
+							pushImage DockerHubImage: DockerHub.getImage(), portus: portus, portusCredentials: environment.PORTUS_CREDS_STD, portusRepo: environment.REPO_URL
 							*/
 							
 							echo "After Choice"
