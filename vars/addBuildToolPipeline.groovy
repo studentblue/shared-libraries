@@ -92,11 +92,6 @@ def call( environment, currentBuild )
 					{
 						script
 						{
-							//println JenkinsApi.getJenkinsUserName()
-							sh 'printenv'
-							
-							for(e in currentBuild )
-								println e
 							
 							def portus = AddBuildToolHelpers.generatePortus()
 							

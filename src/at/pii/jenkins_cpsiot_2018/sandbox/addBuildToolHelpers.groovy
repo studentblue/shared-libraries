@@ -292,7 +292,7 @@ class addBuildToolHelpers
 	
 	def generateDefaultTagName()
 	{
-		return Constants.DEFAULT_TAG_PREFIX + "-" + JenkinsApi.getBuildNumber()
+		return Constants.DEFAULT_TAG_PREFIX + "-" + JenkinsApi.getBuildNumber() + "-" JenkinsApi.getBuildTimestamp()
 	}
 	
 	def generateDefaultImageName(name, tag = "")

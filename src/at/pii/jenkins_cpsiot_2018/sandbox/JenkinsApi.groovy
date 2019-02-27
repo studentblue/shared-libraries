@@ -42,8 +42,8 @@ class JenkinsApi
 		return log
 	}
 	
-	def getJenkinsUserName()
+	def getBuildTimestamp()
 	{
-		return environment.BUILD_USER
+		return environment.PORTUS_TAG_TIMESTAMP
 	}
 }
