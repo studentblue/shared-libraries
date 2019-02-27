@@ -12,7 +12,7 @@ class Constants
 	
 	final String DEFAULT_IMAGE_PREFIX = "image_";
 	final String DEFAULT_NAMESPACE_PREFIX = "cpsiot-build-";
-	final String DEFAULT_TAG_PREFIX = "ver";
+	final String DEFAULT_TAG_PREFIX = "version";
 	final String UNKNOWN_ARCH_OS = "unknown_arch_os";
 	final String ACTION_CREATED = "CREATED: ";
 	final String ACTION_CHECK = "CHECK: ";

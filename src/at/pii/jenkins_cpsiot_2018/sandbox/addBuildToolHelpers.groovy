@@ -253,7 +253,7 @@ class addBuildToolHelpers
 			//~ else
 				//~ tag = Constants.DEFAULT_TAG_PREFIX + "-" + JenkinsApi.getBuildNumber()
 			
-			tag = Constants.DEFAULT_TAG_PREFIX + "-" + JenkinsApi.getBuildNumber()
+			tag = generateDefaultTagName()
 		}
 		else
 		{
@@ -266,7 +266,7 @@ class addBuildToolHelpers
 			else
 			{
 				
-				tag = DockerHub.getTag() + "-" +JenkinsApi.getBuildNumber()
+				tag = generateDefaultTagName()
 			}
 		}
 		
@@ -288,6 +288,11 @@ class addBuildToolHelpers
 					"image": [ name: (PortusApi.getPortusRegistryName() + "/" + namespace + "/" + repo) ],
 					checkTeam: checkTeam, checkNamespace: checkNamespace
 		]
+	}
+	
+	def generateDefaultTagName()
+	{
+		return Constants.DEFAULT_TAG_PREFIX + "-" + JenkinsApi.getBuildNumber()
 	}
 	
 	def generateDefaultImageName(name, tag = "")

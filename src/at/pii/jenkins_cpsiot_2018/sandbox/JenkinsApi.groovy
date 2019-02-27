@@ -1,18 +1,20 @@
-package at.pii.jenkins_cpsiot_2018.sandbox
+package at.pii.jenkins_cpsiot_2018.sandbox;
 
-import groovy.json.*
+import groovy.json.*;
 //import groovy.json.JsonSlurperClassic
 
 class JenkinsApi
 {	
-	def currentBuild
-	def Constants
-	def log
+	def currentBuild;
+	def Constants;
+	def log;
+	def environment;
 	
-	def init(currentBuild, Constants)
+	def init(currentBuild, environment, Constants)
 	{
 		this.currentBuild = currentBuild
 		this.Constants = Constants
+		this.environment = environment
 		
 		log = new Log()
 		log.init(Constants)
@@ -38,5 +40,10 @@ class JenkinsApi
 	def getLog()
 	{
 		return log
+	}
+	
+	def getJenkinsUserName()
+	{
+		return environment.BUILD_USER
 	}
 }

@@ -1,17 +1,5 @@
 def call( environment, currentBuild )
 {
-	//portusApiData = new at.pii.jenkins_cpsiot_2018.sandbox.PortusApi.PortusApiData(environment, buildParameters)
-	/*
-	portus = new at.pii.jenkins_cpsiot_2018.sandbox.PortusApi()
-	portus.init()
-	portusApi = portus.PortusData
-	
-	jenkinsOuterBuildApi = new at.pii.jenkins_cpsiot_2018.sandbox.JenkinsApi()
-	jenkinsOuterBuildApi.init()
-	jenkinsBuildApi = jenkinsOuterBuildApi.jenkinsApiInstance
-	*/
-	
-	
 	Constants = new at.pii.jenkins_cpsiot_2018.sandbox.Constants()	
 	DockerHub = new at.pii.jenkins_cpsiot_2018.sandbox.DockerHub()
 	PortusApi = new at.pii.jenkins_cpsiot_2018.sandbox.PortusApi()
@@ -52,7 +40,7 @@ def call( environment, currentBuild )
 									error("Failed")
 								}
 								
-								JenkinsApi.init(currentBuild, Constants)
+								JenkinsApi.init(currentBuild, environment, Constants)
 								
 								if( JenkinsApi.getLog().errorsOccured() )
 								{
@@ -104,6 +92,8 @@ def call( environment, currentBuild )
 					{
 						script
 						{
+							println JenkinsApi.getJenkinsUserName()
+							
 							def portus = AddBuildToolHelpers.generatePortus()
 							
 							if( AddBuildToolHelpers.getLog().errorsOccured() )
