@@ -11,8 +11,8 @@ def call( Map input )
 	{
 		
 		
-		sh "docker tag ${input.DockerHubImage} "${input.portus.image.name}:${input.portus.repo.tag}""
-		sh "docker push "${input.portus.image.name}:${input.portus.repo.tag}""
+		sh "docker tag ${input.DockerHubImage} "${input.portus.image.name}:${input.portus.repo.tag}"
+		sh "docker push "${input.portus.image.name}:${input.portus.repo.tag}"
 		
 	}
 	
