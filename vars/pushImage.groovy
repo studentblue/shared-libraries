@@ -11,13 +11,13 @@ def call( Map input )
 	{
 		
 		
-		sh "docker tag ${input.DockerHubImage} ${input.imageName.portusRepo}/${input.imageName.image}:${input.imageName.tag}"
-		sh "docker push ${input.imageName.portusRepo}/${input.imageName.image}:${input.imageName.tag}"
+		sh "docker tag ${input.DockerHubImage} "${input.portus.image.name}:${input.portus.repo.tag}""
+		sh "docker push "${input.portus.image.name}:${input.portus.repo.tag}""
 		
 	}
 	
 	sh "docker rmi ${input.DockerHubImage} "
-	sh "docker rmi ${input.imageName.portusRepo}/${input.imageName.image}:${input.imageName.tag} "
+	sh "docker rmi "${input.portus.image.name}:${input.portus.repo.tag}"
 
 }
 	
