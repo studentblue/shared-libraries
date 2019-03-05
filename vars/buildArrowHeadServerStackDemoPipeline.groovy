@@ -32,44 +32,37 @@ def call( environment, currentBuild, parameter )
 				}
 			}
 			
-			if( BuildArrowHeadServerStackHelpers.checkCompileDockerHub() )
-			{
 			
-				stage( "Build" )
-				{
-					
-					/*
-					agent
-					{
-						docker
-						{
-							image 'maven:3-alpine'
-							args ' -v maven-repo:/root/.m2 '
-							label "master"
-						}
-					}
-					steps
-					{
-						sh  " mvn "				
-					}
-					*/
-					steps
-					{
-						echo "compile from dockerhub"
-					}
-				}
-			}
-			else
+			
+			stage( "Build" )
 			{
-				stage( "Build" )
+					
+				/*
+				agent
 				{
-				
-					steps
+					docker
 					{
-						echo "compile from cpsiot image"
+						image 'maven:3-alpine'
+						args ' -v maven-repo:/root/.m2 '
+						label "master"
 					}
 				}
-			}
+				steps
+				{
+					sh  " mvn "				
+				}
+				*/
+				steps
+				{
+					script
+					{
+						if( BuildArrowHeadServerStackHelpers.checkCompileDockerHub() )
+							println "use docker hub"
+						else
+							println "use cpsiot image"
+					}
+				}
+			}			
 		}
 		
 		post
