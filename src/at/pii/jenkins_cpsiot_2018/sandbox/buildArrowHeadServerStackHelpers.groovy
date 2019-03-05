@@ -41,4 +41,9 @@ class buildArrowHeadServerStackHelpers
 	{
 		return input
 	}
+	
+	def checkCompileDockerHub()
+	{
+		return input.Compile.image.fromDockerHub
+	}
 }

@@ -22,6 +22,48 @@ def call( environment, currentBuild, parameter )
 					}
 				}
 			}
+			
+			stage("Create Maven Cache")
+			{
+				agent{ label "master"}
+				steps
+				{
+					sh " docker volume create maven-repo "
+				}
+			}
+			
+			stage( "Build" )
+			{
+				if( BuildArrowHeadServerStackHelpers.checkCompileDockerHub() )
+				{
+					/*
+					agent
+					{
+						docker
+						{
+							image 'maven:3-alpine'
+							args ' -v maven-repo:/root/.m2 '
+							label "master"
+						}
+					}
+					steps
+					{
+						sh  " mvn "				
+					}
+					*/
+					steps
+					{
+						echo "compile from dockerhub"
+					}
+				}
+				else
+				{
+					steps
+					{
+						echo "compile from cpsiot image"
+					}
+				}
+			}
 		}
 		
 		post
