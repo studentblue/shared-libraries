@@ -32,10 +32,12 @@ def call( environment, currentBuild, parameter )
 				}
 			}
 			
-			stage( "Build" )
+			if( BuildArrowHeadServerStackHelpers.checkCompileDockerHub() )
 			{
-				if( BuildArrowHeadServerStackHelpers.checkCompileDockerHub() )
+			
+				stage( "Build" )
 				{
+					
 					/*
 					agent
 					{
@@ -56,8 +58,12 @@ def call( environment, currentBuild, parameter )
 						echo "compile from dockerhub"
 					}
 				}
-				else
+			}
+			else
+			{
+				stage( "Build" )
 				{
+				
 					steps
 					{
 						echo "compile from cpsiot image"
