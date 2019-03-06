@@ -122,6 +122,14 @@ class buildArrowHeadServerStackHelpers
 			return false
 	}
 	
+	def checkScriptPathDBScript(image)
+	{
+		if( image.initDBScript.initDBScriptPath )
+			return true
+		else
+			return false
+	}
+	
 	def checkIfDB()
 	{
 		def db = false
@@ -186,6 +194,11 @@ class buildArrowHeadServerStackHelpers
 	def getDBScript(image)
 	{
 		return image.initDBScript.initDBScriptInput
+	}
+	
+	def getDBScriptPath(image)
+	{
+		return image.initDBScript.initDBScriptPath
 	}
 	
 	def generateDockerFileDB(image, scriptName, ROOT_PSW)

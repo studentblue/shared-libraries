@@ -156,6 +156,18 @@ def call( environment, currentBuild, parameter )
 														
 													}
 												}
+												if( BuildArrowHeadServerStackHelpers.checkScriptPathDBScript(image) )
+												{
+													sh "rm -rf database_scripts_cpsiot"
+													sh "mkdir database_scripts_cpsiot"
+													sh "cp ${BuildArrowHeadServerStackHelpers.getDBScriptPath(image)} database_scripts_cpsiot/initDB.sql "
+													dir( "database_scripts_cpsiot" )
+													{
+														writeFile file: 'Dockerfile', text: BuildArrowHeadServerStackHelpers.generateDockerFileDB(image, 'initDB.sql', DB_ROOT_PWD)
+														
+													}
+												}
+												
 											}
 										}
 										
