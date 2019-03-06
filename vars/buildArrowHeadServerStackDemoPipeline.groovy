@@ -99,20 +99,16 @@ def call( environment, currentBuild, parameter )
 									{
 										def DB_ARROWHEAD = BuildArrowHeadServerStackHelpers.getArrowheadDB()
 										def DB_ARROWHEAD_LOG = BuildArrowHeadServerStackHelpers.getArrowheadDBLog()
-										if( BuildArrowHeadServerStackHelpers.generateDBScript(image) )
+										if( BuildArrowHeadServerStackHelpers.checkGenerateDBScript(image) )
 										{
 											sh "rm -rf database_scripts_cpsiot"
 											sh "mkdir database_scripts_cpsiot"
-
-											if( BuildArrowHeadServerStackHelpers.checkGenerateDBScript(image) )
+										
+											dir( "database_scripts_cpsiot" )
 											{
+												writeFile file: 'initDB.sql', text: BuildArrowHeadServerStackHelpers.generateDBScript(DB_ROOT_PWD, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW, DB_ARROWHEAD, DB_ARROWHEAD_LOG)
 											
-												dir( "database_scripts_cpsiot" )
-												{
-													writeFile file: 'initDB.sql', text: BuildArrowHeadServerStackHelpers.generateDBScript(DB_ROOT_PWD, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW, DB_ARROWHEAD, DB_ARROWHEAD_LOG)
-												
-													sh "cat initDB.sql"
-												}
+												sh "cat initDB.sql"
 											}
 										}
 									}
