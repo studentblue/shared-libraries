@@ -59,7 +59,7 @@ def call( environment, currentBuild, parameter )
 						withFolderProperties
 						{
 						
-							if( BuildArrowHeadServerStackHelpers.checkCompileDockerHub() )
+							if( ! BuildArrowHeadServerStackHelpers.checkCompileDockerHub() )
 							{
 								docker.withRegistry("${environment.REPO_URL}", "${environment.PORTUS_CREDS_STD}")
 								{
