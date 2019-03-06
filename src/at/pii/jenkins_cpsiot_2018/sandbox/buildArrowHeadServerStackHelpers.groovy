@@ -81,15 +81,6 @@ class buildArrowHeadServerStackHelpers
 		}
 	}
 	
-	def getDBImageName(image)
-	{
-		
-		def registry = environment.REPO_URL.split('//')[1]
-		
-		return registry +"/"+ image.name
-
-	}
-	
 	def getContainerCompileArgs()
 	{
 		return input.Compile.imageArgs
