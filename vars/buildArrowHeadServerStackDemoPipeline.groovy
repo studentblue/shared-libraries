@@ -36,7 +36,7 @@ def call( environment, currentBuild, parameter )
 			}
 			
 			
-			/*
+
 			stage( "Build" )
 			{
 				agent{ label "master"}
@@ -45,6 +45,7 @@ def call( environment, currentBuild, parameter )
 				{
 					checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/arrowhead-f/core-java.git']]]
 					
+					/*
 					script
 					{
 						if( ! BuildArrowHeadServerStackHelpers.checkCompileDockerHub() )
@@ -75,9 +76,10 @@ def call( environment, currentBuild, parameter )
 					stash name: "keeper-artifacts", includes: "gatekeeper/target/**"
 					stash name: "way-artifacts", includes: "gateway/target/**"
 					stash name: "orch-artifacts", includes: "orchestrator/target/**"
+					*/
 				}
 			}
-			*/
+
 			
 			stage( "Dockerize Selected Images" )
 			{
