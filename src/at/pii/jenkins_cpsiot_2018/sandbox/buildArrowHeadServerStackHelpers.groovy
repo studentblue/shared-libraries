@@ -142,27 +142,29 @@ class buildArrowHeadServerStackHelpers
 	{
 		def script = []
 		
-		script.add("CREATE DATABASE  IF NOT EXISTS \\`${DB_ARROWHEAD}\\` /*!40100 DEFAULT CHARACTER SET utf8 */;")
-
-		script.add("CREATE DATABASE  IF NOT EXISTS \\`${DB_ARROWHEAD_LOG}\\`;")
-
+		script.add("CREATE DATABASE IF NOT EXISTS ${DB_ARROWHEAD_LOG};")
+		script.add("CREATE DATABASE IF NOT EXISTS ${DB_ARROWHEAD};")
+		script.add("/* test comment */")
+		script.add("CREATE USER '${DEFAULT_DB_ARROWHEAD_USR}'@'localhost' IDENTIFIED BY '${DEFAULT_DB_ARROWHEAD_PSW}';")
 		script.add("CREATE USER '${DEFAULT_DB_ARROWHEAD_USR}'@'%' IDENTIFIED BY '${DEFAULT_DB_ARROWHEAD_PSW}';")
+
+		script.add("USE ${DB_ARROWHEAD_LOG};")
+		script.add("CREATE TABLE logs ( id int(10) unsigned NOT NULL AUTO_INCREMENT, date datetime NOT NULL, origin varchar(255) COLLATE utf8_unicode_ci NOT NULL, level varchar(10) COLLATE utf8_unicode_ci NOT NULL, message varchar(1000) COLLATE utf8_unicode_ci NOT NULL, PRIMARY KEY (id) ) ENGINE=InnoDB AUTO_INCREMENT=1557 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;")
+
 		script.add("GRANT ALL PRIVILEGES ON ${DB_ARROWHEAD_LOG}.* TO '${DEFAULT_DB_ARROWHEAD_USR}'@'%';")
+		script.add("GRANT ALL PRIVILEGES ON ${DB_ARROWHEAD_LOG}.* TO '${DEFAULT_DB_ARROWHEAD_USR}'@'localhost';")
+
 		script.add("GRANT ALL PRIVILEGES ON ${DB_ARROWHEAD}.* TO '${DEFAULT_DB_ARROWHEAD_USR}'@'%';")
-
-		script.add("USE \\`${DB_ARROWHEAD_LOG}\\`;")
-
-		script.add("DROP TABLE IF EXISTS \\`logs\\`;")
-		
-		script.add("CREATE TABLE \\`logs\\` (")
-		script.add("  \\`id\\` int(10) unsigned NOT NULL AUTO_INCREMENT,")
-		script.add("  \\`date\\` datetime NOT NULL,")
-		script.add("  \\`origin\\` varchar(255) COLLATE utf8_unicode_ci NOT NULL,")
-		script.add("  \\`level\\` varchar(10) COLLATE utf8_unicode_ci NOT NULL,")
-		script.add("  \\`message\\` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,")
-		script.add("  PRIMARY KEY (\\`id\\`)")
-		script.add(") ENGINE=InnoDB AUTO_INCREMENT=1557 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;")
+		script.add("GRANT ALL PRIVILEGES ON ${DB_ARROWHEAD}.* TO '${DEFAULT_DB_ARROWHEAD_USR}'@'localhost';")
 		
 		return script.join("\n")
+	}
+	
+	def generateDockerFileDB()
+	{
+		def lines = []
+		
+		lines.add(""
+		lines.add("COPY ./init_db.sql /docker-entrypoint-initdb.d/")
 	}
 }
