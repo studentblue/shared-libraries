@@ -141,6 +141,22 @@ def call( environment, currentBuild, parameter )
 													
 												}
 											}
+											else
+											{
+												if( BuildArrowHeadServerStackHelpers.checkInputDBScript(image) )
+												{
+													sh "rm -rf database_scripts_cpsiot"
+													sh "mkdir database_scripts_cpsiot"
+												
+													dir( "database_scripts_cpsiot" )
+													{
+														writeFile file: 'initDB.sql', text: BuildArrowHeadServerStackHelpers.getDBScript(image)
+														
+														writeFile file: 'Dockerfile', text: BuildArrowHeadServerStackHelpers.generateDockerFileDB(image, 'initDB.sql', DB_ROOT_PWD)
+														
+													}
+												}
+											}
 										}
 										
 										def portusImageName = BuildArrowHeadServerStackHelpers.getPortusImageName(image)

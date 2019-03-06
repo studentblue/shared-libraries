@@ -114,6 +114,14 @@ class buildArrowHeadServerStackHelpers
 		return false
 	}
 	
+	def checkInputDBScript(image)
+	{
+		if( image.initDBScript.initDBScriptInput )
+			return true
+		else
+			return false
+	}
+	
 	def checkIfDB()
 	{
 		def db = false
@@ -173,6 +181,11 @@ class buildArrowHeadServerStackHelpers
 		script.add("GRANT ALL PRIVILEGES ON ${DB_ARROWHEAD}.* TO '${DEFAULT_DB_ARROWHEAD_USR}'@'localhost';")
 		
 		return script.join("\n")
+	}
+	
+	def getDBScript(image)
+	{
+		return image.initDBScript.initDBScriptInput
 	}
 	
 	def generateDockerFileDB(image, scriptName, ROOT_PSW)
