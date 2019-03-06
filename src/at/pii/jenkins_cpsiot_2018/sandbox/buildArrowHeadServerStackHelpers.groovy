@@ -235,5 +235,7 @@ class buildArrowHeadServerStackHelpers
 				}
 			}
 		}
+		
+		return cloud
 	}
 }
