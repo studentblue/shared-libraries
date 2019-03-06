@@ -145,7 +145,7 @@ def call( environment, currentBuild, parameter )
 										
 										def portusImageName = BuildArrowHeadServerStackHelpers.getPortusImageName(image)
 										
-										def portusTag = def portusImageName = BuildArrowHeadServerStackHelpers.getPortusTag(image)
+										def portusTag = BuildArrowHeadServerStackHelpers.getPortusTag(image)
 										
 										if( BuildArrowHeadServerStackHelpers.getLog().errorsOccured() )
 										{
