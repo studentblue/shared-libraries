@@ -72,22 +72,6 @@ def call( environment, currentBuild, parameter )
 					
 					script
 					{
-						BuildArrowHeadServerStackHelpers.getImages().each
-						{
-							image ->
-								if( BuildArrowHeadServerStackHelpers.isDB(image ) )
-								{
-									if( BuildArrowHeadServerStackHelpers.checkScriptPathDBScript(image) )
-									{
-										stash name: "scriptPath-${BuildArrowHeadServerStackHelpers.getImageName(image)}", includes: "${BuildArrowHeadServerStackHelpers.getDBScriptPath(image)}"
-									}
-								}
-						}
-					}
-					
-					/*
-					script
-					{
 						if( ! BuildArrowHeadServerStackHelpers.checkCompileDockerHub() )
 						{
 							withFolderProperties
@@ -110,6 +94,7 @@ def call( environment, currentBuild, parameter )
 						}
 					}
 					
+					/*
 					stash name: "auth-artifacts", includes: "authorization/target/**"
 					stash name: "serv-artifacts", includes: "serviceregistry_sql/target/**"
 					stash name: "event-artifacts", includes: "eventhandler/target/**"
@@ -117,6 +102,25 @@ def call( environment, currentBuild, parameter )
 					stash name: "way-artifacts", includes: "gateway/target/**"
 					stash name: "orch-artifacts", includes: "orchestrator/target/**"
 					*/
+					
+					script
+					{
+						BuildArrowHeadServerStackHelpers.getImages().each
+						{
+							image ->
+								if( BuildArrowHeadServerStackHelpers.isDB(image ) )
+								{
+									if( BuildArrowHeadServerStackHelpers.checkScriptPathDBScript(image) )
+									{
+										stash name: "scriptPath-${BuildArrowHeadServerStackHelpers.getImageName(image)}", includes: "${BuildArrowHeadServerStackHelpers.getDBScriptPath(image)}"
+									}
+								}
+								else
+								{
+									stash name: "artifacts-${BuildArrowHeadServerStackHelpers.getImageName(image)}", includes: "${BuildArrowHeadServerStackHelpers.getArtifactsPath(image)}**"
+								}
+						}
+					}
 				}
 			}
 
@@ -211,6 +215,10 @@ def call( environment, currentBuild, parameter )
 												customImage.push(portusTag)
 											}
 										}
+									}
+									else
+									{
+										unstash "artifacts-${BuildArrowHeadServerStackHelpers.getImageName(image)}"
 									}
 									
 									if( BuildArrowHeadServerStackHelpers.getLog().errorsOccured() )

@@ -269,4 +269,9 @@ class buildArrowHeadServerStackHelpers
 	{
 		return image.repo
 	}
+	
+	def getArtifactsPath(image)
+	{
+		return image.artifacts_path
+	}
 }
