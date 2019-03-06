@@ -124,7 +124,7 @@ class buildArrowHeadServerStackHelpers
 	
 	def checkScriptPathDBScript(image)
 	{
-		if( image.initDBScript.initDBScriptPath )
+		if( image.initDBScript && ( image.initDBScript != true ) && image.initDBScript.initDBScriptPath )
 			return true
 		else
 			return false
