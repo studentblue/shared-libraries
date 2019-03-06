@@ -186,7 +186,7 @@ class buildArrowHeadServerStackHelpers
 		}
 		lines.add("FROM " + getDBImageName(image))
 		lines.add("COPY ./"+scriptName+" /docker-entrypoint-initdb.d/")
-		lines.add("ARG MYSQL_ROOT_PASSWORD=${ROOT_PSW}")
+		lines.add("ENV MYSQL_ROOT_PASSWORD=${ROOT_PSW}")
 		return lines.join("\n")
 	}
 	
