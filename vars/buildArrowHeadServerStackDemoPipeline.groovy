@@ -16,9 +16,12 @@ def call( environment, currentBuild, parameter )
 				{
 					script
 					{
-						BuildArrowHeadServerStackHelpers.init(parameter, Constants)
+						withFolderProperties
+						{
+							BuildArrowHeadServerStackHelpers.init(parameter, Constants, environment)
 						
-						println BuildArrowHeadServerStackHelpers.getParameter()
+							println BuildArrowHeadServerStackHelpers.getParameter()
+						}
 					}
 				}
 			}

@@ -16,11 +16,15 @@ class buildArrowHeadServerStackHelpers
 	
 	def utils;
 	
-	def init( inputParameter, Constants  )
+	def environment
+	
+	def init( inputParameter, Constants, environment  )
 	{
 		input = new JsonSlurperClassic().parseText(inputParameter)
 		
-		this.Constants = Constants		
+		this.Constants = Constants
+		
+		this.environment = environment
 		
 		log = new Log()
 		log.init(Constants)
@@ -50,7 +54,11 @@ class buildArrowHeadServerStackHelpers
 	def getDockerCompileImage()
 	{
 		if( ! checkCompileDockerHub() )
-			return input.Compile.image.name
+		{			
+			def registry = environment.REPO_URL.split('//')[1]
+			
+			return registry +"/"+input.Compile.image.name
+		}
 	}
 	
 	def getContainerCompileArgs()
