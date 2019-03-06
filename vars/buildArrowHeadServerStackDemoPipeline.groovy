@@ -59,11 +59,10 @@ def call( environment, currentBuild, parameter )
 				{
 					script
 					{
-						withFolderProperties
+						if( ! BuildArrowHeadServerStackHelpers.checkCompileDockerHub() )
 						{
-						
-							if( ! BuildArrowHeadServerStackHelpers.checkCompileDockerHub() )
-							{
+							withFolderProperties
+							{							
 								docker.withRegistry("${environment.REPO_URL}", "${environment.PORTUS_CREDS_STD}")
 								{
 									withDockerContainer(args: "${BuildArrowHeadServerStackHelpers.getContainerCompileArgs()}", image: "${BuildArrowHeadServerStackHelpers.getDockerCompileImage()}")
@@ -71,6 +70,13 @@ def call( environment, currentBuild, parameter )
 										sh "mvn --version"
 									}
 								}
+							}
+						}
+						else
+						{
+							withDockerContainer(args: "${BuildArrowHeadServerStackHelpers.getContainerCompileArgs()}", image: "${BuildArrowHeadServerStackHelpers.getDockerCompileImage()}")
+							{
+								sh "mvn --version"
 							}
 						}
 					}

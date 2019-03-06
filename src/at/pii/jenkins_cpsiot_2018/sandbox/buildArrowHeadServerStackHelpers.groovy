@@ -59,6 +59,26 @@ class buildArrowHeadServerStackHelpers
 			
 			return registry +"/"+input.Compile.image.name
 		}
+		else
+		{
+			def image = ""
+			
+			if( input.Compile.image.namespace )
+				image += input.Compile.image.namespace
+			
+			if( input.Compile.image.repo && image)
+				image += "/" + input.Compile.image.namespace
+			
+			if( input.Compile.image.tag )
+			{
+				if( input.Compile.image.tag.contains(":") )
+					image += input.Compile.image.tag
+				else
+					image += ":" + input.Compile.image.tag
+			}
+			
+			return image
+		}
 	}
 	
 	def getContainerCompileArgs()
