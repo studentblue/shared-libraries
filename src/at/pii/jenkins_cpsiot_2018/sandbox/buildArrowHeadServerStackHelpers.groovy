@@ -46,4 +46,15 @@ class buildArrowHeadServerStackHelpers
 	{
 		return input.Compile.image.fromDockerHub
 	}
+	
+	def getDockerCompileImage()
+	{
+		if( ! checkCompileDockerHub() )
+			return input.Compile.image.name
+	}
+	
+	def getContainerCompileArgs()
+	{
+		return input.Compile.imageArgs
+	}
 }
