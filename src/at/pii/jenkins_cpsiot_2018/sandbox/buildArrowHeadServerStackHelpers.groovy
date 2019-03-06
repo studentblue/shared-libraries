@@ -175,7 +175,7 @@ class buildArrowHeadServerStackHelpers
 		return script.join("\n")
 	}
 	
-	def generateDockerFileDB(image, scriptName)
+	def generateDockerFileDB(image, scriptName, ROOT_PSW)
 	{
 		def lines = []
 		
@@ -186,7 +186,7 @@ class buildArrowHeadServerStackHelpers
 		}
 		lines.add("FROM " + getDBImageName(image))
 		lines.add("COPY ./"+scriptName+" /docker-entrypoint-initdb.d/")
-		
+		lines.add("ARG MYSQL_ROOT_PASSWORD=${ROOT_PSW}")
 		return lines.join("\n")
 	}
 	

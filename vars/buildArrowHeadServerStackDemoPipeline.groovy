@@ -137,7 +137,7 @@ def call( environment, currentBuild, parameter )
 												{
 													writeFile file: 'initDB.sql', text: BuildArrowHeadServerStackHelpers.generateDBScript(DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW, DB_ARROWHEAD, DB_ARROWHEAD_LOG)
 													
-													writeFile file: 'Dockerfile', text: BuildArrowHeadServerStackHelpers.generateDockerFileDB(image, 'initDB.sql')
+													writeFile file: 'Dockerfile', text: BuildArrowHeadServerStackHelpers.generateDockerFileDB(image, 'initDB.sql', DB_ROOT_PWD)
 													
 												}
 											}
