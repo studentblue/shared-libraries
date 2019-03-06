@@ -90,4 +90,25 @@ class buildArrowHeadServerStackHelpers
 	{
 		return input.Compile.command + " " + input.Compile.args
 	}
+	
+	def getDBInitScript()
+	{
+		//~ if( initDBScript
+	}
+	
+	def checkIfDB()
+	{
+		def db = false
+		input.Images.each
+		{
+			image ->
+				if( image.database == true)
+				{
+					log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Database Image found will be created " )
+					db = true
+				}
+		}
+		
+		return db
+	}
 }

@@ -77,6 +77,22 @@ def call( environment, currentBuild, parameter )
 					stash name: "orch-artifacts", includes: "orchestrator/target/**"
 				}
 			}
+			
+			stage( "Dockerize Selected Images" )
+			{
+				steps
+				{
+					script
+					{
+						//generate dockerfile
+						
+						if( BuildArrowHeadServerStackHelpers.checkIfDB() )
+						{
+							echo "do"
+						}
+					}
+				}
+			}
 		}
 		
 		post
