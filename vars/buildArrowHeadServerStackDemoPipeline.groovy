@@ -69,9 +69,14 @@ def call( environment, currentBuild, parameter )
 						}
 					}
 					
-					sh "ls -la"
+					stash name: "auth-artifacts", includes: "authorization/target/**"
+					stash name: "serv-artifacts", includes: "serviceregistry_sql/target/**"
+					stash name: "event-artifacts", includes: "eventhandler/target/**"
+					stash name: "keeper-artifacts", includes: "gatekeeper/target/**"
+					stash name: "way-artifacts", includes: "gateway/target/**"
+					stash name: "orch-artifacts", includes: "orchestrator/target/**"
 				}
-			}			
+			}
 		}
 		
 		post
