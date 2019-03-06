@@ -91,9 +91,12 @@ class buildArrowHeadServerStackHelpers
 		return input.Compile.command + " " + input.Compile.args
 	}
 	
-	def getDBInitScript()
+	def generateDBScript(image)
 	{
-		//~ if( initDBScript
+		if( image.initDBScript == true )
+			return image.initDBScript
+		
+		return false
 	}
 	
 	def checkIfDB()
@@ -120,5 +123,18 @@ class buildArrowHeadServerStackHelpers
 	def getArrowheadDBLog()
 	{
 		return input.ArrowHead.arrowHeadLogDB
+	}
+	
+	def getImages()
+	{
+		return input.Images
+	}
+	
+	def isDB(image )
+	{
+		if( image.database == true )
+			return true
+		else
+			return false
 	}
 }
