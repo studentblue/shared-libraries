@@ -111,4 +111,14 @@ class buildArrowHeadServerStackHelpers
 		
 		return db
 	}
+	
+	def getArrowheadDB()
+	{
+		return input.ArrowHead.arrowHeadDB
+	}
+	
+	def getArrowheadDBLog()
+	{
+		return input.ArrowHead.arrowHeadLogDB
+	}
 }
