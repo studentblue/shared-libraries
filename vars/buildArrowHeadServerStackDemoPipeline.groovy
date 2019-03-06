@@ -219,6 +219,12 @@ def call( environment, currentBuild, parameter )
 									else
 									{
 										unstash "artifacts-${BuildArrowHeadServerStackHelpers.getImageName(image)}"
+										
+										dir( "${BuildArrowHeadServerStackHelpers.getArtifactsPath(image)}" )
+										{
+											sh "ls -la"
+										}
+										
 									}
 									
 									if( BuildArrowHeadServerStackHelpers.getLog().errorsOccured() )
