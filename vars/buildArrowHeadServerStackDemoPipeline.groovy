@@ -68,6 +68,8 @@ def call( environment, currentBuild, parameter )
 							}
 						}
 					}
+					
+					sh "ls -la"
 				}
 			}			
 		}
