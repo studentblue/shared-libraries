@@ -200,9 +200,7 @@ class buildArrowHeadServerStackHelpers
 	{
 		def registry = environment.REPO_URL.split('//')[1]
 		
-		def image = registry
-		
-		return image + "/" + getCloudName() + "/" + image.repo
+		return registry + "/" + getCloudName() + "/" + image.repo
 	}
 	
 	def getPortusTag(image)
