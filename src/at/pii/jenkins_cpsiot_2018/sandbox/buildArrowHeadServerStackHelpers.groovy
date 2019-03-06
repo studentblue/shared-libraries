@@ -91,7 +91,7 @@ class buildArrowHeadServerStackHelpers
 		return input.Compile.command + " " + input.Compile.args
 	}
 	
-	def generateDBScript(image)
+	def checkGenerateDBScript(image)
 	{
 		if( image.initDBScript == true )
 			return image.initDBScript
@@ -136,5 +136,33 @@ class buildArrowHeadServerStackHelpers
 			return true
 		else
 			return false
+	}
+	
+	def generateDBScript(DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW, DB_ARROWHEAD, DB_ARROWHEAD_LOG)
+	{
+		def script = []
+		
+		script.add("CREATE DATABASE  IF NOT EXISTS \\`${DB_ARROWHEAD}\\` /*!40100 DEFAULT CHARACTER SET utf8 */;")
+
+		script.add("CREATE DATABASE  IF NOT EXISTS \\`${DB_ARROWHEAD_LOG}\\`;")
+
+		script.add("CREATE USER '${DEFAULT_DB_ARROWHEAD_USR}'@'%' IDENTIFIED BY '${DEFAULT_DB_ARROWHEAD_PSW}';")
+		script.add("GRANT ALL PRIVILEGES ON ${DB_ARROWHEAD_LOG}.* TO '${DEFAULT_DB_ARROWHEAD_USR}'@'%';")
+		script.add("GRANT ALL PRIVILEGES ON ${DB_ARROWHEAD}.* TO '${DEFAULT_DB_ARROWHEAD_USR}'@'%';")
+
+		script.add("USE \\`${DB_ARROWHEAD_LOG}\\`;")
+
+		script.add("DROP TABLE IF EXISTS \\`logs\\`;")
+		
+		script.add("CREATE TABLE \\`logs\\` (")
+		script.add("  \\`id\\` int(10) unsigned NOT NULL AUTO_INCREMENT,")
+		script.add("  \\`date\\` datetime NOT NULL,")
+		script.add("  \\`origin\\` varchar(255) COLLATE utf8_unicode_ci NOT NULL,")
+		script.add("  \\`level\\` varchar(10) COLLATE utf8_unicode_ci NOT NULL,")
+		script.add("  \\`message\\` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,")
+		script.add("  PRIMARY KEY (\\`id\\`)")
+		script.add(") ENGINE=InnoDB AUTO_INCREMENT=1557 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;")
+		
+		return script.join("\n")
 	}
 }

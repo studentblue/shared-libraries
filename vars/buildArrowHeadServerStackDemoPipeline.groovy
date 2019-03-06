@@ -103,30 +103,16 @@ def call( environment, currentBuild, parameter )
 										{
 											sh "rm -rf database_scripts_cpsiot"
 											sh "mkdir database_scripts_cpsiot"
-											sh "touch database_scripts_cpsiot/create_iot_user.sql"
-											if( BuildArrowHeadServerStackHelpers.generateDBScript(image) )
+
+											if( BuildArrowHeadServerStackHelpers.checkGenerateDBScript(image) )
 											{
-												echo "CREATE DATABASE  IF NOT EXISTS \\`${DB_ARROWHEAD}\\` /*!40100 DEFAULT CHARACTER SET utf8 */;" + " >> database_scripts_cpsiot/create_iot_user.sql"
-				
-												echo "CREATE DATABASE  IF NOT EXISTS \\`${DB_ARROWHEAD_LOG}\\`;" + " >> database_scripts_cpsiot/create_iot_user.sql"
-				
-												echo "CREATE USER '${DEFAULT_DB_ARROWHEAD_USR}'@'%' IDENTIFIED BY '${DEFAULT_DB_ARROWHEAD_PSW}';" + " >> database_scripts_cpsiot/create_iot_user.sql"
-												echo "GRANT ALL PRIVILEGES ON ${DB_ARROWHEAD_LOG}.* TO '${DEFAULT_DB_ARROWHEAD_USR}'@'%';" + " >> database_scripts_cpsiot/create_iot_user.sql"
-												echo "GRANT ALL PRIVILEGES ON ${DB_ARROWHEAD}.* TO '${DEFAULT_DB_ARROWHEAD_USR}'@'%';" + " >> database_scripts_cpsiot/create_iot_user.sql"
-				
-												echo "USE \\`${DB_ARROWHEAD_LOG}\\`;" + " >> database_scripts_cpsiot/create_iot_user.sql"
-				
-												echo "DROP TABLE IF EXISTS \\`logs\\`;" + " >> database_scripts_cpsiot/create_iot_user.sql"
-												echo "CREATE TABLE \\`logs\\` (" + " >> database_scripts_cpsiot/create_iot_user.sql"
-												echo "  \\`id\\` int(10) unsigned NOT NULL AUTO_INCREMENT," + " >> database_scripts_cpsiot/create_iot_user.sql"
-												echo "  \\`date\\` datetime NOT NULL," + " >> database_scripts_cpsiot/create_iot_user.sql"
-												echo "  \\`origin\\` varchar(255) COLLATE utf8_unicode_ci NOT NULL," + " >> database_scripts_cpsiot/create_iot_user.sql"
-												echo "  \\`level\\` varchar(10) COLLATE utf8_unicode_ci NOT NULL," + " >> database_scripts_cpsiot/create_iot_user.sql"
-												echo "  \\`message\\` varchar(1000) COLLATE utf8_unicode_ci NOT NULL," + " >> database_scripts_cpsiot/create_iot_user.sql"
-												echo "  PRIMARY KEY (\\`id\\`)" + " >> database_scripts_cpsiot/create_iot_user.sql"
-												echo ") ENGINE=InnoDB AUTO_INCREMENT=1557 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;" + " >> database_scripts_cpsiot/create_iot_user.sql"
+											
+												dir( "database_scripts_cpsiot" )
+												{
+													writeFile file: 'initDB.sql', text: BuildArrowHeadServerStackHelpers.generateDBScript(DB_ROOT_PWD, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW, DB_ARROWHEAD, DB_ARROWHEAD_LOG)
 												
-												sh "cat database_scripts_cpsiot/create_iot_user.sql"
+													sh "cat initDB.sql"
+												}
 											}
 										}
 									}
