@@ -179,16 +179,13 @@ def call( environment, currentBuild, parameter )
 													
 													unstash "scriptPath-${BuildArrowHeadServerStackHelpers.getImageName(image)}"
 													
-													sh "ls -la"
-													
-													/*
-													sh "cp ${WORKSPACE}/${BuildArrowHeadServerStackHelpers.getDBScriptPath(image)} database_scripts_cpsiot/initDB.sql "
+
+													sh "cp ${BuildArrowHeadServerStackHelpers.getDBScriptPath(image)} database_scripts_cpsiot/initDB.sql "
 													dir( "database_scripts_cpsiot" )
 													{
 														writeFile file: 'Dockerfile', text: BuildArrowHeadServerStackHelpers.generateDockerFileDB(image, 'initDB.sql', DB_ROOT_PWD)
 														
 													}
-													*/
 												}
 												
 											}
