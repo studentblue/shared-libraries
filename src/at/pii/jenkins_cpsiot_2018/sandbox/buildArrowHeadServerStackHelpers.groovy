@@ -164,8 +164,15 @@ class buildArrowHeadServerStackHelpers
 	{
 		def lines = []
 		
+		if( ! image )
+		{
+			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "DB Image not found" )
+			return ""
+		}
 		lines.add("FROM " + getDBImageName(image))
 		lines.add("COPY ./"+scriptName+" /docker-entrypoint-initdb.d/")
+		
+		return lines.join("\n")
 	}
 	
 	def getDBImageName(image)

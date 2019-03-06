@@ -36,7 +36,7 @@ def call( environment, currentBuild, parameter )
 			}
 			
 			
-			
+			/*
 			stage( "Build" )
 			{
 				agent{ label "master"}
@@ -77,6 +77,7 @@ def call( environment, currentBuild, parameter )
 					stash name: "orch-artifacts", includes: "orchestrator/target/**"
 				}
 			}
+			*/
 			
 			stage( "Dockerize Selected Images" )
 			{
@@ -113,6 +114,11 @@ def call( environment, currentBuild, parameter )
 											}
 										}
 									}
+								}
+								
+								if( BuildArrowHeadServerStackHelpers.getLog().errorsOccured() )
+								{
+									error("Failed")
 								}
 						}
 					}
