@@ -103,7 +103,7 @@ def call( environment, currentBuild, parameter )
 										{
 											sh "rm -rf database_scripts_cpsiot"
 											sh "mkdir database_scripts_cpsiot"
-											
+											sh "touch database_scripts_cpsiot/create_iot_user.sql"
 											if( BuildArrowHeadServerStackHelpers.generateDBScript(image) )
 											{
 												echo "CREATE DATABASE  IF NOT EXISTS \\`${DB_ARROWHEAD}\\` /*!40100 DEFAULT CHARACTER SET utf8 */;" + " >> database_scripts_cpsiot/create_iot_user.sql"
