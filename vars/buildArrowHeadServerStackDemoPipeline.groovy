@@ -87,41 +87,44 @@ def call( environment, currentBuild, parameter )
 				{
 					script
 					{
-						BuildArrowHeadServerStackHelpers.getImages().each
+						withFolderProperties
 						{
-							image ->
-							
-								if( BuildArrowHeadServerStackHelpers.isDB(image ) )
-								{
-									//generate dockerfile
-									withCredentials(
-									[
-										string(credentialsId: env.DB_Root_PWD, variable: 'DB_ROOT_PWD'),
-										usernamePassword(credentialsId: env.ArrowHead_User_Pwd, usernameVariable: 'DEFAULT_DB_ARROWHEAD_USR', passwordVariable: 'DEFAULT_DB_ARROWHEAD_PSW')
-									])
+							BuildArrowHeadServerStackHelpers.getImages().each
+							{
+								image ->
+								
+									if( BuildArrowHeadServerStackHelpers.isDB(image ) )
 									{
-										def DB_ARROWHEAD = BuildArrowHeadServerStackHelpers.getArrowheadDB()
-										def DB_ARROWHEAD_LOG = BuildArrowHeadServerStackHelpers.getArrowheadDBLog()
-										if( BuildArrowHeadServerStackHelpers.checkGenerateDBScript(image) )
+										//generate dockerfile
+										withCredentials(
+										[
+											string(credentialsId: env.DB_Root_PWD, variable: 'DB_ROOT_PWD'),
+											usernamePassword(credentialsId: env.ArrowHead_User_Pwd, usernameVariable: 'DEFAULT_DB_ARROWHEAD_USR', passwordVariable: 'DEFAULT_DB_ARROWHEAD_PSW')
+										])
 										{
-											sh "rm -rf database_scripts_cpsiot"
-											sh "mkdir database_scripts_cpsiot"
-										
-											dir( "database_scripts_cpsiot" )
+											def DB_ARROWHEAD = BuildArrowHeadServerStackHelpers.getArrowheadDB()
+											def DB_ARROWHEAD_LOG = BuildArrowHeadServerStackHelpers.getArrowheadDBLog()
+											if( BuildArrowHeadServerStackHelpers.checkGenerateDBScript(image) )
 											{
-												writeFile file: 'initDB.sql', text: BuildArrowHeadServerStackHelpers.generateDBScript(DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW, DB_ARROWHEAD, DB_ARROWHEAD_LOG)
-												
-												writeFile file: 'Dockerfile', text: BuildArrowHeadServerStackHelpers.generateDockerFileDB(image, 'initDB.sql')
-												
+												sh "rm -rf database_scripts_cpsiot"
+												sh "mkdir database_scripts_cpsiot"
+											
+												dir( "database_scripts_cpsiot" )
+												{
+													writeFile file: 'initDB.sql', text: BuildArrowHeadServerStackHelpers.generateDBScript(DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW, DB_ARROWHEAD, DB_ARROWHEAD_LOG)
+													
+													writeFile file: 'Dockerfile', text: BuildArrowHeadServerStackHelpers.generateDockerFileDB(image, 'initDB.sql')
+													
+												}
 											}
 										}
 									}
-								}
-								
-								if( BuildArrowHeadServerStackHelpers.getLog().errorsOccured() )
-								{
-									error("Failed")
-								}
+									
+									if( BuildArrowHeadServerStackHelpers.getLog().errorsOccured() )
+									{
+										error("Failed")
+									}
+							}
 						}
 					}
 				}
