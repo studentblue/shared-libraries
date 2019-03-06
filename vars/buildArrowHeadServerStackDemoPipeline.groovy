@@ -3,6 +3,8 @@ def call( environment, currentBuild, parameter )
 	
 	Constants = new at.pii.jenkins_cpsiot_2018.sandbox.Constants()
 	BuildArrowHeadServerStackHelpers = new at.pii.jenkins_cpsiot_2018.sandbox.buildArrowHeadServerStackHelpers()
+	JenkinsApi = new at.pii.jenkins_cpsiot_2018.sandbox.JenkinsApi()
+	PortusApi = new at.pii.jenkins_cpsiot_2018.sandbox.PortusApi()
 
 	pipeline
 	{
@@ -18,9 +20,31 @@ def call( environment, currentBuild, parameter )
 					{
 						withFolderProperties
 						{
-							BuildArrowHeadServerStackHelpers.init(parameter, Constants, environment)
+							withCredentials([string(credentialsId: env.PORTUS_USER_TOKEN_API, variable: 'TOKEN2')])
+							{
+								PortusApi.init(environment.REPO_URL, environment.PORTUS_USER, environment.TOKEN2, environment.PORTUS_USER_ID, Constants)
+								
+								if( PortusApi.getLog().errorsOccured() )
+								{
+									error("Failed")
+								}
+								
+								JenkinsApi.init(currentBuild, environment, Constants)
+								
+								if( JenkinsApi.getLog().errorsOccured() )
+								{
+									error("Failed")
+								}
+							
+								BuildArrowHeadServerStackHelpers.init(parameter, Constants, environment, PortusApi, JenkinsApi)
+								
+								if( BuildArrowHeadServerStackHelpers.getLog().errorsOccured() )
+								{
+									error("Failed")
+								}
+							}
 						
-							println BuildArrowHeadServerStackHelpers.getParameter()
+							//println BuildArrowHeadServerStackHelpers.getParameter()
 						}
 					}
 				}
@@ -118,6 +142,28 @@ def call( environment, currentBuild, parameter )
 												}
 											}
 										}
+										
+										def portusImageName = BuildArrowHeadServerStackHelpers.getPortusImageName(image)
+										
+										def portusTag = def portusImageName = BuildArrowHeadServerStackHelpers.getPortusTag(image)
+										
+										if( BuildArrowHeadServerStackHelpers.getLog().errorsOccured() )
+										{
+											error("Failed")
+										}
+										
+										println( portusImageName + ":" + portusTag )
+										
+										/*
+										dir( "database_scripts_cpsiot" )
+										{
+											docker.withRegistry("${environment.REPO_URL}", "${environment.PORTUS_CREDS_STD}")
+											{
+												customImage = docker.build(portusImageName)
+												customImage.push("${env.BUILD_NUMBER}")
+											}
+										}
+										*/
 									}
 									
 									if( BuildArrowHeadServerStackHelpers.getLog().errorsOccured() )
@@ -140,6 +186,9 @@ def call( environment, currentBuild, parameter )
 				{
 					if( BuildArrowHeadServerStackHelpers.getLog() )
 						println BuildArrowHeadServerStackHelpers.getLog().printLog()
+					
+					if( PortusApi.getLog() ) 
+						println PortusApi.getLog().printLog()
 				}
 			}
 	

@@ -18,13 +18,25 @@ class buildArrowHeadServerStackHelpers
 	
 	def environment
 	
-	def init( inputParameter, Constants, environment  )
+	def PortusApi
+	
+	def stdCloudTeam
+	
+	def JenkinsApi
+	
+	def init( inputParameter, Constants, environment, PortusApi, JenkinsApi  )
 	{
 		input = new JsonSlurperClassic().parseText(inputParameter)
 		
 		this.Constants = Constants
 		
 		this.environment = environment
+		
+		this.PortusApi = PortusApi
+		
+		this.JenkinsApi = JenkinsApi
+		
+		stdCloudTeam = environment.PORTUS_STD_CLOUD_TEAM
 		
 		log = new Log()
 		log.init(Constants)
@@ -182,5 +194,45 @@ class buildArrowHeadServerStackHelpers
 		
 		return registry +"/"+ image.buildImage
 
+	}
+	
+	def getPortusImageName(image)
+	{
+		def registry = environment.REPO_URL.split('//')[1]
+		
+		def image = registry
+		
+		return image + "/" + getCloudName() + "/" + image.repo
+	}
+	
+	def getPortusTag(image)
+	{
+		def tag = ""
+		
+		tag += JenkinsApi.getBuildTimestamp()
+		
+		tag += "-" + Constants.DEFAULT_CLOUD_TAG + JenkinsApi.getBuildNumber()
+		
+		return tag
+	}
+	
+	def getCloudName()
+	{
+		def cloud = input.NameSpace.cloud
+		
+		if( input.NameSpace.new && input.NameSpace.new == true )
+		{
+			cloud = Constants.DEFAULT_CLOUD_PREFIX + cloud + "-" + PortusApi.getPortusUserName()
+			if( PortusApi.validateNamespace(cloud ) )
+			{
+				def code = PortusApi.validateNamespace(cloud , stdCloudTeam, "Cloud Namespace for User " + PortusApi.getPortusUserName())
+				
+				if( ! code )
+				{
+					log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Failed to create cloud " + cloud)
+					return ""
+				}
+			}
+		}
 	}
 }
