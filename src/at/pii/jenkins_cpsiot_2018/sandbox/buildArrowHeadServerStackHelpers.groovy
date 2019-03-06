@@ -264,4 +264,9 @@ class buildArrowHeadServerStackHelpers
 		
 		return cloud
 	}
+	
+	def getImageName(image)
+	{
+		return image.repo
+	}
 }

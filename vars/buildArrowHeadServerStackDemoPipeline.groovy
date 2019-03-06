@@ -69,6 +69,22 @@ def call( environment, currentBuild, parameter )
 				{
 					checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/arrowhead-f/core-java.git']]]
 					
+					
+					script
+					{
+						BuildArrowHeadServerStackHelpers.getImages().each
+						{
+							image ->
+								if( BuildArrowHeadServerStackHelpers.isDB(image ) )
+								{
+									if( BuildArrowHeadServerStackHelpers.checkScriptPathDBScript(image) )
+									{
+										stash name: "scriptPath-${BuildArrowHeadServerStackHelpers.getImageName(image)}", includes: "${BuildArrowHeadServerStackHelpers.getDBScriptPath(image)}"
+									}
+								}
+						}
+					}
+					
 					/*
 					script
 					{
@@ -160,12 +176,19 @@ def call( environment, currentBuild, parameter )
 												{
 													sh "rm -rf database_scripts_cpsiot"
 													sh "mkdir database_scripts_cpsiot"
+													
+													unstash "scriptPath-${BuildArrowHeadServerStackHelpers.getImageName(image)}"
+													
+													sh "ls -la"
+													
+													/*
 													sh "cp ${WORKSPACE}/${BuildArrowHeadServerStackHelpers.getDBScriptPath(image)} database_scripts_cpsiot/initDB.sql "
 													dir( "database_scripts_cpsiot" )
 													{
 														writeFile file: 'Dockerfile', text: BuildArrowHeadServerStackHelpers.generateDockerFileDB(image, 'initDB.sql', DB_ROOT_PWD)
 														
 													}
+													*/
 												}
 												
 											}
