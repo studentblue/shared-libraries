@@ -87,8 +87,8 @@ def call( environment, currentBuild, parameter )
 						//generate dockerfile
 						withCredentials(
 						[
-							string(credentialsId: environment.DB-Root-PWD, variable: 'DB_ROOT_PWD'),
-							usernamePassword(credentialsId: environment.ArrowHead-User-Pwd, usernameVariable: 'DEFAULT_DB_ARROWHEAD_USR', passwordVariable: 'DEFAULT_DB_ARROWHEAD_PSW')
+							string(credentialsId: "${environment.DB-Root-PWD}", variable: 'DB_ROOT_PWD'),
+							usernamePassword(credentialsId: "${environment.ArrowHead-User-Pwd}", usernameVariable: 'DEFAULT_DB_ARROWHEAD_USR', passwordVariable: 'DEFAULT_DB_ARROWHEAD_PSW')
 						])
 						{
 							def DB_ARROWHEAD = BuildArrowHeadServerStackHelpers.getArrowheadDB()
