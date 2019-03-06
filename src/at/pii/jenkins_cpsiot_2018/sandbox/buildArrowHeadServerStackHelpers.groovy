@@ -85,4 +85,9 @@ class buildArrowHeadServerStackHelpers
 	{
 		return input.Compile.imageArgs
 	}
+	
+	def getCompileCommand()
+	{
+		return input.Compile.command + " " + input.Compile.args
+	}
 }
