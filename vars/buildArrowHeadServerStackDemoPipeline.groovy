@@ -106,7 +106,7 @@ def call( environment, currentBuild, parameter )
 										
 											dir( "database_scripts_cpsiot" )
 											{
-												writeFile file: 'initDB.sql', text: BuildArrowHeadServerStackHelpers.generateDBScript(DB_ROOT_PWD, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW, DB_ARROWHEAD, DB_ARROWHEAD_LOG)
+												writeFile file: 'initDB.sql', text: BuildArrowHeadServerStackHelpers.generateDBScript(DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW, DB_ARROWHEAD, DB_ARROWHEAD_LOG)
 											
 												sh "cat initDB.sql"
 											}
