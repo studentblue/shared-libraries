@@ -50,7 +50,7 @@ class buildArrowHeadServerStackHelpers
 	
 	def checkInput()
 	{
-		if( ! getCloudName() )
+		if( ! input.NameSpace.cloud )
 			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Cloud name not found" )
 		
 		log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Input Check ran" )
