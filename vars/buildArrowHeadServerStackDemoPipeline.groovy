@@ -154,16 +154,15 @@ def call( environment, currentBuild, parameter )
 										
 										println( portusImageName + ":" + portusTag )
 										
-										/*
+
 										dir( "database_scripts_cpsiot" )
 										{
 											docker.withRegistry("${environment.REPO_URL}", "${environment.PORTUS_CREDS_STD}")
 											{
 												customImage = docker.build(portusImageName)
-												customImage.push("${env.BUILD_NUMBER}")
+												customImage.push(portusTag)
 											}
 										}
-										*/
 									}
 									
 									if( BuildArrowHeadServerStackHelpers.getLog().errorsOccured() )
