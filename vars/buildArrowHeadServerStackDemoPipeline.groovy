@@ -220,7 +220,7 @@ def call( environment, currentBuild, parameter )
 									{
 										unstash "artifacts-${BuildArrowHeadServerStackHelpers.getImageName(image)}"
 										
-										dir( "../${BuildArrowHeadServerStackHelpers.getArtifactsPath(image)}" )
+										dir( "${BuildArrowHeadServerStackHelpers.getArtifactsPath(image)}/.." )
 										{
 											//writeFile file: 'config/', text: BuildArrowHeadServerStackHelpers.generateDockerFileDB(image, 'initDB.sql', DB_ROOT_PWD)
 											sh "ls -la"
