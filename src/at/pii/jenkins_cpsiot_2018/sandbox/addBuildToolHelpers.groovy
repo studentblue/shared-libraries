@@ -302,7 +302,13 @@ class addBuildToolHelpers
 		name = name.replaceAll("[^\\w_-]", "-")
 		
 		if( tag )
-			return Constants.DEFAULT_IMAGE_PREFIX + name + "-" + tag
+		{
+			def tagSani = tag
+			tagSani = tag.replaceAll("^[\\W]*", "")
+			tagSani = tagSani.replaceAll("[\\W_]*\$", "")
+			tagSani = tagSani.replaceAll("[^\\w_-]", "-")
+			return Constants.DEFAULT_IMAGE_PREFIX + name + "-" + tagSani
+		}
 		else
 			return Constants.DEFAULT_IMAGE_PREFIX + name
 	}
