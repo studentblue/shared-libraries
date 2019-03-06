@@ -81,6 +81,15 @@ class buildArrowHeadServerStackHelpers
 		}
 	}
 	
+	def getDBImageName(image)
+	{
+		
+		def registry = environment.REPO_URL.split('//')[1]
+		
+		return registry +"/"+ image.name
+
+	}
+	
 	def getContainerCompileArgs()
 	{
 		return input.Compile.imageArgs
@@ -160,11 +169,20 @@ class buildArrowHeadServerStackHelpers
 		return script.join("\n")
 	}
 	
-	def generateDockerFileDB()
+	def generateDockerFileDB(image, scriptName)
 	{
 		def lines = []
 		
-		lines.add(""
-		lines.add("COPY ./init_db.sql /docker-entrypoint-initdb.d/")
+		lines.add("FROM " + getDBImageName(image))
+		lines.add("COPY ./"+scriptName+" /docker-entrypoint-initdb.d/")
+	}
+	
+	def getDBImageName(image)
+	{
+		
+		def registry = environment.REPO_URL.split('//')[1]
+		
+		return registry +"/"+ image.buildImage
+
 	}
 }
