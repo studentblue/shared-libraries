@@ -58,20 +58,16 @@ def call( environment, currentBuild, parameter )
 					{
 						withFolderProperties
 						{
-							withCredentials([string(credentialsId: env.Portus_Token, variable: 'TOKEN2')])
+						
+							if( BuildArrowHeadServerStackHelpers.checkCompileDockerHub() )
 							{
-								if( BuildArrowHeadServerStackHelpers.checkCompileDockerHub() )
+								docker.withRegistry("${environment.REPO_URL}", "${environment.PORTUS_CREDS_STD}")
 								{
-									docker.withRegistry("${environment.REPO_URL}", "${environment.PORTUS_CREDS_STD}")
+									withDockerContainer(args: "${BuildArrowHeadServerStackHelpers.getContainerCompileArgs()}", image: "${BuildArrowHeadServerStackHelpers.getDockerCompileImage()}")
 									{
-										withDockerContainer(args: "${BuildArrowHeadServerStackHelpers.getContainerCompileArgs()}", image: "${BuildArrowHeadServerStackHelpers.getDockerCompileImage()}")
-										{
-											sh "mvn --version"
-										}
+										sh "mvn --version"
 									}
 								}
-								else
-								{
 							}
 						}
 					}
