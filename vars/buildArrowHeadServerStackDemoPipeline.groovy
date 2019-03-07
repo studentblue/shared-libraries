@@ -244,7 +244,7 @@ def call( environment, currentBuild, parameter )
 													sh "rm target/config/default.conf"
 													sh "rm target/config/app.properties"
 													sh "rm target/config/log4j.properties"
-													writeFile file: 'target/config/app.conf', text: BuildArrowHeadServerStackHelpers.generateAppProperties4(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
+													writeFile file: 'target/default.conf', text: BuildArrowHeadServerStackHelpers.generateAppProperties4(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
 													println "is Arrowhead 4"
 												}
 												
