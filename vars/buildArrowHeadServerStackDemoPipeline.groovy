@@ -241,7 +241,7 @@ def call( environment, currentBuild, parameter )
 												
 												if( BuildArrowHeadServerStackHelpers.isArrowHead4() )
 												{
-													//sh "rm target/config/default.conf"
+													sh "rm target/config/app.conf"
 													writeFile file: 'target/default.conf', text: BuildArrowHeadServerStackHelpers.generateAppProperties4(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
 													println "is Arrowhead 4"
 												}
