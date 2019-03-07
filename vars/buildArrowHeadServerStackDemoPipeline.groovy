@@ -245,6 +245,12 @@ def call( environment, currentBuild, parameter )
 												}
 												
 												println( portusImageName + ":" + portusTag )
+												
+												docker.withRegistry("${environment.REPO_URL}", "${environment.PORTUS_CREDS_STD}")
+												{
+													customImage = docker.build(portusImageName)
+													customImage.push(portusTag)
+												}
 											}
 										}
 										
