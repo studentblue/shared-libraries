@@ -325,7 +325,7 @@ class buildArrowHeadServerStackHelpers
 		//logger
 		for( setting in image.Settings )
 		{
-			lines.add( setting.getClass() )
+			lines.add( setting.getValue().getClass() )
 			//~ setting.each
 			//~ {
 				//~ key, value ->
