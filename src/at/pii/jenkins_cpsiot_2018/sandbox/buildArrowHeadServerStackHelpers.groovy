@@ -365,4 +365,41 @@ class buildArrowHeadServerStackHelpers
 		return lines.join("\n")
 		
 	}
+	
+	def checkArrowServiceImageExists()
+	{
+		def found = false
+		
+		input.Images.each
+		{
+			image ->
+				if( image.database == true)
+				{
+					return 
+				}
+				
+				if( image.registry && image.registry == true )
+					found = true
+				
+				if( image.authorization && image.authorization == true )
+					found = true
+				
+				if( image.gateway && image.gateway == true )
+					found = true
+				
+				if( image.eventhandler && image.eventhandler == true )
+					found = true
+				
+				if( image.gatekeeper && image.gatekeeper == true )
+					found = true
+				
+				if( image.orchestrator && image.orchestrator == true )
+					found = true
+				
+				
+		}
+		
+		return found
+		
+	}
 }

@@ -72,24 +72,27 @@ def call( environment, currentBuild, parameter )
 					
 					script
 					{
-						if( ! BuildArrowHeadServerStackHelpers.checkCompileDockerHub() )
+						if( BuildArrowHeadServerStackHelpers.checkArrowServiceImageExists() )
 						{
-							withFolderProperties
-							{							
-								docker.withRegistry("${environment.REPO_URL}", "${environment.PORTUS_CREDS_STD}")
-								{
-									withDockerContainer(args: "${BuildArrowHeadServerStackHelpers.getContainerCompileArgs()}", image: "${BuildArrowHeadServerStackHelpers.getDockerCompileImage()}")
+							if( ! BuildArrowHeadServerStackHelpers.checkCompileDockerHub() )
+							{
+								withFolderProperties
+								{							
+									docker.withRegistry("${environment.REPO_URL}", "${environment.PORTUS_CREDS_STD}")
 									{
-										sh "${BuildArrowHeadServerStackHelpers.getCompileCommand()}"
+										withDockerContainer(args: "${BuildArrowHeadServerStackHelpers.getContainerCompileArgs()}", image: "${BuildArrowHeadServerStackHelpers.getDockerCompileImage()}")
+										{
+											sh "${BuildArrowHeadServerStackHelpers.getCompileCommand()}"
+										}
 									}
 								}
 							}
-						}
-						else
-						{
-							withDockerContainer(args: "${BuildArrowHeadServerStackHelpers.getContainerCompileArgs()}", image: "${BuildArrowHeadServerStackHelpers.getDockerCompileImage()}")
+							else
 							{
-								sh "${BuildArrowHeadServerStackHelpers.getCompileCommand()}"
+								withDockerContainer(args: "${BuildArrowHeadServerStackHelpers.getContainerCompileArgs()}", image: "${BuildArrowHeadServerStackHelpers.getDockerCompileImage()}")
+								{
+									sh "${BuildArrowHeadServerStackHelpers.getCompileCommand()}"
+								}
 							}
 						}
 					}
