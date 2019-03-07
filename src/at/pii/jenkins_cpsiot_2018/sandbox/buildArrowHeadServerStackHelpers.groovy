@@ -344,7 +344,10 @@ class buildArrowHeadServerStackHelpers
 							return
 						}
 						
-						lines.add(key + "=" + "${value}")
+						if( value.isInteger() )
+							lines.add(key + "=" + String.valueOf(value))
+						else
+							lines.add(key + "=" + value)
 				}
 		}
 		
