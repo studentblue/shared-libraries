@@ -333,21 +333,23 @@ class buildArrowHeadServerStackHelpers
 			{
 				key, value ->
 			
-		
-				if( key.equals("db_user") )
-				{
-					lines.add(key + "=" + DEFAULT_DB_ARROWHEAD_USR)
-					return
-				}
-				
-				if( key.equals("db_password") )
-				{
-					lines.add(key + "=" + DEFAULT_DB_ARROWHEAD_PSW)
-					return
-				}
-				
-				
-				lines.add(key + "=" + value)
+					if( ! value && ( value != false ) )
+						return
+					
+					if( key.equals("db_user") )
+					{
+						lines.add(key + "=" + DEFAULT_DB_ARROWHEAD_USR)
+						return
+					}
+					
+					if( key.equals("db_password") )
+					{
+						lines.add(key + "=" + DEFAULT_DB_ARROWHEAD_PSW)
+						return
+					}
+					
+					
+					lines.add(key + "=" + value)
 			}
 		}
 		
