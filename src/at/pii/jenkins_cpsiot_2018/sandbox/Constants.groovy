@@ -43,4 +43,12 @@ class Constants
 	
 	final int HTTP_RESPONSE_OK = 200;
 	final int HTTP_RESPONSE_CREATED = 201;
+	
+	final String DB_ADRESS_SUFFIX = "-db-server";
+	final String SR_ADRESS_SUFFIX = "-service-registry";
+	final String AUTH_ADRESS_SUFFIX = "-authorization";
+	final String GATEWAY_ADRESS_SUFFIX = "-gateway";
+	final String EH_ADRESS_SUFFIX = "-eventhandler";
+	final String GK_ADRESS_SUFFIX = "-gatekeeper";
+	final String ORCH_ADRESS_SUFFIX = "-orchestrator";
 }

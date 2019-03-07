@@ -148,12 +148,12 @@ class buildArrowHeadServerStackHelpers
 	
 	def getArrowheadDB()
 	{
-		return input.ArrowHead.arrowHeadDB
+		return input.ArrowHead.DB.arrowHeadDB
 	}
 	
 	def getArrowheadDBLog()
 	{
-		return input.ArrowHead.arrowHeadLogDB
+		return input.ArrowHead.DB.arrowHeadLogDB
 	}
 	
 	def getImages()
@@ -273,5 +273,49 @@ class buildArrowHeadServerStackHelpers
 	def getArtifactsPath(image)
 	{
 		return image.artifacts_path
+	}
+	
+	def generateLogProperties(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
+	{
+		
+		def lines = []
+		//logger
+		input.Logger.DB.each
+		{
+			key, value ->
+				
+				if( key.equals("log4j.appender.DB.user") )
+				{
+					lines.add(key + "=" + DEFAULT_DB_ARROWHEAD_USR)
+					return
+				}
+				
+				if( key.equals("log4j.appender.DB.password") )
+				{
+					lines.add(key + "=" + DEFAULT_DB_ARROWHEAD_PSW)
+					return
+				}
+				
+				lines.add(key + "=" + value)
+				
+		}
+		
+		input.Logger.File.each
+		{
+			key, value ->
+			
+				lines.add(key + "=" + value)
+				
+		}
+		
+		input.Logger.General.each
+		{
+			key, value ->
+			
+				lines.add(key + "=" + value)
+				
+		}
+		
+		return lines.join("\n")
 	}
 }

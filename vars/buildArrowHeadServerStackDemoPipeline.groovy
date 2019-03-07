@@ -222,8 +222,10 @@ def call( environment, currentBuild, parameter )
 										
 										dir( "${BuildArrowHeadServerStackHelpers.getArtifactsPath(image)}/.." )
 										{
-											//writeFile file: 'config/', text: BuildArrowHeadServerStackHelpers.generateDockerFileDB(image, 'initDB.sql', DB_ROOT_PWD)
-											sh "ls -la"
+											//writeFile file: 'target/config/app.properties', text: BuildArrowHeadServerStackHelpers.generateAppProperties(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
+											writeFile file: 'target/config/log4j.properties', text: BuildArrowHeadServerStackHelpers.generateLogProperties(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
+											//sh "cat target/config/app.properties"
+											sh "cat target/config/log4j.properties"
 										}
 										
 									}
