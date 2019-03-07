@@ -325,27 +325,27 @@ class buildArrowHeadServerStackHelpers
 		//logger
 		for( setting in image.Settings )
 		{
-			
-			setting.each
-			{
-				key, value ->
+			lines.add( setting.getClass() )
+			//~ setting.each
+			//~ {
+				//~ key, value ->
 			
 		
-				if( key.equals("db_user") )
-				{
-					lines.add(key + "=" + DEFAULT_DB_ARROWHEAD_USR)
-					return
-				}
+				//~ if( key.equals("db_user") )
+				//~ {
+					//~ lines.add(key + "=" + DEFAULT_DB_ARROWHEAD_USR)
+					//~ return
+				//~ }
 				
-				if( key.equals("db_password") )
-				{
-					lines.add(key + "=" + DEFAULT_DB_ARROWHEAD_PSW)
-					return
-				}
+				//~ if( key.equals("db_password") )
+				//~ {
+					//~ lines.add(key + "=" + DEFAULT_DB_ARROWHEAD_PSW)
+					//~ return
+				//~ }
 				
 				
-				lines.add(key + "=" + value)
-			}
+				//~ lines.add(key + "=" + value)
+			//~ }
 		}
 		
 		return lines.join("\n")
