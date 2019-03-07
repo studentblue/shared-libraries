@@ -323,9 +323,12 @@ class buildArrowHeadServerStackHelpers
 	{
 		def lines = []
 		//logger
-		image.Settings.each
+		for( setting in image.Settings )
 		{
-			key, value ->
+			
+			setting.each
+			{
+				key, value ->
 			
 		
 				if( key.equals("db_user") )
@@ -342,6 +345,7 @@ class buildArrowHeadServerStackHelpers
 				
 				
 				lines.add(key + "=" + value)
+			}
 		}
 		
 		return lines.join("\n")
