@@ -218,14 +218,21 @@ def call( environment, currentBuild, parameter )
 									}
 									else
 									{
-										unstash "artifacts-${BuildArrowHeadServerStackHelpers.getImageName(image)}"
-										
-										dir( "${BuildArrowHeadServerStackHelpers.getArtifactsPath(image)}/.." )
+										withCredentials(
+										[
+											string(credentialsId: env.DB_Root_PWD, variable: 'DB_ROOT_PWD'),
+											usernamePassword(credentialsId: env.ArrowHead_User_Pwd, usernameVariable: 'DEFAULT_DB_ARROWHEAD_USR', passwordVariable: 'DEFAULT_DB_ARROWHEAD_PSW')
+										])
 										{
-											//writeFile file: 'target/config/app.properties', text: BuildArrowHeadServerStackHelpers.generateAppProperties(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
-											writeFile file: 'target/config/log4j.properties', text: BuildArrowHeadServerStackHelpers.generateLogProperties(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
-											//sh "cat target/config/app.properties"
-											sh "cat target/config/log4j.properties"
+											unstash "artifacts-${BuildArrowHeadServerStackHelpers.getImageName(image)}"
+											
+											dir( "${BuildArrowHeadServerStackHelpers.getArtifactsPath(image)}/.." )
+											{
+												//writeFile file: 'target/config/app.properties', text: BuildArrowHeadServerStackHelpers.generateAppProperties(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
+												writeFile file: 'target/config/log4j.properties', text: BuildArrowHeadServerStackHelpers.generateLogProperties(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
+												//sh "cat target/config/app.properties"
+												sh "cat target/config/log4j.properties"
+											}
 										}
 										
 									}
