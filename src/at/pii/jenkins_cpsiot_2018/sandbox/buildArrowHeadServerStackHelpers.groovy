@@ -344,7 +344,7 @@ class buildArrowHeadServerStackHelpers
 							return
 						}
 						
-						lines.add(key + "=" + value)
+						lines.add(key + "=" + "${value}")
 				}
 		}
 		
