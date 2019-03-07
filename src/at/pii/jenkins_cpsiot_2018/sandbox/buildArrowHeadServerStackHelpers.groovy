@@ -402,4 +402,93 @@ class buildArrowHeadServerStackHelpers
 		return found
 		
 	}
+	
+	def getArrowHeadRepo()
+	{
+		return input.ArrowHead.Repo.git
+	}
+	
+	def generateAppProperties4(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
+	{
+		def lines = []
+		//logger
+		input.Logger.DB.each
+		{
+			key, value ->
+				
+				if( key.equals("log4j.appender.DB.user") )
+				{
+					lines.add(key + "=" + DEFAULT_DB_ARROWHEAD_USR)
+					return
+				}
+				
+				if( key.equals("log4j.appender.DB.password") )
+				{
+					lines.add(key + "=" + DEFAULT_DB_ARROWHEAD_PSW)
+					return
+				}
+				
+				lines.add(key + "=" + value)
+				
+		}
+		
+		input.Logger.File.each
+		{
+			key, value ->
+			
+				lines.add(key + "=" + value)
+				
+		}
+		
+		input.Logger.General.each
+		{
+			key, value ->
+			
+				lines.add(key + "=" + value)
+				
+		}
+		
+		for( setting in image.Settings )
+		{
+			//~ lines.add( setting.getValue().getClass() )
+			setting.getValue().each
+			{
+				key, value ->
+			
+		
+				if( key.equals("db_user") )
+				{
+					lines.add(key + "=" + DEFAULT_DB_ARROWHEAD_USR)
+					return
+				}
+				
+				if( key.equals("db_password") )
+				{
+					lines.add(key + "=" + DEFAULT_DB_ARROWHEAD_PSW)
+					return
+				}
+				
+				
+				lines.add(key + "=" + value)
+			}
+		}
+		
+		return lines.join("\n")
+	}	
+	
+	def isArrowHead3()
+	{
+		if( input.ArrowHead.Conf.arrowHead3 == true )
+			return true
+		else
+			return false
+	}
+	
+	def isArrowHead4()
+	{
+		if( input.ArrowHead.Conf.arrowHead4 == true )
+			return true
+		else
+			return false
+	}
 }

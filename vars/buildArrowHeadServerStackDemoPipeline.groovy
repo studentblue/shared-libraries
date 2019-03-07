@@ -67,7 +67,7 @@ def call( environment, currentBuild, parameter )
 				
 				steps
 				{
-					checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/arrowhead-f/core-java.git']]]
+					checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "${BuildArrowHeadServerStackHelpers.getArrowHeadRepo()}"]]]
 					
 					
 					script
@@ -231,9 +231,20 @@ def call( environment, currentBuild, parameter )
 											
 											dir( "${BuildArrowHeadServerStackHelpers.getArtifactsPath(image)}/.." )
 											{
-												writeFile file: 'target/config/app.properties', text: BuildArrowHeadServerStackHelpers.generateAppProperties(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
-												writeFile file: 'target/config/log4j.properties', text: BuildArrowHeadServerStackHelpers.generateLogProperties(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
+												if( BuildArrowHeadServerStackHelpers.isArrowHead3() )
+												{
+													writeFile file: 'target/config/app.properties', text: BuildArrowHeadServerStackHelpers.generateAppProperties(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
+													writeFile file: 'target/config/log4j.properties', text: BuildArrowHeadServerStackHelpers.generateLogProperties(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
+													
+												}
+												
+												if( BuildArrowHeadServerStackHelpers.isArrowHead4() )
+												{
+													writeFile file: 'target/config/app.conf', text: BuildArrowHeadServerStackHelpers.generateAppProperties4(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)													
+												}
+												
 												writeFile file: 'Dockerfile', text: BuildArrowHeadServerStackHelpers.generateDockerFileArrowHeadService(image)
+												
 												//sh "cat target/config/app.properties"
 												//sh "cat target/config/log4j.properties"
 												//sh "cat Dockerfile"
