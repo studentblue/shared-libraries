@@ -296,6 +296,9 @@ class buildArrowHeadServerStackHelpers
 					return
 				}
 				
+				if( isArrowHead4() && key.equals("log4j.appender.DB.driver") )
+					return
+				
 				lines.add(key + "=" + value)
 				
 		}
