@@ -233,7 +233,18 @@ def call( environment, currentBuild, parameter )
 												writeFile file: 'Dockerfile', text: BuildArrowHeadServerStackHelpers.generateDockerFileArrowHeadService(image)
 												//sh "cat target/config/app.properties"
 												//sh "cat target/config/log4j.properties"
-												sh "cat Dockerfile"
+												//sh "cat Dockerfile"
+												
+												def portusImageName = BuildArrowHeadServerStackHelpers.getPortusImageName(image)
+										
+												def portusTag = BuildArrowHeadServerStackHelpers.getPortusTag(image)
+												
+												if( BuildArrowHeadServerStackHelpers.getLog().errorsOccured() )
+												{
+													error("Failed")
+												}
+												
+												println( portusImageName + ":" + portusTag )
 											}
 										}
 										
