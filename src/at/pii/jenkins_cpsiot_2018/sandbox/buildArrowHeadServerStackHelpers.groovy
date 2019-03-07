@@ -359,7 +359,8 @@ class buildArrowHeadServerStackHelpers
 		lines.add("FROM " + getDBImageName(image))
 		lines.add("COPY ./target/ " + image.workdir)
 		lines.add("WORKDIR " + image.workdir)
-		lines.add("ENTRYPOINT [\"" + image.entry_point.join("\", \"") + "\" ]")
+		if( image.entry_point )
+			lines.add("ENTRYPOINT [\"" + image.entry_point.join("\", \"") + "\" ]")
 		
 		return lines.join("\n")
 		
