@@ -180,7 +180,9 @@ class addBuildToolHelpers
 			{
 				team = input.Namespace.team.name
 				if( input.Namespace.team.description )
-					teamDescription = input.Namespace.team.name
+					teamDescription = input.Namespace.team.description
+				else
+					teamDescription = "My new Team"
 				
 				checkTeam = true
 			}
