@@ -348,13 +348,17 @@ class buildArrowHeadServerStackHelpers
 						return
 					}
 					
-					if( key.equals("db_address") )
-					{
-						lines.add(key + "=" + "jdbc:mysql://" + input.NameSpace.cloud + Constants.DB_ADRESS_SUFFIX + ":3306/"+input.ArrowHead.DB.arrowHeadDB)
-					}
+					//~ if( key.equals("db_address") )
+					//~ {
+						//~ lines.add(key + "=" + "jdbc:mysql://" + input.NameSpace.cloud + Constants.DB_ADRESS_SUFFIX + ":3306/"+input.ArrowHead.DB.arrowHeadDB)
+						//~ return
+					//~ }
 					
-					if( key.equals("sr_address") )
-						lines.add(key + "=" + "jdbc:mysql://" + input.NameSpace.cloud + Constants.SR_ADRESS_SUFFIX )
+					//~ if( key.equals("sr_address") )
+					//~ {
+						//~ lines.add(key + "=" + "jdbc:mysql://" + input.NameSpace.cloud + Constants.SR_ADRESS_SUFFIX )
+						//~ return
+					//~ }
 					
 					lines.add(key + "=" + value)
 			}
