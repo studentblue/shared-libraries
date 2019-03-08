@@ -356,7 +356,7 @@ class buildArrowHeadServerStackHelpers
 					
 					if( key.equals("sr_address") )
 					{
-						lines.add(key + "=" + "jdbc:mysql://" + input.NameSpace.cloud + Constants.SR_ADRESS_SUFFIX )
+						lines.add(key + "=" + input.NameSpace.cloud + Constants.SR_ADRESS_SUFFIX )
 						return
 					}
 					
