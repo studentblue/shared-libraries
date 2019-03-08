@@ -149,6 +149,8 @@ class PortusApi
 			{
 				def body = JsonOutput.toJson([name: teamToFind, description: teamDescription, owner_id: PortusUserId])
 				
+				log.addEntry(Constants.LOG, Constants.ACTION_INFO, "Create Team: " +  body)
+				
 				response = makeRequest(PortusUrl + teamsApi, Constants.HTTP_MODE_POST, getPortusAuthHeaders(), body)
 				
 				if( response.status == Constants.HTTP_RESPONSE_CREATED )
