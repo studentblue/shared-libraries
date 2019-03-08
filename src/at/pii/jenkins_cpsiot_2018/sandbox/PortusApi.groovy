@@ -228,7 +228,7 @@ class PortusApi
 		
 		if( image.checkTeam )
 		{
-			code = validateTeam(image.team.name, image.team.teamDescription)
+			code = validateTeam(image.team.name, image.team.description)
 			if(!code)
 			{
 				log.addEntry(Constants.ERROR, Constants.ACTION_TEAM_VALIDATION, "Validation of team \"" + image.team.name + "\" failed")
