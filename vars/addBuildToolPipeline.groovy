@@ -22,7 +22,7 @@ def call( environment, currentBuild )
 				{
 					withFolderProperties
 					{
-						withCredentials([usernamePassword(credentialsId: env.portus_api_token, passwordVariable: 'TOKEN2')])
+						withCredentials([usernamePassword(credentialsId: env.PORTUS_USER_TOKEN_API, passwordVariable: 'TOKEN2')])
 						{
 							script
 							{
