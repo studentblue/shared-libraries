@@ -41,6 +41,8 @@ class PortusApi
 		
 		if( ! ( PortusUrl || PortusUserName || portusToken || PortusUserId))
 			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "PortusApi init failed" )
+		else
+			log.addEntry(Constants.LOG, Constants.ACTION_INFO, "User: "+PortusUserName+", ID: " +  PortusUserId)
 		
 		isPortusHealthy()
 	}
