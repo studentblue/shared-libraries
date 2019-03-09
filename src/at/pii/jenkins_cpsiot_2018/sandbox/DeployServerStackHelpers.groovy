@@ -144,15 +144,19 @@ class DeployServerStackHelpers
 	}
 		
 	
-	def startDBContainer(image, script)
+	def startDBContainer(image, script, DEFAULT_DB_ROOT_PSW)
 	{
-		def cmd = "docker"
-		def flags = "run -d"
-		def name = "--name " + getDBDockerName()
-		def network = "--network" + getCloudNetwork()
+		def dockerRun = []
+		dockerRun.add("docker")
+		dockerRun.add("run -d")
+		dockerRun.add("--name " + getDBDockerName())
+		dockerRun.add("--network" + getCloudNetwork())
+		dockerRun.add("-e MYSQL_ROOT_PASSWORD=" + DEFAULT_DB_ROOT_PSW)
+		dockerRun.add("-v ./"+script+":/docker-entrypoint-initdb.d/" + script + ":ro")
+		dockerRun.add(getPortusImageName(image))
 		
-		def portusImageName = getPortusImageName(image)
 		
+		return dockerRun.join(" ")
 		//~ create network for arrowhead cloud
 		//~ sh " docker network create -d bridge ${NETWORK} "
 		
