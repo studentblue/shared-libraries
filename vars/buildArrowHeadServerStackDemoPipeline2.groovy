@@ -151,38 +151,15 @@ def call( environment, currentBuild, parameter )
 											}
 										}
 									}
-									/*
 									else
-									{
-										withCredentials(
-										[
-											string(credentialsId: env.DB_Root_PWD, variable: 'DB_ROOT_PWD'),
-											usernamePassword(credentialsId: env.ArrowHead_User_Pwd, usernameVariable: 'DEFAULT_DB_ARROWHEAD_USR', passwordVariable: 'DEFAULT_DB_ARROWHEAD_PSW')
-										])
+									{										
 										{
 											unstash "artifacts-${BuildArrowHeadServerStackHelpers.getImageName(image)}"
 											
 											dir( "${BuildArrowHeadServerStackHelpers.getArtifactsPath(image)}/.." )
-											{
-												if( BuildArrowHeadServerStackHelpers.isArrowHead3() )
-												{
-													writeFile file: 'target/config/app.properties', text: BuildArrowHeadServerStackHelpers.generateAppProperties(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
-													writeFile file: 'target/config/log4j.properties', text: BuildArrowHeadServerStackHelpers.generateLogProperties(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
-													
-												}
-												
-												if( BuildArrowHeadServerStackHelpers.isArrowHead4() )
-												{
-													writeFile file: 'target/default.conf', text: BuildArrowHeadServerStackHelpers.generateAppProperties(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
-													writeFile file: 'target/config/log4j.properties', text: BuildArrowHeadServerStackHelpers.generateLogProperties(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
-												}
-												
+											{												
 												writeFile file: 'Dockerfile', text: BuildArrowHeadServerStackHelpers.generateDockerFileArrowHeadService(image)
-												
-												//sh "cat target/config/app.properties"
-												//sh "cat target/config/log4j.properties"
-												//sh "cat Dockerfile"
-												
+																								
 												def portusImageName = BuildArrowHeadServerStackHelpers.getPortusImageName(image)
 										
 												def portusTag = BuildArrowHeadServerStackHelpers.getPortusTag(image)
@@ -193,17 +170,18 @@ def call( environment, currentBuild, parameter )
 												}
 												
 												println( portusImageName + ":" + portusTag )
-												
+												sh "cat Dockerfile"
+												/*
 												docker.withRegistry("${environment.REPO_URL}", "${environment.PORTUS_CREDS_STD}")
 												{
 													customImage = docker.build(portusImageName)
 													customImage.push(portusTag)
 												}
+												*/
 											}
 										}
 										
 									}
-									*/
 									
 									if( BuildArrowHeadServerStackHelpers.getLog().errorsOccured() )
 									{
