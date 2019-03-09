@@ -46,6 +46,8 @@ class buildArrowHeadServerStackHelpers2
 		log.addEntry(Constants.LOG, Constants.ACTION_LOG_START, "buildArrowHeadServerStackHelpers init" )
 		
 		checkInput()
+		
+		defaultNamespace = generateDefaultNamespace()
 	}
 	
 	def checkInput()
@@ -248,7 +250,7 @@ class buildArrowHeadServerStackHelpers2
 		if( input.NameSpace.new && input.NameSpace.new == true )
 		{
 			if( name == true )
-				name = Constants.NAMESPACE_DEPLOY_PREFIX + "my-namespace-" + getTimeStamp() + "-" + PortusApi.getPortusUserName()
+				name = Constants.NAMESPACE_DEPLOY_PREFIX + defaultNamespace + "-" + PortusApi.getPortusUserName()
 			else
 				name = Constants.NAMESPACE_DEPLOY_PREFIX + name + "-" + PortusApi.getPortusUserName()
 				
@@ -265,6 +267,11 @@ class buildArrowHeadServerStackHelpers2
 		}
 		
 		return name
+	}
+	
+	def generateDefaultNamespace()
+	{
+		return "my-namespace-" + getTimeStamp()
 	}
 	
 	def getTimeStamp()
