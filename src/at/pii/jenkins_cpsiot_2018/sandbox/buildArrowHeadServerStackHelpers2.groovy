@@ -227,7 +227,7 @@ class buildArrowHeadServerStackHelpers2
 	{
 		def registry = environment.REPO_URL.split('//')[1]
 		
-		return registry + "/" + getCloudName() + "/" + image.repo
+		return registry + "/" + getDeloyNameSpace() + "/" + image.repo
 	}
 	
 	def getPortusTag(image)
@@ -241,16 +241,20 @@ class buildArrowHeadServerStackHelpers2
 		return tag
 	}
 	
-	def getCloudName()
+	def getDeloyNameSpace()
 	{
-		def cloud = input.NameSpace.cloud
+		def name = input.NameSpace.name
 		
 		if( input.NameSpace.new && input.NameSpace.new == true )
 		{
-			cloud = Constants.DEFAULT_CLOUD_PREFIX + cloud + "-" + PortusApi.getPortusUserName()
-			if( PortusApi.validateNamespace(cloud ) )
+			if( name == true )
+				name = Constants.NAMESPACE_DEPLOY_PREFIX + "my-namespace-" + getTimeStamp() + "-" + PortusApi.getPortusUserName()
+			else
+				name = Constants.NAMESPACE_DEPLOY_PREFIX + name + "-" + PortusApi.getPortusUserName()
+				
+			if( PortusApi.validateNamespace( name ) )
 			{
-				def code = PortusApi.validateNamespace(cloud , stdCloudTeam, "Cloud Namespace for User " + PortusApi.getPortusUserName())
+				def code = PortusApi.validateNamespace(name , input.NameSpace.team.name, "Deploy Namespace for User " + PortusApi.getPortusUserName())
 				
 				if( ! code )
 				{
@@ -260,7 +264,12 @@ class buildArrowHeadServerStackHelpers2
 			}
 		}
 		
-		return cloud
+		return name
+	}
+	
+	def getTimeStamp()
+	{
+		return ( new Date().getTime() % 10000 )
 	}
 	
 	def getImageName(image)

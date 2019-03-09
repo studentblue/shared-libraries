@@ -140,7 +140,7 @@ def call( environment, currentBuild, parameter )
 										
 										println( portusImageName + ":" + portusTag )
 										
-
+										/*	
 										dir( "database_cpsiot" )
 										{
 											writeFile file: 'Dockerfile', text: BuildArrowHeadServerStackHelpers.generateDockerFileDB(image)
@@ -150,6 +150,7 @@ def call( environment, currentBuild, parameter )
 												customImage.push(portusTag)
 											}
 										}
+										*/
 									}
 									/*
 									else
