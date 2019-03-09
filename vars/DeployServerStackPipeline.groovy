@@ -20,7 +20,7 @@ def call( environment, currentBuild, parameter )
 					{
 						withFolderProperties
 						{
-							withCredentials([string(credentialsId: env.PORTUS_USER_TOKEN_API, variable: 'TOKEN2')])
+							withCredentials([usernamePassword(credentialsId: environment.PORTUS_USER_TOKEN_API, usernameVariable: 'USER', passwordVariable: 'TOKEN2')])
 							{
 								PortusApi.init(environment.REPO_URL, environment.PORTUS_USER, environment.TOKEN2, environment.PORTUS_USER_ID, Constants)
 								
