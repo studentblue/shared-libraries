@@ -150,7 +150,7 @@ class DeployServerStackHelpers
 		dockerRun.add("docker")
 		dockerRun.add("run -d")
 		dockerRun.add("--name " + getDBDockerName())
-		dockerRun.add("--network" + getCloudNetwork())
+		dockerRun.add("--network " + getCloudNetwork())
 		dockerRun.add("-e MYSQL_ROOT_PASSWORD=" + DEFAULT_DB_ROOT_PSW)
 		dockerRun.add("-v ./"+script+":/docker-entrypoint-initdb.d/" + script + ":ro")
 		dockerRun.add(getPortusImageName(image))
