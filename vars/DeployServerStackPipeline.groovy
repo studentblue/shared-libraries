@@ -76,8 +76,11 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 									image ->
 									
 										if( DeployServerStackHelpers.containerIsRunning(image) )
-											sh "docker stop ${DeployServerStackHelpers.getImageDockerName(image)}"
-										
+										{
+											println "Container " + containerIsRunning(image) + " is Running"
+											//sh "docker stop ${DeployServerStackHelpers.getImageDockerName(image)}"
+										}
+										/*
 										if( DeployServerStackHelpers.isDB(image ) )
 										{
 											
@@ -94,6 +97,7 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 												}
 											}
 										}
+										*/
 								}
 							}
 						}
