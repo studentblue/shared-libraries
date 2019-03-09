@@ -153,32 +153,30 @@ def call( environment, currentBuild, parameter )
 									}
 									else
 									{										
-										{
-											unstash "artifacts-${BuildArrowHeadServerStackHelpers.getImageName(image)}"
-											
-											dir( "${BuildArrowHeadServerStackHelpers.getArtifactsPath(image)}/.." )
-											{												
-												writeFile file: 'Dockerfile', text: BuildArrowHeadServerStackHelpers.generateDockerFileArrowHeadService(image)
-																								
-												def portusImageName = BuildArrowHeadServerStackHelpers.getPortusImageName(image)
+										unstash "artifacts-${BuildArrowHeadServerStackHelpers.getImageName(image)}"
 										
-												def portusTag = BuildArrowHeadServerStackHelpers.getPortusTag(image)
-												
-												if( BuildArrowHeadServerStackHelpers.getLog().errorsOccured() )
-												{
-													error("Failed")
-												}
-												
-												println( portusImageName + ":" + portusTag )
-												sh "cat Dockerfile"
-												/*
-												docker.withRegistry("${environment.REPO_URL}", "${environment.PORTUS_CREDS_STD}")
-												{
-													customImage = docker.build(portusImageName)
-													customImage.push(portusTag)
-												}
-												*/
+										dir( "${BuildArrowHeadServerStackHelpers.getArtifactsPath(image)}/.." )
+										{												
+											writeFile file: 'Dockerfile', text: BuildArrowHeadServerStackHelpers.generateDockerFileArrowHeadService(image)
+																							
+											def portusImageName = BuildArrowHeadServerStackHelpers.getPortusImageName(image)
+									
+											def portusTag = BuildArrowHeadServerStackHelpers.getPortusTag(image)
+											
+											if( BuildArrowHeadServerStackHelpers.getLog().errorsOccured() )
+											{
+												error("Failed")
 											}
+											
+											println( portusImageName + ":" + portusTag )
+											sh "cat Dockerfile"
+											/*
+											docker.withRegistry("${environment.REPO_URL}", "${environment.PORTUS_CREDS_STD}")
+											{
+												customImage = docker.build(portusImageName)
+												customImage.push(portusTag)
+											}
+											*/
 										}
 										
 									}
