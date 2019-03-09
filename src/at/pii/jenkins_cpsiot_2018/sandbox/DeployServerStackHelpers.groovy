@@ -238,11 +238,11 @@ class DeployServerStackHelpers
 						return
 					}
 					
-					if( key.equals("sr_address") )
-					{
-						lines.add(key + "=" + getSRAdress() )
-						return
-					}
+					//~ if( key.equals("sr_address") )
+					//~ {
+						//~ lines.add(key + "=" + getSRAdress() )
+						//~ return
+					//~ }
 					
 					lines.add(key + "=" + value)
 			}
