@@ -74,6 +74,9 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 								DeployServerStackHelpers.getImages().each
 								{
 									image ->
+									
+										if( DeployServerStackHelpers.containerIsRunning(image) )
+											sh "docker stop ${DeployServerStackHelpers.getImageDockerName(image)}"
 										
 										if( DeployServerStackHelpers.isDB(image ) )
 										{
@@ -87,7 +90,7 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 												docker.withRegistry("${environment.REPO_URL}", "${environment.PORTUS_CREDS_STD}")
 												{
 													def scriptFullPath = sh(returnStdout: true, script: 'pwd').trim()
-													sh "${DeployServerStackHelpers.startDBContainer(image, "${scriptFullPath}/initDB.sql", DB_ROOT_PWD)}"
+													sh "${DeployServerStackHelpers.startDBContainer(image, ["path": scriptFullPath, "script": "initDB.sql"], DB_ROOT_PWD)}"
 												}
 											}
 										}

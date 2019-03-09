@@ -118,11 +118,6 @@ class DeployServerStackHelpers
 		return input.Node.name
 	}
 	
-	def getDBDockerName()
-	{
-		return input.ArrowHead.DB.arrowHeadDBAdress
-	}
-	
 	def getCloudNetwork()
 	{
 		return input.Docker.cloud
@@ -142,17 +137,33 @@ class DeployServerStackHelpers
 		else
 			return true
 	}
+	
+	def getImageDockerName(image)
+	{
+		if( image.database == true )
+			return input.ArrowHead.DB.arrowHeadDBAdress
+		else
+			return image.Settings.Network.address		
 		
+	}
+	
+	def containerIsRunning(image)
+	{		
+		if( input.Node.containers.contains(getImageDockerName(image)) )
+			return true
+		else
+			return false
+	}
 	
 	def startDBContainer(image, script, DEFAULT_DB_ROOT_PSW)
 	{
 		def dockerRun = []
 		dockerRun.add("docker")
-		dockerRun.add("run -d")
-		dockerRun.add("--name " + getDBDockerName())
+		dockerRun.add("run -d --rm")
+		dockerRun.add("--name " + getImageDockerName(image))
 		dockerRun.add("--network " + getCloudNetwork())
 		dockerRun.add("-e MYSQL_ROOT_PASSWORD=" + DEFAULT_DB_ROOT_PSW)
-		dockerRun.add("-v "+script+":/docker-entrypoint-initdb.d/" + script + ":ro")
+		dockerRun.add("-v "+script.path+"/"+script.script+":/docker-entrypoint-initdb.d/" + script.script + ":ro")
 		dockerRun.add(getPortusImageName(image))
 		
 		
