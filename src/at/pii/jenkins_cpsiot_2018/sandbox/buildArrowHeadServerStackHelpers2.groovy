@@ -201,7 +201,7 @@ class buildArrowHeadServerStackHelpers2
 		return image.initDBScript.initDBScriptPath
 	}
 	
-	def generateDockerFileDB(image, scriptName, ROOT_PSW)
+	def generateDockerFileDB(image)
 	{
 		def lines = []
 		
@@ -210,9 +210,7 @@ class buildArrowHeadServerStackHelpers2
 			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "DB Image not found" )
 			return ""
 		}
-		lines.add("FROM " + getDBImageName(image))
-		lines.add("COPY ./"+scriptName+" /docker-entrypoint-initdb.d/")
-		lines.add("ENV MYSQL_ROOT_PASSWORD=${ROOT_PSW}")
+		lines.add("FROM " + getDBImageName(image))		
 		return lines.join("\n")
 	}
 	

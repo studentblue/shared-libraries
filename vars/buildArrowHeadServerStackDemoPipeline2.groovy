@@ -112,7 +112,7 @@ def call( environment, currentBuild, parameter )
 				}
 			}
 
-			/*
+
 			stage( "Dockerize Selected Images" )
 			{
 				steps
@@ -128,60 +128,6 @@ def call( environment, currentBuild, parameter )
 									if( BuildArrowHeadServerStackHelpers.isDB(image ) )
 									{
 										//generate dockerfile
-										withCredentials(
-										[
-											string(credentialsId: env.DB_Root_PWD, variable: 'DB_ROOT_PWD'),
-											usernamePassword(credentialsId: env.ArrowHead_User_Pwd, usernameVariable: 'DEFAULT_DB_ARROWHEAD_USR', passwordVariable: 'DEFAULT_DB_ARROWHEAD_PSW')
-										])
-										{
-											def DB_ARROWHEAD = BuildArrowHeadServerStackHelpers.getArrowheadDB()
-											def DB_ARROWHEAD_LOG = BuildArrowHeadServerStackHelpers.getArrowheadDBLog()
-											if( BuildArrowHeadServerStackHelpers.checkGenerateDBScript(image) )
-											{
-												sh "rm -rf database_scripts_cpsiot"
-												sh "mkdir database_scripts_cpsiot"
-											
-												dir( "database_scripts_cpsiot" )
-												{
-													writeFile file: 'initDB.sql', text: BuildArrowHeadServerStackHelpers.generateDBScript(DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW, DB_ARROWHEAD, DB_ARROWHEAD_LOG)
-													
-													writeFile file: 'Dockerfile', text: BuildArrowHeadServerStackHelpers.generateDockerFileDB(image, 'initDB.sql', DB_ROOT_PWD)
-													
-												}
-											}
-											else
-											{
-												if( BuildArrowHeadServerStackHelpers.checkInputDBScript(image) )
-												{
-													sh "rm -rf database_scripts_cpsiot"
-													sh "mkdir database_scripts_cpsiot"
-												
-													dir( "database_scripts_cpsiot" )
-													{
-														writeFile file: 'initDB.sql', text: BuildArrowHeadServerStackHelpers.getDBScript(image)
-														
-														writeFile file: 'Dockerfile', text: BuildArrowHeadServerStackHelpers.generateDockerFileDB(image, 'initDB.sql', DB_ROOT_PWD)
-														
-													}
-												}
-												if( BuildArrowHeadServerStackHelpers.checkScriptPathDBScript(image) )
-												{
-													sh "rm -rf database_scripts_cpsiot"
-													sh "mkdir database_scripts_cpsiot"
-													
-													unstash "scriptPath-${BuildArrowHeadServerStackHelpers.getImageName(image)}"
-													
-
-													sh "cp ${BuildArrowHeadServerStackHelpers.getDBScriptPath(image)} database_scripts_cpsiot/initDB.sql "
-													dir( "database_scripts_cpsiot" )
-													{
-														writeFile file: 'Dockerfile', text: BuildArrowHeadServerStackHelpers.generateDockerFileDB(image, 'initDB.sql', DB_ROOT_PWD)
-														
-													}
-												}
-												
-											}
-										}
 										
 										def portusImageName = BuildArrowHeadServerStackHelpers.getPortusImageName(image)
 										
@@ -195,8 +141,9 @@ def call( environment, currentBuild, parameter )
 										println( portusImageName + ":" + portusTag )
 										
 
-										dir( "database_scripts_cpsiot" )
+										dir( "database_cpsiot" )
 										{
+											writeFile file: 'Dockerfile', text: BuildArrowHeadServerStackHelpers.generateDockerFileDB(image)
 											docker.withRegistry("${environment.REPO_URL}", "${environment.PORTUS_CREDS_STD}")
 											{
 												customImage = docker.build(portusImageName)
@@ -204,6 +151,7 @@ def call( environment, currentBuild, parameter )
 											}
 										}
 									}
+									/*
 									else
 									{
 										withCredentials(
@@ -255,6 +203,7 @@ def call( environment, currentBuild, parameter )
 										}
 										
 									}
+									*/
 									
 									if( BuildArrowHeadServerStackHelpers.getLog().errorsOccured() )
 									{
@@ -265,7 +214,6 @@ def call( environment, currentBuild, parameter )
 					}
 				}
 			}
-			*/
 		}
 		
 		post
