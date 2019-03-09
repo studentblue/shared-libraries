@@ -298,7 +298,11 @@ class DeployServerStackHelpers
 		}
 		
 		if( ! adress )
-			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "No Service Registry found" )
+		{
+			log.addEntry(Constants.WARNING, Constants.ACTION_CHECK, "No Service Registry found using defaults" )
+			return getCloudNetwork() + Constants.SR_ADRESS_SUFFIX
+			//my-cloud-service-registry
+		}
 		
 		return adress
 	}

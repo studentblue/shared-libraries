@@ -10,6 +10,8 @@ class Log
 	
 	def private final ERROR = "error: "
 	
+	def private final WARNING = "warning: "
+	
 	def Constants
 	
 	def init(Constants)
@@ -29,6 +31,11 @@ class Log
 		if( scope == Constants.LOG )
 		{
 			log.add(LOG + action + message )
+		}
+		
+		if( scope == Constants.WARNING )
+		{
+			log.add(WARNING + action + message )
 		}
 	}
 	

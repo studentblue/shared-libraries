@@ -5,7 +5,8 @@ class Constants
 	final String SPLITTER = " @::@ ";
 	final int ERROR = 1;
 	final int LOG = 2;
-	final int ERROR_PORTUS_UNHEALTHY = 2;
+	final int ERROR_PORTUS_UNHEALTHY = 3;
+	final int WARNING = 4;
 	
 	final String HTTP_ERROR = "HTTP Request Failed: ";
 	final String REPOSITORIES_FETCH_ID_ERROR = "REPOSITORY_FETCH_ID_FAILED: ";
