@@ -168,15 +168,12 @@ def call( environment, currentBuild, parameter )
 												error("Failed")
 											}
 											
-											println( portusImageName + ":" + portusTag )
-											sh "cat Dockerfile"
-											/*
+											
 											docker.withRegistry("${environment.REPO_URL}", "${environment.PORTUS_CREDS_STD}")
 											{
 												customImage = docker.build(portusImageName)
 												customImage.push(portusTag)
 											}
-											*/
 										}
 										
 									}
