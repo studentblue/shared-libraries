@@ -236,7 +236,7 @@ class buildArrowHeadServerStackHelpers2
 		
 		tag += JenkinsApi.getBuildTimestamp()
 		
-		tag += "-" + Constants.DEFAULT_CLOUD_TAG + JenkinsApi.getBuildNumber()
+		tag += "-" + Constants.DEFAULT_DEPLOY_TAG + JenkinsApi.getBuildNumber()
 		
 		return tag
 	}
