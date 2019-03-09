@@ -161,7 +161,7 @@ class DeployServerStackHelpers
 	
 	def containerIsRunning(image)
 	{		
-		if( input.Node.containers.contains(getImageDockerName(image)) && input.Node.containers.contains("Up") )
+		if( input.Node.containers.contains(getImageDockerName(image)) )
 			return true
 		else
 			return false
