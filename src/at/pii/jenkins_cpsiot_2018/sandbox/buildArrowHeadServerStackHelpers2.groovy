@@ -24,6 +24,8 @@ class buildArrowHeadServerStackHelpers2
 	
 	def JenkinsApi
 	
+	def defaultNamespace
+	
 	def init( inputParameter, Constants, environment, PortusApi, JenkinsApi  )
 	{
 		input = new JsonSlurperClassic().parseText(inputParameter)
