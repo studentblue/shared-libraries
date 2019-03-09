@@ -70,7 +70,14 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 										
 										if( DeployServerStackHelpers.isDB(image ) )
 										{
-											println "test"
+											
+											
+											dir( "database_scripts_cpsiot" )
+											{
+												writeFile 
+													file: 'initDB.sql', 
+													text: DeployServerStackHelpers.generateDBScript(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
+											}
 										}
 								}
 							}
