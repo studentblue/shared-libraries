@@ -38,7 +38,7 @@ def call( environment, currentBuild, parameter )
 							
 								DeployServerStackHelpers.init(parameter, Constants, environment, PortusApi, JenkinsApi)
 								
-								if( BuildArrowHeadServerStackHelpers.getLog().errorsOccured() )
+								if( DeployServerStackHelpers.getLog().errorsOccured() )
 								{
 									error("Failed")
 								}
