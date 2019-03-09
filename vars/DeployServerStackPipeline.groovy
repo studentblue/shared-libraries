@@ -80,6 +80,8 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 											println "Container " + DeployServerStackHelpers.getImageDockerName(image) + " is Running"
 											//sh "docker stop ${DeployServerStackHelpers.getImageDockerName(image)}"
 										}
+										else
+											println "Container " + DeployServerStackHelpers.getImageDockerName(image) + " not Running"
 										/*
 										if( DeployServerStackHelpers.isDB(image ) )
 										{
