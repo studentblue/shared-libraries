@@ -150,7 +150,9 @@ class DeployServerStackHelpers
 	def checkImageContainer(image)
 	{
 		if( containerIsRunning(image) )
-			return "docker stop " + getImageDockerName(image)		
+			return "docker stop " + getImageDockerName(image)
+		else
+			return ""
 	}
 	
 	def containerIsExited(image)
