@@ -190,4 +190,116 @@ class DeployServerStackHelpers
 		//~ ${MY_SQL_SERVER_IMAGE_REPO}/${MY_SQL_SERVER_IMAGE_NAMESPACE}/${MY_SQL_SERVER_IMAGE_NAME}-${params.Build}-${env.ARCHITECTURE}:${params.My_SQL_Server_Version}
 
 	}
+	
+	def generateAppProperties(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
+	{
+		def lines = []
+		//logger
+		for( setting in image.Settings )
+		{
+			//~ lines.add( setting.getValue().getClass() )
+			setting.getValue().each
+			{
+				key, value ->
+			
+					if( ! value && ( value != false ) )
+						return
+					
+					if( key.equals("db_user") )
+					{
+						lines.add(key + "=" + DEFAULT_DB_ARROWHEAD_USR)
+						return
+					}
+					
+					if( key.equals("db_password") )
+					{
+						lines.add(key + "=" + DEFAULT_DB_ARROWHEAD_PSW)
+						return
+					}
+					
+					if( key.equals("db_address") )
+					{
+						lines.add(key + "=" + "jdbc:mysql://" + getDBAdress() + ":3306/"+input.ArrowHead.DB.arrowHeadDB)
+						return
+					}
+					
+					if( key.equals("sr_address") )
+					{
+						lines.add(key + "=" + getSRAdress() )
+						return
+					}
+					
+					lines.add(key + "=" + value)
+			}
+		}
+		
+		return lines.join("\n")	
+	}
+	
+	def generateLogProperties(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
+	{
+		def lines = []
+		//logger
+		input.Logger.DB.each
+		{
+			key, value ->
+				
+				if( key.equals("log4j.appender.DB.user") )
+				{
+					lines.add(key + "=" + DEFAULT_DB_ARROWHEAD_USR)
+					return
+				}
+				
+				if( key.equals("log4j.appender.DB.password") )
+				{
+					lines.add(key + "=" + DEFAULT_DB_ARROWHEAD_PSW)
+					return
+				}
+				
+				if( key.equals("log4j.appender.DB.driver") )
+					return
+				
+				lines.add(key + "=" + value)
+				
+		}
+		
+		input.Logger.File.each
+		{
+			key, value ->
+			
+				lines.add(key + "=" + value)
+				
+		}
+		
+		input.Logger.General.each
+		{
+			key, value ->
+			
+				lines.add(key + "=" + value)
+				
+		}
+		
+		return lines.join("\n")
+	}
+	
+	def getDBAdress()
+	{
+		return input.ArrowHead.DB.arrowHeadDBAdress
+	}
+	
+	def getSRAdress()
+	{
+		def adress = ""
+		input.Images.each
+		{
+			image ->
+				if( image.registry == true )
+					adress = image.Settings.Network.address
+		}
+		
+		if( ! adress )
+			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "No Service Registry found" )
+		
+		return adress
+	}
 }

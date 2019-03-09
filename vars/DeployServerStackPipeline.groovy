@@ -93,6 +93,20 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 												}
 											}
 										}
+										else
+										{
+											dir( "${image.workdir}" )
+											{
+												
+												writeFile file: 
+													'default.conf', 
+													text: DeployServerStackHelpers.generateAppProperties(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
+												
+												writeFile file: 
+													'log4j.properties',
+													text: DeployServerStackHelpers.generateLogProperties(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
+											}
+										}
 								}
 							}
 						}
