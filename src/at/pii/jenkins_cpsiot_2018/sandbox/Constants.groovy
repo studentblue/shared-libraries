@@ -45,6 +45,8 @@ class Constants
 	final int HTTP_RESPONSE_OK = 200;
 	final int HTTP_RESPONSE_CREATED = 201;
 	
+	final String NAMESPACE_DEPLOY_PREFIX = "cpsiot-deploy-";
+	
 	final String DB_ADRESS_SUFFIX = "-db-server";
 	final String SR_ADRESS_SUFFIX = "-service-registry";
 	final String AUTH_ADRESS_SUFFIX = "-authorization";
