@@ -191,6 +191,21 @@ class DeployServerStackHelpers
 
 	}
 	
+	def startArrowHeadContainer(image, script)
+	{
+		def dockerRun = []
+		dockerRun.add("docker")
+		dockerRun.add("run -d --rm")
+		dockerRun.add("--name " + getImageDockerName(image))
+		dockerRun.add("--network " + getCloudNetwork())
+		dockerRun.add("-v "+script.path+"/"+script.file.config+":"+image.workdir+"/"+ script.file.config + ":ro")
+		dockerRun.add("-v "+script.path+"/"+script.file.log+":"+image.workdir+"/config/"+ script.file.log + ":ro")
+		dockerRun.add(getPortusImageName(image))
+		
+		
+		return dockerRun.join(" ")
+	}
+	
 	def generateAppProperties(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
 	{
 		def lines = []

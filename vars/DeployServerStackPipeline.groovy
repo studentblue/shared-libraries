@@ -89,7 +89,7 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 												docker.withRegistry("${environment.REPO_URL}", "${environment.PORTUS_CREDS_STD}")
 												{
 													def scriptFullPath = sh(returnStdout: true, script: 'pwd').trim()
-													sh "${DeployServerStackHelpers.startDBContainer(image, ["path": scriptFullPath, "script": "initDB.sql"], DB_ROOT_PWD)}"
+													sh ( script: DeployServerStackHelpers.startDBContainer(image, ["path": scriptFullPath, "script": "initDB.sql"], DB_ROOT_PWD), wait: true )
 												}
 											}
 										}
@@ -105,6 +105,12 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 												writeFile file: 
 													'log4j.properties',
 													text: DeployServerStackHelpers.generateLogProperties(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
+												
+												docker.withRegistry("${environment.REPO_URL}", "${environment.PORTUS_CREDS_STD}")
+												{
+													def scriptFullPath = sh(returnStdout: true, script: 'pwd').trim()
+													sh ( script: DeployServerStackHelpers.startArrowHeadContainer(image, ["path": scriptFullPath, "file": ["config": 'default.conf', "log": 'log4j.properties']]), wait: true )
+												}
 											}
 										}
 								}
