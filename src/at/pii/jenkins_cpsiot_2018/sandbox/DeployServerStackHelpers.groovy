@@ -112,4 +112,9 @@ class DeployServerStackHelpers
 	{
 		return input.ArrowHead.DB.arrowHeadLogDB
 	}
+	
+	def getNodeName()
+	{
+		return input.Node.name
+	}
 }

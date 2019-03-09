@@ -52,7 +52,7 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 			
 			stage("Generate Init Values ")
 			{
-				agent{ label "${parameter.Node.name}" }
+				agent{ label "${DeployServerStackHelpers.getNodeName()}" }
 				steps
 				{
 					script
