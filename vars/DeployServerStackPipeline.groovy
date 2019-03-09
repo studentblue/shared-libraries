@@ -84,8 +84,10 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 												writeFile file: 
 													'initDB.sql', 
 													text: DeployServerStackHelpers.generateDBScript(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
-												
-												DeployServerStackHelpers.startDBContainer(image, 'initDB.sql', DEFAULT_DB_ROOT_PSW)
+												docker.withRegistry("${environment.REPO_URL}", "${environment.PORTUS_CREDS_STD}")
+												{
+													DeployServerStackHelpers.startDBContainer(image, 'initDB.sql', DEFAULT_DB_ROOT_PSW)
+												}
 											}
 										}
 								}
