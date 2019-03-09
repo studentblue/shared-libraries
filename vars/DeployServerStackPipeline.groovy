@@ -68,7 +68,10 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 								{
 									image ->
 										
-										println DeployServerStackHelpers.isDB(image )
+										if( DeployServerStackHelpers.isDB(image ) )
+										{
+											println "test"
+										}
 								}
 							}
 						}

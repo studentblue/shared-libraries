@@ -47,6 +47,9 @@ class DeployServerStackHelpers
 	def checkInput()
 	{
 		log.addEntry(Constants.LOG, Constants.ACTION_LOG_START, "Input check ran" )
+		
+		if( input.Node.noNode && input.Node.noNode == true )
+			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "No Node to Deploy the Stack is Online" )
 	}
 	
 	def getParameter()
