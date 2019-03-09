@@ -117,4 +117,50 @@ class DeployServerStackHelpers
 	{
 		return input.Node.name
 	}
+	
+	def getDBDockerName()
+	{
+		return input.ArrowHead.DB.arrowHeadDBAdress
+	}
+	
+	def getCloudNetwork()
+	{
+		return input.Docker.cloud
+	}
+	
+	def getPortusImageName(image)
+	{
+		def registry = environment.REPO_URL.split('//')[1]
+		
+		return registry + "/" + image.deployImage
+	}
+	
+	def initNetwork()
+	{
+		if( input.Node.networks.contains(getCloudNetwork()) )
+			return false
+		else
+			return true
+	}
+		
+	
+	def startDBContainer(image, script)
+	{
+		def cmd = "docker"
+		def flags = "run -d"
+		def name = "--name " + getDBDockerName()
+		def network = "--network" + getCloudNetwork()
+		
+		def portusImageName = getPortusImageName(image)
+		
+		//~ create network for arrowhead cloud
+		//~ sh " docker network create -d bridge ${NETWORK} "
+		
+		//~ start DB
+		//~ docker run -d --name ${MY_SQL_SERVICE} \
+		//~ --network ${NETWORK} -p ${MY_SQL_SERVER_PUBLISHED_PORT}:${MY_SQL_SERVER_TARGET_PORT} \
+		//~ -e MYSQL_ROOT_PASSWORD=${DEFAULT_DB_ROOT_PSW} \
+		//~ ${MY_SQL_SERVER_IMAGE_REPO}/${MY_SQL_SERVER_IMAGE_NAMESPACE}/${MY_SQL_SERVER_IMAGE_NAME}-${params.Build}-${env.ARCHITECTURE}:${params.My_SQL_Server_Version}
+
+	}
 }

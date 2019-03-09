@@ -57,6 +57,12 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 				{
 					script
 					{
+					
+						//init network
+						
+						if( DeployServerStackHelpers.initNetwork() )
+							sh " docker network create -d bridge ${DeployServerStackHelpers.getCloudNetwork()} "
+						
 						withFolderProperties
 						{
 							withCredentials(
