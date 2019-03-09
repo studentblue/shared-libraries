@@ -147,9 +147,19 @@ class DeployServerStackHelpers
 		
 	}
 	
+	def checkImageContainer(image)
+	{
+		if( containerIsRunning(image) )
+			return "docker stop " + getImageDockerName(image)		
+	}
+	
+	def containerIsExited(image)
+	{
+	}
+	
 	def containerIsRunning(image)
 	{		
-		if( input.Node.containers.contains(getImageDockerName(image)) )
+		if( input.Node.containers.contains(getImageDockerName(image)) && input.Node.containers.contains() )
 			return true
 		else
 			return false

@@ -74,13 +74,8 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 								DeployServerStackHelpers.getImages().each
 								{
 									image ->
-									
-										if( DeployServerStackHelpers.containerIsRunning(image) )
-										{
-											//println "Container " + DeployServerStackHelpers.getImageDockerName(image) + " is Running"
-											//sh "docker stop ${DeployServerStackHelpers.getImageDockerName(image)}"
-											sh( script: "docker stop ${DeployServerStackHelpers.getImageDockerName(image)}", wait: true)
-										}
+										
+										sh( script: DeployServerStackHelpers.checkImageContainer(image), wait: true)
 										
 										if( DeployServerStackHelpers.isDB(image ) )
 										{
