@@ -70,7 +70,7 @@ class DeployServerStackHelpers
 			return false
 	}
 	
-	generateDBScript(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW )
+	def generateDBScript(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW )
 	{
 		
 		

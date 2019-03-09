@@ -74,7 +74,9 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 											
 											dir( "database_scripts_cpsiot" )
 											{
-												writeFile file: 'initDB.sql', text: DeployServerStackHelpers.generateDBScript(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
+												writeFile file: 
+													'initDB.sql', 
+													text: DeployServerStackHelpers.generateDBScript(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
 											}
 										}
 								}
