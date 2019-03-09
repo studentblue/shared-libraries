@@ -1,4 +1,4 @@
-def call( environment, currentBuild, parameter )
+def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 {
 	
 	Constants = new at.pii.jenkins_cpsiot_2018.sandbox.Constants()
@@ -45,6 +45,32 @@ def call( environment, currentBuild, parameter )
 							}
 						
 							//println BuildArrowHeadServerStackHelpers.getParameter()
+						}
+					}
+				}
+			}
+			
+			stage("Generate Init Values ")
+			{
+				steps
+				{
+					script
+					{
+						withFolderProperties
+						{
+							withCredentials(
+							[
+								string(credentialsId: DBRootPsw, variable: 'DB_ROOT_PWD'),
+								usernamePassword(credentialsId: ArrowHeadCreds, usernameVariable: 'DEFAULT_DB_ARROWHEAD_USR', passwordVariable: 'DEFAULT_DB_ARROWHEAD_PSW')
+							])
+							{
+								DeployServerStackHelpers.getImages().each
+								{
+									image ->
+										
+										println DeployServerStackHelpers.isDB(image )
+								}
+							}
 						}
 					}
 				}

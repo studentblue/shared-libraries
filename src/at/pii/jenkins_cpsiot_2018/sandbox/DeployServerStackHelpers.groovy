@@ -53,4 +53,17 @@ class DeployServerStackHelpers
 	{
 		return input
 	}
+	
+	def getImages()
+	{
+		return input.Images
+	}
+	
+	def isDB(image )
+	{
+		if( image.database == true )
+			return true
+		else
+			return false
+	}
 }
