@@ -78,8 +78,8 @@ class DeployServerStackHelpers
 		{
 			def script = []
 			
-			def DB_ARROWHEAD = DeployServerStackHelpers.getArrowheadDB()
-			def DB_ARROWHEAD_LOG = DeployServerStackHelpers.getArrowheadDBLog()
+			def DB_ARROWHEAD = getArrowheadDB()
+			def DB_ARROWHEAD_LOG = getArrowheadDBLog()
 			
 			script.add("CREATE DATABASE IF NOT EXISTS ${DB_ARROWHEAD_LOG};")
 			script.add("CREATE DATABASE IF NOT EXISTS ${DB_ARROWHEAD};")
