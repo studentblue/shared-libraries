@@ -95,7 +95,7 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 										}
 										else
 										{
-											dir( "${image.workdir}" )
+											dir( "${image.name}" )
 											{
 												
 												writeFile file: 
