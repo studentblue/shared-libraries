@@ -347,22 +347,27 @@ class DeployServerStackHelpers
 							else
 								commands.add("docker rm " + container.name)
 							
+							
+							log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, "Container: ${container.name} removed" )
 							keys.add(key)
 							
 					}
 					
-					keys.each
-					{
-						key ->
-							input.Node.networks.containers[key].put("removed", true)
-					}
+					log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, keys )
+					
+					//~ keys.each
+					//~ {
+						//~ key ->
+							//~ log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, keys )
+							//~ input.Node.networks.containers[key].put("removed", true)
+					//~ }
 				}
 				
 				commands.add("docker network rm " + input.Node.networks.name)
 				
 				input.Node.networks.put("removed", true)
 				
-				
+				return []
 			}
 		}
 		
