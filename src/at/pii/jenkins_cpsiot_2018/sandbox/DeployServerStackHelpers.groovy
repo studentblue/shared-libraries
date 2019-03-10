@@ -171,7 +171,7 @@ class DeployServerStackHelpers
 	
 	def checkNodeNetworksString()
 	{
-		if (input.Node.networks instanceof String || input.Node.networks instanceof GString)
+		if (input.Node.networks instanceof String || input.Node.networks instanceof GString || !input.Node.networks)
 		{
 			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Node Networks is String or GString" )
 			return true
