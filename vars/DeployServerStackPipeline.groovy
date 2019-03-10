@@ -67,7 +67,14 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 									sh( script: cmd, wait: true)
 							}
 							
-							println DeployServerStackHelpers.getInput()
+							
+							cmds = DeployServerStackHelpers.removeContainers()
+							
+							cmds.each
+							{
+								cmd ->
+									sh( script: cmd, wait: true)
+							}
 						}
 					}
 				}

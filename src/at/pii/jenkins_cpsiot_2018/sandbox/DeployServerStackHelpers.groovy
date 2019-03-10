@@ -398,4 +398,51 @@ class DeployServerStackHelpers
 		
 		return removed
 	}
+	
+	def removeContainers()
+	{
+		def commands = []
+		if( input.Node.networks.containers )
+		{
+			def keys = []
+			
+			
+			
+			input.Node.networks.containers.each
+			{
+				key, container ->
+					
+					if( checkContainerFlaggedRemoved(container.name) )
+						return
+					
+					
+					if( container.running == true )
+						commands.add("docker stop " + container.name)
+					else
+						commands.add("docker rm " + container.name)
+					
+					
+					log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, "Container: ${container.name} removed" )
+					keys.add(key)
+					
+			}
+			
+			//~ log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, keys )
+			
+			//~ log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, input.Node.networks.containers[keys[0]] )
+			
+			for( key in keys )
+				input.Node.networks.containers[key].put("removed", true)
+			
+			input.Node.networks.containers.each
+			{
+				key, container ->
+					log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, "Container flagged removed: " + checkContainerFlaggedRemoved(container.name) )
+						
+			}
+		}
+		
+		return commands
+		
+	}
 }
