@@ -139,9 +139,15 @@ class DeployServerStackHelpers
 		{
 			//existing network choosen
 			if( input.Node.hasProperty("simpleNetworkList") && input.Node.simpleNetworkList.contains(input.Docker.cloud))
+			{
+				log.addEntry(Constants.LOG, Constants.ACTION_NETWORK, "Network: ${input.Docker.cloud} must not be created"  )
 				return ""
+			}
 			else
+			{
+				log.addEntry(Constants.LOG, Constants.ACTION_NETWORK, "Network: ${input.Docker.cloud} must be created"  )
 				return "docker network create " + input.Docker.cloud
+			}
 			
 		}
 			

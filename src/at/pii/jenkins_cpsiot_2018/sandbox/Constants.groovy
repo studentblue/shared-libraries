@@ -31,6 +31,7 @@ class Constants
 	final String ACTION_TEAM_VALIDATION = "VALIDATE_TEAM: ";
 	final String ACTION_INFO = "INFO: ";
 	final String ACTION_CONTAINER = "CONTAINER: ";
+	final String ACTION_NETWORK = "NETWORK: ";
 	final String NAMESPACE_CREATED = "ADDED_NEW_NAMESPACE: ";
 	final String NAMESPACE_FOUND = "NAMESPACE_FOUND: ";
 	final String NAMESPACES_FETCHED = "NAMESPACES_FETCHED: ";
