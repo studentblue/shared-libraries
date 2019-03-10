@@ -325,7 +325,7 @@ class DeployServerStackHelpers
 	def removeNetwork()
 	{
 		def commands = []
-		if( input.Node.networks.removeNetwork == true )
+		if( input.Node.networks && input.Node.networks.removeNetwork == true )
 		{
 			if( ! input.Node.networks.name )
 			{
@@ -402,7 +402,7 @@ class DeployServerStackHelpers
 	def removeContainers()
 	{
 		def commands = []
-		if( input.Node.networks.containers )
+		if( input.Node.networks && input.Node.networks.containers )
 		{
 			def keys = []
 			
