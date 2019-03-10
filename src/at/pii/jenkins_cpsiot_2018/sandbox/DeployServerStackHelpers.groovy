@@ -160,10 +160,22 @@ class DeployServerStackHelpers
 	
 	def checkImageContainer(image)
 	{
-		if( containerIsRunning(image) )
-			return "docker stop " + getImageDockerName(image)
-		else
-			return ""
+		//check if networks exist
+		def cmd = ""
+		
+		if( input.Node.hasProperty("networks") &&  input.Node.networks.hasProperty("containers") )
+		{
+			//existing network choosen
+			if( input.Node.hasProperty("simpleContainerList") && input.Node.simpleContainerList.contains(getImageDockerName(image)))
+			{
+				return "docker stop " + getImageDockerName(image)
+			}
+			else
+				return ""
+			
+		}
+		
+		return cmd
 	}
 	
 	def containerIsExited(image)

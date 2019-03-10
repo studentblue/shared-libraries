@@ -109,7 +109,7 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 								{
 									image ->
 										
-										//sh( script: DeployServerStackHelpers.checkImageContainer(image), wait: true)
+										sh( script: DeployServerStackHelpers.checkImageContainer(image), wait: true)
 										
 										if( DeployServerStackHelpers.isDB(image ) )
 										{
