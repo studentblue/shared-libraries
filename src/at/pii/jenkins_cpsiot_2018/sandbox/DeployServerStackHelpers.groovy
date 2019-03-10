@@ -402,7 +402,7 @@ class DeployServerStackHelpers
 	def removeContainers()
 	{
 		def commands = []
-		if( input.Node.networks && input.Node.networks.containers )
+		if( input.Node.networks && input.Node.networks.hasProperty("containers") && input.Node.networks.containers )
 		{
 			def keys = []
 			
