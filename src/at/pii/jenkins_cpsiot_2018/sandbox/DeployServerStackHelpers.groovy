@@ -150,6 +150,8 @@ class DeployServerStackHelpers
 			}
 			
 		}
+		else
+			log.addEntry(Constants.LOG, Constants.ACTION_NETWORK, "Property Name not found for " + input.Node.networks )
 			
 		
 		return cmd
