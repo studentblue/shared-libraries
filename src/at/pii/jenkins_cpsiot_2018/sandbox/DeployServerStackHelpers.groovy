@@ -363,7 +363,7 @@ class DeployServerStackHelpers
 					input.Node.networks.containers.each
 					{
 						container ->
-							log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, "Container flagged removed: " + container.removed )
+							log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, "Container flagged removed: " + checkContainerFlaggedRemoved(container.name) )
 								
 					}
 					
@@ -391,7 +391,7 @@ class DeployServerStackHelpers
 		def removed = false
 		input.Node.networks.containers.each
 		{
-			key, container ->
+			container ->
 				
 				if( container.name.equals(name) && container.removed == true )
 					removed = true
