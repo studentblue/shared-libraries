@@ -136,7 +136,7 @@ class DeployServerStackHelpers
 		def cmd = ""
 		
 		if (checkNodeNetworksString())
-			return cmd
+			return "docker network create " + input.Docker.cloud
 		
 		if( input.Node.networks.containsKey("name") )
 		{
