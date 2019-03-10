@@ -353,16 +353,17 @@ class DeployServerStackHelpers
 							
 					}
 					
-					log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, keys )
+					//~ log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, keys )
 					
-					log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, input.Node.networks.containers[keys[0]] )
+					//~ log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, input.Node.networks.containers[keys[0]] )
 					
-					//~ keys.each
-					//~ {
-						//~ key ->
+					keys.each
+					{
+						key ->
+							log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, input.Node.networks.containers[key] )
 							//~ log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, keys )
 							//~ input.Node.networks.containers[key].put("removed", true)
-					//~ }
+					}
 				}
 				
 				commands.add("docker network rm " + input.Node.networks.name)
