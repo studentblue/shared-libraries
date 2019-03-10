@@ -135,10 +135,13 @@ class DeployServerStackHelpers
 		//check if networks exist
 		def cmd = ""
 		
-		if( input.Node.networks.hasProperty("name") )
+		if (checkNodeNetworksString())
+			return cmd
+		
+		if( input.Node.networks.containsKey("name") )
 		{
 			//existing network choosen
-			if( input.Node.hasProperty("simpleNetworkList") && input.Node.simpleNetworkList.contains(input.Docker.cloud))
+			if( input.Node.containsKey("simpleNetworkList") && input.Node.simpleNetworkList.contains(input.Docker.cloud))
 			{
 				log.addEntry(Constants.LOG, Constants.ACTION_NETWORK, "Network: ${input.Docker.cloud} must not be created"  )
 				return ""
@@ -166,10 +169,24 @@ class DeployServerStackHelpers
 		
 	}
 	
+	def checkNodeNetworksString()
+	{
+		if (input.Node.networks instanceof String || input.Node.networks instanceof GString)
+		{
+			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Node Networks is String or GString" )
+			return true
+		}
+		
+		return false
+	}
+	
 	def checkImageContainer(image)
 	{
 		//check if networks exist
 		def cmd = ""
+		
+		if (checkNodeNetworksString())
+			return cmd
 		
 		if( input.Node.hasProperty("networks") &&  input.Node.networks.hasProperty("containers") )
 		{
