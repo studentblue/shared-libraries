@@ -52,6 +52,7 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 			
 			stage("Cloud Management")
 			{
+				agent{ label "${DeployServerStackHelpers.getNodeName()}" }
 				steps
 				{
 					script
