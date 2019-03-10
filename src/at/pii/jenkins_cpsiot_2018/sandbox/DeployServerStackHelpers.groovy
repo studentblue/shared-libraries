@@ -362,7 +362,7 @@ class DeployServerStackHelpers
 					
 					input.Node.networks.containers.each
 					{
-						container ->
+						key, container ->
 							log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, "Container flagged removed: " + checkContainerFlaggedRemoved(container.name) )
 								
 					}
