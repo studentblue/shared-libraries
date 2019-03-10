@@ -373,55 +373,51 @@ class DeployServerStackHelpers
 	def removeNetwork()
 	{
 		def commands = []
-		if( input.Node.networks && input.Node.networks.hasProperty("removeNetwork") && input.Node.networks.removeNetwork == true )
+		
+		if( checkNodeNetworksString() )
+			return []
+		
+		if( input.Node.networks.containsKey("removeNetwork") && input.Node.networks.removeNetwork == true )
 		{
-			if( ! input.Node.networks.name )
+			if( input.Node.networks.containers )
 			{
-				return commands
-			}
-			else
-			{
+				def keys = []
 				
-				if( input.Node.networks.containers )
+				input.Node.networks.containers.each
 				{
-					def keys = []
-					
-					input.Node.networks.containers.each
-					{
-						key, container ->
-							
-							if( container.running == true )
-								commands.add("docker stop " + container.name)
-							else
-								commands.add("docker rm " + container.name)
-							
-							
-							log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, "Container: ${container.name} removed" )
-							keys.add(key)
-							
-					}
-					
-					//~ log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, keys )
-					
-					//~ log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, input.Node.networks.containers[keys[0]] )
-					
-					for( key in keys )
-						input.Node.networks.containers[key].put("removed", true)
-					
-					input.Node.networks.containers.each
-					{
-						key, container ->
-							log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, "Container flagged removed: " + checkContainerFlaggedRemoved(container.name) )
-								
-					}
-					
-					
+					key, container ->
+						
+						if( container.running == true )
+							commands.add("docker stop " + container.name)
+						else
+							commands.add("docker rm " + container.name)
+						
+						
+						log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, "Container: ${container.name} removed" )
+						keys.add(key)
+						
 				}
 				
-				commands.add("docker network rm " + input.Node.networks.name)
+				//~ log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, keys )
 				
-				input.Node.networks.put("removed", true)
+				//~ log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, input.Node.networks.containers[keys[0]] )
+				
+				for( key in keys )
+					input.Node.networks.containers[key].put("removed", true)
+				
+				input.Node.networks.containers.each
+				{
+					key, container ->
+						log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, "Container flagged removed: " + checkContainerFlaggedRemoved(container.name) )
+							
+				}
+				
+				
 			}
+			
+			commands.add("docker network rm " + input.Node.networks.name)
+			
+			input.Node.networks.put("removed", true)
 		}
 		
 		return commands
@@ -450,7 +446,11 @@ class DeployServerStackHelpers
 	def removeContainers()
 	{
 		def commands = []
-		if( input.Node.networks && input.Node.networks.hasProperty("containers") && input.Node.networks.containers )
+		
+		if( checkNodeNetworksString() )
+			return []
+		
+		if( input.Node.networks.containsKey("containers") && input.Node.networks.containers )
 		{
 			def keys = []
 			
