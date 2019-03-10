@@ -135,12 +135,12 @@ class DeployServerStackHelpers
 		
 		if (! input.Node.simpleNetworkList.contains(input.Docker.cloud))
 		{
-			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Network ${input.Docker.cloud} not found, will be created" )
+			log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Network ${input.Docker.cloud} not found, will be created" )
 			return "docker network create " + input.Docker.cloud
 		}
 		else
 		{
-			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Network ${input.Docker.cloud} found, nothing to do" )
+			log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Network ${input.Docker.cloud} found, nothing to do" )
 			return ""
 		}
 	}
