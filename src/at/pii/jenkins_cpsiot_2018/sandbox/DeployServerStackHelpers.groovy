@@ -362,8 +362,8 @@ class DeployServerStackHelpers
 						key ->
 							//~ log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, input.Node.networks.containers.key )
 							//~ log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, keys )
-							//~ input.Node.networks.containers[key].put("removed", true)
-							log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, key )
+							input.Node.networks.containers["${key}"].put("removed", true)
+							//~ log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, key )
 					}
 				}
 				
