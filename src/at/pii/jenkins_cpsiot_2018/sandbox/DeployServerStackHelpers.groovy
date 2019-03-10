@@ -338,14 +338,14 @@ class DeployServerStackHelpers
 				{
 					input.Node.networks.containers.each
 					{
-						container ->
+						key, container ->
 							
 							if( container.running == true )
 								commands.add("docker stop " + container.name)
 							else
 								commands.add("docker rm " + container.name)
 							
-							container.put("removed", true)
+							input.Node.networks.containers[key].put("removed", true)
 					}
 				}
 				
