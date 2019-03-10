@@ -57,4 +57,6 @@ class Constants
 	final String EH_ADRESS_SUFFIX = "-eventhandler";
 	final String GK_ADRESS_SUFFIX = "-gatekeeper";
 	final String ORCH_ADRESS_SUFFIX = "-orchestrator";
+	
+	final String DEFAULT_CLOUD_NETWORK = "my-cloud";
 }
