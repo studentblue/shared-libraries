@@ -355,6 +355,8 @@ class DeployServerStackHelpers
 					
 					log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, keys )
 					
+					log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, input.Node.networks.containers[key[0]] )
+					
 					//~ keys.each
 					//~ {
 						//~ key ->
