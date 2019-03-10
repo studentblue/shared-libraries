@@ -373,8 +373,6 @@ class DeployServerStackHelpers
 				commands.add("docker network rm " + input.Node.networks.name)
 				
 				input.Node.networks.put("removed", true)
-				
-				return []
 			}
 		}
 		
