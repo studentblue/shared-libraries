@@ -336,6 +336,8 @@ class DeployServerStackHelpers
 				
 				if( input.Node.networks.containers )
 				{
+					def keys = []
+					
 					input.Node.networks.containers.each
 					{
 						key, container ->
@@ -345,6 +347,13 @@ class DeployServerStackHelpers
 							else
 								commands.add("docker rm " + container.name)
 							
+							keys.add(key)
+							
+					}
+					
+					keys.each
+					{
+						key ->
 							input.Node.networks.containers[key].put("removed", true)
 					}
 				}
