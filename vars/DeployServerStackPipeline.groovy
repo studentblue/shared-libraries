@@ -60,8 +60,8 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 					
 						//init network
 						
-						if( DeployServerStackHelpers.initNetwork() )
-							sh " docker network create -d bridge ${DeployServerStackHelpers.getCloudNetwork()} "
+						//if( DeployServerStackHelpers.initNetwork() )
+						//	sh " docker network create -d bridge ${DeployServerStackHelpers.getCloudNetwork()} "
 						
 						withFolderProperties
 						{
@@ -75,7 +75,7 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 								{
 									image ->
 										
-										sh( script: DeployServerStackHelpers.checkImageContainer(image), wait: true)
+										//sh( script: DeployServerStackHelpers.checkImageContainer(image), wait: true)
 										
 										if( DeployServerStackHelpers.isDB(image ) )
 										{
