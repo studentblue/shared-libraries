@@ -391,7 +391,7 @@ class DeployServerStackHelpers
 		def removed = false
 		input.Node.networks.containers.each
 		{
-			container ->
+			key, container ->
 				
 				if( container.name.equals(name) && container.removed == true )
 					removed = true
