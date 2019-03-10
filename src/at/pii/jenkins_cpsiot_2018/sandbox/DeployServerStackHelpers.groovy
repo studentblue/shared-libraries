@@ -325,7 +325,7 @@ class DeployServerStackHelpers
 	def removeNetwork()
 	{
 		def commands = []
-		if( input.Node.networks && input.Node.networks.removeNetwork && input.Node.networks.removeNetwork == true )
+		if( input.Node.networks && input.Node.networks.hasProperty("removeNetwork") && input.Node.networks.removeNetwork == true )
 		{
 			if( ! input.Node.networks.name )
 			{
