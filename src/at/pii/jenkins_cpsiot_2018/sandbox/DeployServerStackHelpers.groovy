@@ -49,7 +49,7 @@ class DeployServerStackHelpers
 		log.addEntry(Constants.LOG, Constants.ACTION_LOG_START, "Input check ran" )
 		
 		if( input.Node.noNode && input.Node.noNode == true )
-			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "No Node to Deploy the Stack is Online" )
+			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "No Node to Deploy the Stack on is Online" )
 	}
 	
 	def getParameter()
@@ -320,5 +320,48 @@ class DeployServerStackHelpers
 		}
 		
 		return adress
+	}
+	
+	def removeNetwork()
+	{
+		def commands = []
+		if( input.Node.networks.removeNetwork == true )
+		{
+			if( ! input.Node.networks.name )
+			{
+				return commands
+			}
+			else
+			{
+				
+				if( input.Node.networks.containers )
+				{
+					input.Node.networks.containers.each
+					{
+						container ->
+							
+							if( container.running == true )
+								commands.add("docker stop " + container.name)
+							else
+								commands.add("docker rm " + container.name)
+							
+							container.put("removed", true)
+					}
+				}
+				
+				commands.add("docker network rm " + input.Node.networks.name)
+				
+				input.Node.networks.put("removed", true)
+				
+				
+			}
+		}
+		
+		return commands
+	}
+	
+	def getInput()
+	{
+		return input
 	}
 }

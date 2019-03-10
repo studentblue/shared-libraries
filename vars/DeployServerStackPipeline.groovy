@@ -50,7 +50,30 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 				}
 			}
 			
-			stage("Generate Init Values ")
+			stage("Cloud Management")
+			{
+				steps
+				{
+					script
+					{
+						withFolderProperties
+						{
+							def cmds = DeployServerStackHelpers.removeNetwork()
+							
+							cmds.each
+							{
+								cmd ->
+									sh( script: cmd, wait: true)
+							}
+							
+							println DeployServerStackHelpers.getInput()
+						}
+					}
+				}
+			}
+			
+			
+			stage("Deploy Selected Images")
 			{
 				agent{ label "${DeployServerStackHelpers.getNodeName()}" }
 				steps
