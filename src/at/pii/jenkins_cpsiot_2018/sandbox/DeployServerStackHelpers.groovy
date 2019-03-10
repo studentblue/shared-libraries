@@ -132,32 +132,17 @@ class DeployServerStackHelpers
 	
 	def initNetwork()
 	{
-		//check if networks exist
-		def cmd = ""
 		
-		if (checkNodeNetworksString())
-			return "docker network create " + input.Docker.cloud
-		
-		if( input.Node.networks.containsKey("name") )
+		if (! input.Node.simpleNetworkList.contains(input.Docker.cloud))
 		{
-			//existing network choosen
-			if( input.Node.containsKey("simpleNetworkList") && input.Node.simpleNetworkList.contains(input.Docker.cloud))
-			{
-				log.addEntry(Constants.LOG, Constants.ACTION_NETWORK, "Network: ${input.Docker.cloud} must not be created"  )
-				return ""
-			}
-			else
-			{
-				log.addEntry(Constants.LOG, Constants.ACTION_NETWORK, "Network: ${input.Docker.cloud} must be created"  )
-				return "docker network create " + input.Docker.cloud
-			}
-			
+			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Network ${input.Docker.cloud} not found, will be created" )
+			return "docker network create " + input.Docker.cloud
 		}
 		else
-			log.addEntry(Constants.LOG, Constants.ACTION_NETWORK, "Property Name not found for ${input.Node.networks.getClass()} " + input.Node.networks )
-			
-		
-		return cmd
+		{
+			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Network ${input.Docker.cloud} found, nothing to do" )
+			return ""
+		}
 	}
 	
 	def getImageDockerName(image)
