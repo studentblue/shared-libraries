@@ -360,6 +360,14 @@ class DeployServerStackHelpers
 					for( key in keys )
 						input.Node.networks.containers[key].put("removed", true)
 					
+					input.Node.networks.containers.each
+					{
+						container ->
+							log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, "Container flagged removed: " + container.removed )
+								
+					}
+					
+					
 				}
 				
 				commands.add("docker network rm " + input.Node.networks.name)
@@ -376,5 +384,20 @@ class DeployServerStackHelpers
 	def getInput()
 	{
 		return input
+	}
+	
+	def checkContainerFlaggedRemoved(name)
+	{
+		def removed = false
+		input.Node.networks.containers.each
+		{
+			key, container ->
+				
+				if( container.name.equals(name) && container.removed == true )
+					removed = true
+				
+		}
+		
+		return removed
 	}
 }
