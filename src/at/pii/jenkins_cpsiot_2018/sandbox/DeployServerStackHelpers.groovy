@@ -282,7 +282,7 @@ class DeployServerStackHelpers
 					
 					if( key.equals("db_address") )
 					{
-						lines.add(key + "=" + "jdbc:mysql://" + getDBAdress() + ":3306/"+input.ArrowHead.DB.arrowHeadDB)
+						lines.add(key + "=" + "jdbc:mysql://" + getDBAdress() + ":3306/"+getArrowheadDB()) //input.ArrowHead.DB.arrowHeadDB
 						return
 					}
 					
