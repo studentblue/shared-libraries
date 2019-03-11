@@ -322,16 +322,16 @@ class addBuildToolHelpers
 	{
 		def type = input.Repo.type.trim()
 		
-		if( input.Repo.type.equals(Constants.IS_TYPE_JAVA) )
+		if( input.Repo.type.equals(Constants.BUILD_TOOL_TYPE_JAVA) )
 			return Constants.IS_TYPE_JAVA
 		
-		if( input.Repo.type.equals(Constants.IS_TYPE_MYSQL) )
+		if( input.Repo.type.equals(Constants.BUILD_TOOL_TYPE_MYSQL) )
 			return Constants.IS_TYPE_MYSQL
 		
-		if( input.Repo.type.equals(Constants.IS_TYPE_POSTGRES) )
+		if( input.Repo.type.equals(Constants.BUILD_TOOL_TYPE_POSTGRES) )
 			return Constants.IS_TYPE_POSTGRES
 		
-		if( input.Repo.type.equals(Constants.IS_TYPE_OTHER) )
+		if( input.Repo.type.equals(Constants.BUILD_TOOL_TYPE_OTHER) )
 			return Constants.IS_TYPE_OTHER
 		
 		return 0
