@@ -82,16 +82,19 @@ class Constants
 	final int IS_TYPE_MYSQL = 19;
 	final int IS_TYPE_POSTGRES = 20;
 	final int IS_TYPE_OTHER = 21;
+	final int IS_TYPE_MAVEN = 22;
 	
 	//~ [, , , ]
 	final String BUILD_TOOL_TYPE_JAVA = "base-with-java";
 	final String BUILD_TOOL_TYPE_MYSQL = "mysql-DB";
 	final String BUILD_TOOL_TYPE_POSTGRES = "postgres-DB";
+	final String BUILD_TOOL_TYPE_MAVEN = "base-with-maven";
 	final String BUILD_TOOL_TYPE_OTHER = "other";
 	
 	final String TYPE_JAVA_TAG_ID = "javbt";
 	final String TYPE_MYSQL_TAG_ID = "mysqlbt";
 	final String TYPE_POSTGRES_TAG_ID = "pgrsbt";
 	final String TYPE_OTHER_TAG_ID = "otherbt";
+	final String TYPE_MAVEN_TAG_ID = "mvnbt";
 	
 }

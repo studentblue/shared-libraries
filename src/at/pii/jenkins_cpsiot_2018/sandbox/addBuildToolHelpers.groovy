@@ -312,6 +312,10 @@ class addBuildToolHelpers
 				return JenkinsApi.getBuildTimestamp() + "-" + Constants.TYPE_OTHER_TAG_ID + "-" + Constants.DEFAULT_TAG_PREFIX + "-" + JenkinsApi.getBuildNumber()
 				break
 			
+			case Constants.IS_TYPE_MAVEN:
+				return JenkinsApi.getBuildTimestamp() + "-" + Constants.TYPE_MAVEN_TAG_ID + "-" + Constants.DEFAULT_TAG_PREFIX + "-" + JenkinsApi.getBuildNumber()
+				break
+			
 			default:
 				break
 		}
@@ -333,6 +337,10 @@ class addBuildToolHelpers
 		
 		if( input.Repo.type.equals(Constants.BUILD_TOOL_TYPE_OTHER) )
 			return Constants.IS_TYPE_OTHER
+		
+		if( input.Repo.type.equals(Constants.BUILD_TOOL_TYPE_MAVEN) )
+			return Constants.IS_TYPE_MAVEN
+		
 		
 		return 0
 	}
