@@ -188,7 +188,7 @@ class DeployServerStackHelpers
 		//~ return cmd
 		
 		def name = getImageDockerName(image)
-		if( simpleContainerList.contains(name) )
+		if( input.Node.simpleContainerList.contains(name) )
 			return "docker stop " + name
 		else
 			return ""
