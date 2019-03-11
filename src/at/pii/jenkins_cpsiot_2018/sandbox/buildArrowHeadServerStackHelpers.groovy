@@ -229,7 +229,22 @@ class buildArrowHeadServerStackHelpers
 	{
 		def registry = environment.REPO_URL.split('//')[1]
 		
-		return registry + "/" + getCloudName() + "/" + image.repo
+		def arch = ""
+		def a = image.buildImage.split("/")
+		
+		if( a )
+		{
+			def c = a[0].split("-")
+			
+
+			def found = c.find{ it.contains("arm") || it.contains("amd64") || it.contains("x86") }
+			
+			if( found )
+				arch = found
+		}
+		
+		
+		return registry + "/" + getCloudName() + "/" + image.repo + arch
 	}
 	
 	def getPortusTag(image)
