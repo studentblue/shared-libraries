@@ -136,6 +136,7 @@ class DeployServerStackHelpers
 		if (! input.Node.simpleNetworkList.contains(input.Docker.cloud))
 		{
 			log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Network ${input.Docker.cloud} not found, will be created" )
+			addNetworkToList( input.Docker.cloud )
 			return "docker network create " + input.Docker.cloud
 		}
 		else
@@ -217,6 +218,7 @@ class DeployServerStackHelpers
 		dockerRun.add("-v "+script.path+"/"+script.script+":/docker-entrypoint-initdb.d/" + script.script + ":ro")
 		dockerRun.add(getPortusImageName(image))
 		
+		addContainer( getImageDockerName(image) )
 		
 		return dockerRun.join(" ")
 		//~ create network for arrowhead cloud
@@ -241,6 +243,7 @@ class DeployServerStackHelpers
 		dockerRun.add("-v "+script.path+"/"+script.file.log+":"+image.workdir+"/config/"+ script.file.log + ":ro")
 		dockerRun.add(getPortusImageName(image))
 		
+		addContainer( getImageDockerName(image) )
 		
 		return dockerRun.join(" ")
 	}
@@ -505,10 +508,24 @@ class DeployServerStackHelpers
 		log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, "Container ${name} removed " +  input.Node.simpleContainerList)
 	}
 	
+	def addContainer( name )
+	{
+		//~ input.Node.simpleContainerList = ArrayUtils.removeElement(input.Node.simpleContainerList, name)
+		input.Node.simpleContainerList.add(name)
+		
+		log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, "Container ${name} added " +  input.Node.simpleContainerList)
+	}
+	
 	def removeNetworkFromList( name )
 	{
 		input.Node.simpleNetworkList.removeAll{ it.equals(name)}
 		
 		log.addEntry(Constants.LOG, Constants.ACTION_NETWORK, "Network ${name} removed " + input.Node.simpleNetworkList)
+	}
+	
+	def addNetworkToList(name)
+	{
+		input.Node.simpleNetworkList.add(name)
+		log.addEntry(Constants.LOG, Constants.ACTION_NETWORK, "Network ${name} added " + input.Node.simpleNetworkList)
 	}
 }
