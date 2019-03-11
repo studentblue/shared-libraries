@@ -126,6 +126,8 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 													def scriptFullPath = sh(returnStdout: true, script: 'pwd').trim()
 													sh ( script: DeployServerStackHelpers.startDBContainer(image, ["path": scriptFullPath, "script": "initDB.sql"], DB_ROOT_PWD), wait: true )
 												}
+												
+												sleep time: 15, unit: SECONDS
 											}
 										}
 										else
