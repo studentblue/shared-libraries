@@ -236,6 +236,7 @@ class buildArrowHeadServerStackHelpers
 		{
 			def c = a[0].split("-")
 			
+			log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "To Search: " + c)
 
 			def found = c.find{ it.contains("arm") || it.contains("amd64") || it.contains("x86") }
 			
@@ -245,7 +246,7 @@ class buildArrowHeadServerStackHelpers
 				log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Architecture Found" )
 			}
 			else
-				log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Architecture Not Found" )
+				log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Architecture Not Found" )	
 		}
 		
 		
