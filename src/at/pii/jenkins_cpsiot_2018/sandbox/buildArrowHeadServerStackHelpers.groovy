@@ -240,7 +240,12 @@ class buildArrowHeadServerStackHelpers
 			def found = c.find{ it.contains("arm") || it.contains("amd64") || it.contains("x86") }
 			
 			if( found )
+			{
 				arch = "-" + found
+				log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Architecture Found" )
+			}
+			else
+				log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Architecture Not Found" )
 		}
 		
 		
