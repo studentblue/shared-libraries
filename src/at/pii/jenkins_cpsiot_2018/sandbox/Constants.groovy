@@ -59,5 +59,13 @@ class Constants
 	final String GK_ADRESS_SUFFIX = "-gatekeeper";
 	final String ORCH_ADRESS_SUFFIX = "-orchestrator";
 	
+	final String DB_TAG_ID = "dbt";
+	final String SR_TAG_ID = "srt";
+	final String AUTH_TAG_ID = "aut";
+	final String GATEWAY_TAG_ID = "gwt";
+	final String EH_TAG_ID = "eht";
+	final String GK_TAG_ID = "gkt";
+	final String ORCH_TAG_ID = "ort";
+	
 	final String DEFAULT_CLOUD_NETWORK = "my-cloud";
 }

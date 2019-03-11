@@ -148,6 +148,7 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 													def scriptFullPath = sh(returnStdout: true, script: 'pwd').trim()
 													sh ( script: DeployServerStackHelpers.startArrowHeadContainer(image, ["path": scriptFullPath, "file": ["config": 'default.conf', "log": 'log4j.properties']]), wait: true )
 												}
+												sleep 20
 											}
 										}
 								}
