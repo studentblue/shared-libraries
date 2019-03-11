@@ -372,7 +372,7 @@ class DeployServerStackHelpers
 		{
 			if( input.Node.networks.containers )
 			{
-				def keys = []
+				//~ def keys = []
 				
 				input.Node.networks.containers.each
 				{
@@ -383,9 +383,10 @@ class DeployServerStackHelpers
 						else
 							commands.add("docker rm " + container.name)
 						
+						removeContainer(container.name)
 						
-						log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, "Container: ${container.name} removed" )
-						keys.add(key)
+						//~ log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, "Container: ${container.name} removed" )
+						//~ keys.add(key)
 						
 				}
 				
@@ -393,15 +394,15 @@ class DeployServerStackHelpers
 				
 				//~ log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, input.Node.networks.containers[keys[0]] )
 				
-				for( key in keys )
-					input.Node.networks.containers[key].put("removed", true)
+				//~ for( key in keys )
+					//~ input.Node.networks.containers[key].put("removed", true)
 				
-				input.Node.networks.containers.each
-				{
-					key, container ->
-						log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, "Container flagged removed: " + checkContainerFlaggedRemoved(container.name) )
+				//~ input.Node.networks.containers.each
+				//~ {
+					//~ key, container ->
+						//~ log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, "Container flagged removed: " + checkContainerFlaggedRemoved(container.name) )
 							
-				}
+				//~ }
 				
 				
 			}
