@@ -232,6 +232,8 @@ class buildArrowHeadServerStackHelpers
 		def arch = ""
 		def a = image.buildImage.split("/")
 		
+		log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "After Split: " + a + ", from: " + image.buildImage)
+		
 		if( a )
 		{
 			def c = a[0].split("-")
