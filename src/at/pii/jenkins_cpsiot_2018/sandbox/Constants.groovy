@@ -77,4 +77,21 @@ class Constants
 	final int IS_EH = 16;
 	final int IS_ORCH = 17;
 	
+	
+	final int IS_TYPE_JAVA = 18;
+	final int IS_TYPE_MYSQL = 19;
+	final int IS_TYPE_POSTGRES = 20;
+	final int IS_TYPE_OTHER = 21;
+	
+	//~ [, , , ]
+	final String BUILD_TOOL_TYPE_JAVA = "base-with-java";
+	final String BUILD_TOOL_TYPE_MYSQL = "mysql-DB";
+	final String BUILD_TOOL_TYPE_POSTGRES = "postgres-DB";
+	final String BUILD_TOOL_TYPE_OTHER = "other";
+	
+	final String TYPE_JAVA_TAG_ID = "javbt";
+	final String TYPE_MYSQL_TAG_ID = "mysqlbt";
+	final String TYPE_POSTGRES_TAG_ID = "pgrsbt";
+	final String TYPE_OTHER_TAG_ID = "otherbt";
+	
 }

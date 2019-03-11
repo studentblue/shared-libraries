@@ -294,7 +294,47 @@ class addBuildToolHelpers
 	
 	def generateDefaultTagName()
 	{
+		switch( getBuildToolType() )
+		{
+			case Constants.IS_TYPE_JAVA:
+				return JenkinsApi.getBuildTimestamp() + "-" + Constants.TYPE_JAVA_TAG_ID + "-" + Constants.DEFAULT_TAG_PREFIX + "-" + JenkinsApi.getBuildNumber()
+				break
+			
+			case Constants.IS_TYPE_MYSQL:
+				return JenkinsApi.getBuildTimestamp() + "-" + Constants.TYPE_MYSQL_TAG_ID + "-" + Constants.DEFAULT_TAG_PREFIX + "-" + JenkinsApi.getBuildNumber()
+				break
+			
+			case Constants.IS_TYPE_POSTGRES:
+				return JenkinsApi.getBuildTimestamp() + "-" + Constants.TYPE_POSTGRES_TAG_ID + "-" + Constants.DEFAULT_TAG_PREFIX + "-" + JenkinsApi.getBuildNumber()
+				break
+			
+			case Constants.IS_TYPE_OTHER:
+				return JenkinsApi.getBuildTimestamp() + "-" + Constants.TYPE_OTHER_TAG_ID + "-" + Constants.DEFAULT_TAG_PREFIX + "-" + JenkinsApi.getBuildNumber()
+				break
+			
+			default:
+				break
+		}
 		return JenkinsApi.getBuildTimestamp() + "-" + Constants.DEFAULT_TAG_PREFIX + "-" + JenkinsApi.getBuildNumber()
+	}
+	
+	def getBuildToolType()
+	{
+		def type = input.Repo.type.trim()
+		
+		if( input.Repo.type.equals(Constants.IS_TYPE_JAVA) )
+			return Constants.IS_TYPE_JAVA
+		
+		if( input.Repo.type.equals(Constants.IS_TYPE_MYSQL) )
+			return Constants.IS_TYPE_MYSQL
+		
+		if( input.Repo.type.equals(Constants.IS_TYPE_POSTGRES) )
+			return Constants.IS_TYPE_POSTGRES
+		
+		if( input.Repo.type.equals(Constants.IS_TYPE_OTHER) )
+			return Constants.IS_TYPE_OTHER
+		
+		return 0
 	}
 	
 	def generateDefaultImageName(name, tag = "")
