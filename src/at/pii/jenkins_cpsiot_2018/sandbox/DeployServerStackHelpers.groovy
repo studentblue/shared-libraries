@@ -155,39 +155,8 @@ class DeployServerStackHelpers
 		
 	}
 	
-	def checkNodeNetworksString()
-	{
-		if (input.Node.networks instanceof String || input.Node.networks instanceof GString || !input.Node.networks)
-		{
-			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Node Networks is String or GString" )
-			return true
-		}
-		
-		return false
-	}
-	
 	def checkImageContainer(image)
 	{
-		//check if networks exist
-		//~ def cmd = ""
-		
-		//~ if (checkNodeNetworksString())
-			//~ return cmd
-		
-		//~ if( input.Node.hasProperty("networks") &&  input.Node.networks.hasProperty("containers") )
-		//~ {
-			//~ //existing network choosen
-			//~ if( input.Node.hasProperty("simpleContainerList") && input.Node.simpleContainerList.contains(getImageDockerName(image)))
-			//~ {
-				//~ return "docker stop " + getImageDockerName(image)
-			//~ }
-			//~ else
-				//~ return ""
-			
-		//~ }
-		
-		//~ return cmd
-		
 		def name = getImageDockerName(image)
 		if( input.Node.simpleContainerList.contains(name) )
 			return "docker stop " + name
@@ -368,7 +337,7 @@ class DeployServerStackHelpers
 	{
 		def commands = []
 		
-		if( checkNodeNetworksString() )
+		if( ! input.Node.networks )
 			return []
 		
 		if( input.Node.networks.containsKey("removeNetwork") && input.Node.networks.removeNetwork == true )
@@ -388,25 +357,7 @@ class DeployServerStackHelpers
 						
 						removeContainer(container.name)
 						
-						//~ log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, "Container: ${container.name} removed" )
-						//~ keys.add(key)
-						
 				}
-				
-				//~ log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, keys )
-				
-				//~ log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, input.Node.networks.containers[keys[0]] )
-				
-				//~ for( key in keys )
-					//~ input.Node.networks.containers[key].put("removed", true)
-				
-				//~ input.Node.networks.containers.each
-				//~ {
-					//~ key, container ->
-						//~ log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, "Container flagged removed: " + checkContainerFlaggedRemoved(container.name) )
-							
-				//~ }
-				
 				
 			}
 			
@@ -424,26 +375,11 @@ class DeployServerStackHelpers
 		return input
 	}
 	
-	def checkContainerFlaggedRemoved(name)
-	{
-		def removed = false
-		input.Node.networks.containers.each
-		{
-			key, container ->
-				
-				if( container.name.equals(name) && container.removed == true )
-					removed = true
-				
-		}
-		
-		return removed
-	}
-	
 	def removeContainers()
 	{
 		def commands = []
 		
-		if( checkNodeNetworksString() )
+		if( ! input.Node.networks )
 			return []
 		
 		if( input.Node.networks.containsKey("containers") && input.Node.networks.containers )
@@ -456,8 +392,7 @@ class DeployServerStackHelpers
 			{
 				key, container ->
 					
-					//~ if( checkContainerFlaggedRemoved(container.name) )
-						//~ return
+					
 					
 					if( checkContainerExists(container.name) && container.removeContainer == true )
 					{
@@ -472,20 +407,6 @@ class DeployServerStackHelpers
 					}
 					
 			}
-			
-			//~ log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, keys )
-			
-			//~ log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, input.Node.networks.containers[keys[0]] )
-			
-			//~ for( key in keys )
-				//~ input.Node.networks.containers[key].put("removed", true)
-			
-			//~ input.Node.networks.containers.each
-			//~ {
-				//~ key, container ->
-					//~ log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, "Container flagged removed: " + checkContainerFlaggedRemoved(container.name) )
-						
-			//~ }
 		}
 		
 		return commands
