@@ -580,4 +580,28 @@ class buildArrowHeadServerStackHelpers2
 		else
 			return false
 	}
+	
+	def getImageType(image)
+	{
+		if( image.database == true )
+			return Constants.IS_DB;
+		
+		if( image.registry == true )
+			return Constants.IS_SR;
+		
+		if( image.authorization == true )
+			return Constants.IS_AUTH
+		
+		if( image.gateway == true )
+			return Constants.IS_GW
+		
+		if( image.eventhandler == true )
+			return Constants.IS_EH
+		
+		if( image.gatekeeper == true )
+			return Constants.IS_GK
+		
+		if( image.orchestrator == true )
+			return Constants.IS_ORCH
+	}
 }
