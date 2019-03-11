@@ -240,7 +240,7 @@ class buildArrowHeadServerStackHelpers
 			def found = c.find{ it.contains("arm") || it.contains("amd64") || it.contains("x86") }
 			
 			if( found )
-				arch = found
+				arch = "-" + found
 		}
 		
 		
