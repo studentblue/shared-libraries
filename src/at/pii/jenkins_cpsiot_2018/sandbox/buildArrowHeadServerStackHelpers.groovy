@@ -292,6 +292,9 @@ class buildArrowHeadServerStackHelpers
 			case Constants.IS_ORCH:
 				tag += "-" + Constants.ORCH_TAG_ID + "-" + Constants.DEFAULT_CLOUD_TAG + JenkinsApi.getBuildNumber()
 				break;
+			
+			default:
+				tag += "-" + Constants.DEFAULT_CLOUD_TAG + JenkinsApi.getBuildNumber()
 		}
 		
 		return tag
