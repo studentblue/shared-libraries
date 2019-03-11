@@ -231,7 +231,30 @@ class buildArrowHeadServerStackHelpers2
 	{
 		def registry = environment.REPO_URL.split('//')[1]
 		
-		return registry + "/" + getDeloyNameSpace() + "/" + image.repo
+		
+		def arch = ""
+		def a = image.buildImage.split("/")
+		
+		log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "After Split: " + a + ", from: " + image.buildImage)
+		
+		if( a )
+		{
+			def c = a[0].split("-")
+			
+			log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "To Search: " + c)
+
+			def found = c.find{ it.contains("arm") || it.contains("amd64") || it.contains("x86") }
+			
+			if( found )
+			{
+				arch = "-" + found
+				log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Architecture Found" )
+			}
+			else
+				log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Architecture Not Found" )	
+		}
+		
+		return registry + "/" + getDeloyNameSpace() + "/" + image.repo + arch
 	}
 	
 	def getPortusTag(image)
@@ -240,7 +263,41 @@ class buildArrowHeadServerStackHelpers2
 		
 		tag += JenkinsApi.getBuildTimestamp()
 		
-		tag += "-" + Constants.DEFAULT_DEPLOY_TAG + JenkinsApi.getBuildNumber()
+		//~ tag += "-" + Constants.DEFAULT_DEPLOY_TAG + JenkinsApi.getBuildNumber()
+		
+		switch( getImageType(image) )
+		{
+			case Constants.IS_DB:
+				tag += "-" + Constants.DB_TAG_ID + "-" + Constants.DEFAULT_DEPLOY_TAG + JenkinsApi.getBuildNumber()
+				break;
+			
+			case Constants.IS_SR:
+				tag += "-" + Constants.SR_TAG_ID + "-" + Constants.DEFAULT_DEPLOY_TAG + JenkinsApi.getBuildNumber()
+				break;
+		
+			case Constants.IS_AUTH:
+				tag += "-" + Constants.AUTH_TAG_ID + "-" + Constants.DEFAULT_DEPLOY_TAG + JenkinsApi.getBuildNumber()
+				break;
+		
+			case Constants.IS_GW:
+				tag += "-" + Constants.GATEWAY_TAG_ID + "-" + Constants.DEFAULT_DEPLOY_TAG + JenkinsApi.getBuildNumber()
+				break;
+		
+			case Constants.IS_EH:
+				tag += "-" + Constants.EH_TAG_ID + "-" + Constants.DEFAULT_DEPLOY_TAG + JenkinsApi.getBuildNumber()
+				break;
+		
+			case Constants.IS_GK:
+				tag += "-" + Constants.GK_TAG_ID + "-" + Constants.DEFAULT_DEPLOY_TAG + JenkinsApi.getBuildNumber()
+				break;
+		
+			case Constants.IS_ORCH:
+				tag += "-" + Constants.ORCH_TAG_ID + "-" + Constants.DEFAULT_DEPLOY_TAG + JenkinsApi.getBuildNumber()
+				break;
+			
+			default:
+				tag += "-" + Constants.DEFAULT_DEPLOY_TAG + JenkinsApi.getBuildNumber()
+		}
 		
 		return tag
 	}
