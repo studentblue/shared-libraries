@@ -443,7 +443,7 @@ class DeployServerStackHelpers
 		
 		if( input.Node.networks.containsKey("containers") && input.Node.networks.containers )
 		{
-			def keys = []
+			//~ def keys = []
 			
 			
 			
@@ -451,18 +451,20 @@ class DeployServerStackHelpers
 			{
 				key, container ->
 					
-					if( checkContainerFlaggedRemoved(container.name) )
-						return
+					//~ if( checkContainerFlaggedRemoved(container.name) )
+						//~ return
 					
-					
-					if( container.running == true )
-						commands.add("docker stop " + container.name)
-					else
-						commands.add("docker rm " + container.name)
-					
-					
-					log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, "Container: ${container.name} removed" )
-					keys.add(key)
+					if( checkContainerExists(container.name) && container.removeContainer == true )
+					{
+						if( container.running == true )
+							commands.add("docker stop " + container.name)
+						else
+							commands.add("docker rm " + container.name)
+						
+						removeContainer( container.name )
+						//~ log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, "Container: ${container.name} removed" )
+						//~ keys.add(key)
+					}
 					
 			}
 			
@@ -470,18 +472,31 @@ class DeployServerStackHelpers
 			
 			//~ log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, input.Node.networks.containers[keys[0]] )
 			
-			for( key in keys )
-				input.Node.networks.containers[key].put("removed", true)
+			//~ for( key in keys )
+				//~ input.Node.networks.containers[key].put("removed", true)
 			
-			input.Node.networks.containers.each
-			{
-				key, container ->
-					log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, "Container flagged removed: " + checkContainerFlaggedRemoved(container.name) )
+			//~ input.Node.networks.containers.each
+			//~ {
+				//~ key, container ->
+					//~ log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, "Container flagged removed: " + checkContainerFlaggedRemoved(container.name) )
 						
-			}
+			//~ }
 		}
 		
 		return commands
 		
+	}
+	
+	def checkContainerExists(name)
+	{
+		if( input.Node.simpleContainerList.contains(name))
+			return true
+		else
+			return false
+	}
+	
+	def removeContainer( name )
+	{
+		input.Node.simpleContainerList = ArrayUtils.removeElement(input.Node.simpleContainerList, name)
 	}
 }
