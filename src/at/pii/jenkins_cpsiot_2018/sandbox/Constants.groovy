@@ -68,4 +68,13 @@ class Constants
 	final String ORCH_TAG_ID = "ort";
 	
 	final String DEFAULT_CLOUD_NETWORK = "my-cloud";
+	
+	final int IS_DB = 11;
+	final int IS_SR = 12;
+	final int IS_AUTH = 13;
+	final int IS_GK = 14;
+	final int IS_GW = 15;
+	final int IS_EH = 16;
+	final int IS_ORCH = 17;
+	
 }

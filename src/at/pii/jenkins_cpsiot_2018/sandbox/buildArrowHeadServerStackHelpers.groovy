@@ -238,7 +238,38 @@ class buildArrowHeadServerStackHelpers
 		
 		tag += JenkinsApi.getBuildTimestamp()
 		
-		tag += "-" + Constants.DEFAULT_CLOUD_TAG + JenkinsApi.getBuildNumber()
+		//~ tag += "-" + Constants.DEFAULT_CLOUD_TAG + JenkinsApi.getBuildNumber()
+		
+		switch( getImageType(image) )
+		{
+			case Constants.IS_DB:
+				tag += "-" + Constants.DB_TAG_ID + "-" + Constants.DEFAULT_CLOUD_TAG + JenkinsApi.getBuildNumber()
+				break;
+			
+			case Constants.IS_SR:
+				tag += "-" + Constants.SR_TAG_ID + "-" + Constants.DEFAULT_CLOUD_TAG + JenkinsApi.getBuildNumber()
+				break;
+		
+			case Constants.IS_AUTH:
+				tag += "-" + Constants.AUTH_TAG_ID + "-" + Constants.DEFAULT_CLOUD_TAG + JenkinsApi.getBuildNumber()
+				break;
+		
+			case Constants.IS_GW:
+				tag += "-" + Constants.GATEWAY_TAG_ID + "-" + Constants.DEFAULT_CLOUD_TAG + JenkinsApi.getBuildNumber()
+				break;
+		
+			case Constants.IS_EH:
+				tag += "-" + Constants.EH_TAG_ID + "-" + Constants.DEFAULT_CLOUD_TAG + JenkinsApi.getBuildNumber()
+				break;
+		
+			case Constants.IS_GK:
+				tag += "-" + Constants.GK_TAG_ID + "-" + Constants.DEFAULT_CLOUD_TAG + JenkinsApi.getBuildNumber()
+				break;
+		
+			case Constants.IS_ORCH:
+				tag += "-" + Constants.ORCH_TAG_ID + "-" + Constants.DEFAULT_CLOUD_TAG + JenkinsApi.getBuildNumber()
+				break;
+		}
 		
 		return tag
 	}
@@ -506,5 +537,29 @@ class buildArrowHeadServerStackHelpers
 			return true
 		else
 			return false
+	}
+	
+	def getImageType(image)
+	{
+		if( image.database == true )
+			return Constants.IS_DB;
+		
+		if( image.registry == true )
+			return Constants.IS_SR;
+		
+		if( image.authorization == true )
+			return Constants.IS_AUTH
+		
+		if( image.gateway == true )
+			return Constants.IS_GW
+		
+		if( image.eventhandler == true )
+			return Constants.IS_EH
+		
+		if( image.gatekeeper == true )
+			return Constants.IS_GK
+		
+		if( image.orchestrator == true )
+			return Constants.IS_ORCH
 	}
 }
