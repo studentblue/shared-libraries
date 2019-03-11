@@ -127,7 +127,7 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 													sh ( script: DeployServerStackHelpers.startDBContainer(image, ["path": scriptFullPath, "script": "initDB.sql"], DB_ROOT_PWD), wait: true )
 												}
 												
-												sleep time: 15, unit: SECONDS
+												sleep 15
 											}
 										}
 										else
