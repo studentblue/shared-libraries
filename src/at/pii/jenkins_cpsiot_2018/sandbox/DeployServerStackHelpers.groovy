@@ -501,10 +501,14 @@ class DeployServerStackHelpers
 	{
 		//~ input.Node.simpleContainerList = ArrayUtils.removeElement(input.Node.simpleContainerList, name)
 		input.Node.simpleContainerList.removeAll{ it.equals(name)}
+		
+		log.addEntry(Constants.LOG, Constants.ACTION_CONTAINER, "Container ${name} removed " +  input.Node.simpleContainerList)
 	}
 	
 	def removeNetworkFromList( name )
 	{
 		input.Node.simpleNetworkList.removeAll{ it.equals(name)}
+		
+		log.addEntry(Constants.LOG, Constants.ACTION_NETWORK, "Network ${name} removed " + input.Node.simpleNetworkList)
 	}
 }
