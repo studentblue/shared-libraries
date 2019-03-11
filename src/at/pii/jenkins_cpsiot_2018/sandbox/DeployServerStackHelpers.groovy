@@ -409,7 +409,8 @@ class DeployServerStackHelpers
 			
 			commands.add("docker network rm " + input.Node.networks.name)
 			
-			input.Node.networks.put("removed", true)
+			//~ input.Node.networks.put("removed", true)
+			removeNetworkFromList( input.Node.networks.name )
 		}
 		
 		return commands
@@ -498,6 +499,12 @@ class DeployServerStackHelpers
 	
 	def removeContainer( name )
 	{
-		input.Node.simpleContainerList = ArrayUtils.removeElement(input.Node.simpleContainerList, name)
+		//~ input.Node.simpleContainerList = ArrayUtils.removeElement(input.Node.simpleContainerList, name)
+		input.Node.simpleContainerList.removeAll{ it.equals(name)}
+	}
+	
+	def removeNetworkFromList( name )
+	{
+		input.Node.simpleNetworkList.removeAll{ it.equals(name)}
 	}
 }
