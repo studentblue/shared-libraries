@@ -167,7 +167,10 @@ class DeployServerStackHelpers
 	def checkImage(image)
 	{
 		if( !image.deployImage || image.deployImage.equals("undefined") )
+		{
+			log.addEntry(Constants.WARNING, Constants.ACTION_CHECK, "No Deploy Image found skipping. " + image )
 			return false
+		}
 		return true
 	}
 	
