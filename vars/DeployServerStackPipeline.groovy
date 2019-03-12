@@ -109,6 +109,9 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 								{
 									image ->
 										
+										if(! DeployServerStackHelpers.checkImage() )
+											return
+										
 										sh( script: DeployServerStackHelpers.initNetwork(), wait: true)
 										sh( script: DeployServerStackHelpers.checkImageContainer(image), wait: true)
 										

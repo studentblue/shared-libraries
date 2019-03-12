@@ -164,6 +164,13 @@ class DeployServerStackHelpers
 			return ""
 	}
 	
+	def checkImage(image)
+	{
+		if( !image.deployImage || image.deployImage.equals("undefined") )
+			return false
+		return true
+	}
+	
 	def containerIsExited(image)
 	{
 	}
