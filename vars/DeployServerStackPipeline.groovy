@@ -109,7 +109,7 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 								{
 									image ->
 										
-										if(! DeployServerStackHelpers.checkImage() )
+										if(! DeployServerStackHelpers.checkImage(image) )
 											return
 										
 										sh( script: DeployServerStackHelpers.initNetwork(), wait: true)
