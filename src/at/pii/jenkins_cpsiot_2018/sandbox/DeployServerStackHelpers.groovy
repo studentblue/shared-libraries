@@ -459,4 +459,18 @@ class DeployServerStackHelpers
 		input.Node.simpleNetworkList.add(name)
 		log.addEntry(Constants.LOG, Constants.ACTION_NETWORK, "Network ${name} added " + input.Node.simpleNetworkList)
 	}
+	
+	def getDelay()
+	{
+		def delay = 15
+		try
+		{  
+			return Integer.parseInt("${input.Docker.delay}")
+		}
+		catch(Exception e)
+		{
+			log.addEntry(Constants.WARNING, Constants.ACTION_CHECK, "Delay set to default. " + e.getMessage() )
+			return delay
+		}
+	}
 }
