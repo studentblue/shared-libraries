@@ -73,13 +73,14 @@ class DeployServerStackHelpers
 	def generateDBScript(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW )
 	{
 		
+		def DB_ARROWHEAD = getArrowheadDB()
+		def DB_ARROWHEAD_LOG = getArrowheadDBLog()
 		
 		if( image.initDBScript == true )
 		{
 			def script = []
 			
-			def DB_ARROWHEAD = getArrowheadDB()
-			def DB_ARROWHEAD_LOG = getArrowheadDBLog()
+			
 			
 			script.add("CREATE DATABASE IF NOT EXISTS ${DB_ARROWHEAD_LOG};")
 			script.add("CREATE DATABASE IF NOT EXISTS ${DB_ARROWHEAD};")
@@ -100,7 +101,16 @@ class DeployServerStackHelpers
 		}
 		
 		if( image.initDBScript.initDBScriptInput )
-			return image.initDBScript.initDBScriptInput
+		{
+			def sqlScript = image.initDBScript.initDBScriptInput
+			
+			sqlScript.replaceAll("*DB*", DB_ARROWHEAD)
+			sqlScript.replaceAll("*DB_LOG*", DB_ARROWHEAD_LOG)
+			sqlScript.replaceAll("*DB_USER*", DEFAULT_DB_ARROWHEAD_USR)
+			sqlScript.replaceAll("*DB_PSW*", DEFAULT_DB_ARROWHEAD_PSW)
+			
+			return sqlScript
+		}
 	}
 	
 	def getArrowheadDB()
