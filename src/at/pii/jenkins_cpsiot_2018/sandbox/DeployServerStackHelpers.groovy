@@ -108,10 +108,10 @@ class DeployServerStackHelpers
 			}
 			def sqlScript = image.initDBScript
 			
-			sqlScript.replaceAll("\*DB\*", DB_ARROWHEAD)
-			sqlScript.replaceAll("\*DB_LOG\*", DB_ARROWHEAD_LOG)
-			sqlScript.replaceAll("\*DB_USER\*", DEFAULT_DB_ARROWHEAD_USR)
-			sqlScript.replaceAll("\*DB_PSW\*", DEFAULT_DB_ARROWHEAD_PSW)
+			sqlScript.replaceAll("__DB__", DB_ARROWHEAD)
+			sqlScript.replaceAll("__DB_LOG__", DB_ARROWHEAD_LOG)
+			sqlScript.replaceAll("__DB_USER__", DEFAULT_DB_ARROWHEAD_USR)
+			sqlScript.replaceAll("__DB_PSW__", DEFAULT_DB_ARROWHEAD_PSW)
 			
 			return sqlScript
 		}
