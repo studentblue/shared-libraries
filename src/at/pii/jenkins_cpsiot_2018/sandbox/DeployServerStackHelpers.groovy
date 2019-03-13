@@ -106,7 +106,7 @@ class DeployServerStackHelpers
 				log.addEntry(Constants.WARNING, Constants.ACTION_CHECK, "init DB-Script Input empty" )
 				return ""
 			}
-			def sqlScript = image.initDBScript.initDBScriptInput
+			def sqlScript = image.initDBScript
 			
 			sqlScript.replaceAll("*DB*", DB_ARROWHEAD)
 			sqlScript.replaceAll("*DB_LOG*", DB_ARROWHEAD_LOG)
