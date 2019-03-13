@@ -124,6 +124,18 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 												writeFile file: 
 													'initDB.sql', 
 													text: DeployServerStackHelpers.generateDBScript(image, DEFAULT_DB_ARROWHEAD_USR, DEFAULT_DB_ARROWHEAD_PSW)
+												
+												if( DeployServerStackHelpers.getLog().warningsOccured() )
+												{
+													timeout(time: 5, unit: 'MINUTES')
+													{														
+														input(id: "Warning", message: "Warnings: ${DeployServerStackHelpers.getLog().getWarningsStringLog()}", ok: 'Proceed')
+													}
+													
+													DeployServerStackHelpers.getLog().resetWarningsLog()
+												}
+												
+												
 												docker.withRegistry("${environment.REPO_URL}", "${environment.PORTUS_CREDS_STD}")
 												{
 													def scriptFullPath = sh(returnStdout: true, script: 'pwd').trim()
