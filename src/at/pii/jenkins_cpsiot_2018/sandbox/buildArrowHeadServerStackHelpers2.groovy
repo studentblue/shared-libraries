@@ -315,6 +315,14 @@ class buildArrowHeadServerStackHelpers2
 				
 			if( PortusApi.validateNamespace( name ) )
 			{
+				if( input.NameSpace.team.new && input.NameSpace.team.new == true )
+				{
+					if( PortusApi.validateTeam(input.NameSpace.team.name, input.NameSpace.team.description) == -1 )
+					{
+						log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "Team error " + input.NameSpace.team.name)
+						return ""
+					}
+				}
 				def code = PortusApi.validateNamespace(name , input.NameSpace.team.name, "Deploy Namespace for User " + PortusApi.getPortusUserName())
 				
 				if( ! code )
