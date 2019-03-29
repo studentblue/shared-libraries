@@ -53,6 +53,14 @@ def call( environment, currentBuild, parameter )
 			stage("Create Maven Cache")
 			{
 				agent{ label "master"}
+				
+				when
+				{
+					expression
+					{
+						!BuildArrowHeadServerStackHelpers.nothingToDo()
+					}
+				}
 				steps
 				{
 					sh " docker volume create maven-repo "
@@ -65,13 +73,16 @@ def call( environment, currentBuild, parameter )
 			{
 				agent{ label "master"}
 				
+				when
+				{
+					expression
+					{
+						!BuildArrowHeadServerStackHelpers.nothingToDo()
+					}
+				}
+				
 				steps
 				{
-					script
-					{
-						if( BuildArrowHeadServerStackHelpers.nothingToDo() )
-							exit 0
-					}
 					checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "${BuildArrowHeadServerStackHelpers.getArrowHeadRepo()}"]]]
 					
 					
@@ -120,14 +131,16 @@ def call( environment, currentBuild, parameter )
 
 			stage( "Dockerize Selected Images" )
 			{
-				steps
+				when
 				{
-					script
+					expression
 					{
-						if( BuildArrowHeadServerStackHelpers.nothingToDo() )
-							exit 0
+						!BuildArrowHeadServerStackHelpers.nothingToDo()
 					}
-					
+				}
+				
+				steps
+				{					
 					script
 					{
 						withFolderProperties
