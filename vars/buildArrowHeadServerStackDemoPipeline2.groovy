@@ -70,7 +70,7 @@ def call( environment, currentBuild, parameter )
 					script
 					{
 						if( BuildArrowHeadServerStackHelpers.nothingToDo() )
-							return
+							exit 0
 					}
 					checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "${BuildArrowHeadServerStackHelpers.getArrowHeadRepo()}"]]]
 					
@@ -125,7 +125,7 @@ def call( environment, currentBuild, parameter )
 					script
 					{
 						if( BuildArrowHeadServerStackHelpers.nothingToDo() )
-							return
+							exit 0
 					}
 					
 					script
