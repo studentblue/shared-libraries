@@ -54,10 +54,18 @@ class buildArrowHeadServerStackHelpers2
 	
 	def checkInput()
 	{
-		if( ! input.NameSpace.name )
-			log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "NameSpace Name not found" )
+		//~ if( ! input.NameSpace.name )
+			//~ log.addEntry(Constants.ERROR, Constants.ACTION_CHECK, "NameSpace Name not found" )
 		
 		log.addEntry(Constants.LOG, Constants.ACTION_CHECK, "Input Check ran" )
+	}
+	
+	def nothingToDo()
+	{
+		if( ! input.Images )
+			return true
+		
+		return false
 	}
 	
 	def getParameter()

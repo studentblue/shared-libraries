@@ -67,6 +67,11 @@ def call( environment, currentBuild, parameter )
 				
 				steps
 				{
+					script
+					{
+						if( BuildArrowHeadServerStackHelpers.nothingToDo() )
+							return
+					}
 					checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: "${BuildArrowHeadServerStackHelpers.getArrowHeadRepo()}"]]]
 					
 					
@@ -117,6 +122,12 @@ def call( environment, currentBuild, parameter )
 			{
 				steps
 				{
+					script
+					{
+						if( BuildArrowHeadServerStackHelpers.nothingToDo() )
+							return
+					}
+					
 					script
 					{
 						withFolderProperties
