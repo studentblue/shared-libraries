@@ -53,6 +53,15 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 			stage("Cloud Management")
 			{
 				agent{ label "${DeployServerStackHelpers.getNodeName()}" }
+				
+				when
+				{
+					expression
+					{
+						!DeployServerStackHelpers.nothingToDo()
+					}
+				}
+				
 				steps
 				{
 					script
@@ -84,6 +93,15 @@ def call( environment, currentBuild, parameter, ArrowHeadCreds, DBRootPsw )
 			stage("Deploy Selected Images")
 			{
 				agent{ label "${DeployServerStackHelpers.getNodeName()}" }
+				
+				when
+				{
+					expression
+					{
+						!DeployServerStackHelpers.nothingToDo()
+					}
+				}
+				
 				steps
 				{
 					script

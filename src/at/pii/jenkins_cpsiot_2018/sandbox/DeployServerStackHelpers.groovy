@@ -487,4 +487,13 @@ class DeployServerStackHelpers
 			return delay
 		}
 	}
+	
+	def nothingToDo()
+	{
+		if( input.Node.DockerFound )
+			return false
+		
+		if( !input.Node.DockerFound )
+			return true
+	}
 }
